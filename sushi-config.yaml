@@ -1,0 +1,96 @@
+# documentation: https://fshschool.org/docs/sushi/configuration/
+# 
+id: hl7.fhir.uv.smart-health-cards-and-links
+canonical: http://hl7.org/fhir/uv/smart-health-cards-and-links
+name: SMART Health Cards and Links
+title: SMART Health Cards and Links FHIR IG
+description: FHIR Implementation Guide for SMART Health Cards and Links
+status: draft # draft | active | retired | unknown
+version: 1.0.0
+fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
+copyrightYear: 2024+
+releaseLabel: CI Build # ci-build | STU1 Ballot
+license: CC0-1.0 
+jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#001 "World"
+publisher:
+  name: HL7 International / FHIR Infrastructure
+  url: http://www.hl7.org/Special/committees/fiwg
+#dependencies:
+#  hl7.fhir.us.core:
+#    id: uscore
+#    version: 3.1.1
+#    reason: |
+#      Defines U.S. EHR expectations on a range of resources that will be passed to and/or queried by REMS CDS servers
+#  hl7.fhir.uv.smart-app-launch:
+#    id: SmartAppLaunch
+#    version: 2.1.0
+#    reason: |
+#      Defines base expectations and profiles for SMART app launch requirements
+#
+#
+#pages:
+#  index.md:
+#    title: Home Page
+#  credits.md:
+#    title: Credits
+#  downloads.xml:
+#    title: Downloads
+
+# menu:
+#   Home: index.html
+#   Background:
+#     Use Cases: use-cases.html
+#     Technical: technical-background.html
+#   Specification: specification.html 
+#   Artifacts: artifacts.html
+# 
+# 
+contact:
+  - name: Frank McKinney
+    telecom:
+      - system: email # phone | fax | email | pager | url | sms | other
+        value: frank.mckinney@pocp.com
+      - system: email # phone | fax | email | pager | url | sms | other
+        value: fm@frankmckinney.com
+extension:
+  - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-wg
+    valueCode: fhir
+#auto-oid-root: tbd
+
+# * modifierExtension
+# * experimental
+# * useContext
+# * copyright
+# * packageId
+#
+#
+# ╭──────────────────────────────────────────SUSHI flags───────────────────────────────────────────╮
+# │  The flags below configure aspects of how SUSHI processes FSH.                                 │
+# ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+# The FSHOnly flag indicates if only FSH resources should be exported.
+# If set to true, no IG related content will be generated.
+# The default value for this property is false.
+#
+# FSHOnly: false
+#
+#
+# When set to true, the "short" and "definition" field on the root element of an Extension will
+# be set to the "Title" and "Description" of that Extension. Default is true.
+#
+# applyExtensionMetadataToRoot: true
+#
+#
+# The instanceOptions property is used to configure certain aspects of how SUSHI processes instances.
+# See the individual option definitions below for more detail.
+#
+# instanceOptions:
+#   Determines for which types of Instances SUSHI will automatically set meta.profile
+#   if InstanceOf references a profile:
+#
+#   setMetaProfile: always # always | never | inline-only | standalone-only
+#
+#
+#   Determines for which types of Instances SUSHI will automatically set id
+#   if InstanceOf references a profile:
+#
+#   setId: always # always | standalone-only
