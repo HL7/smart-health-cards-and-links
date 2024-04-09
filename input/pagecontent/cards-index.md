@@ -30,7 +30,16 @@ Because we must ensure end-user privacy and because Health Cards must work acros
 
 ## Conceptual Model
 
-![Figure](https://i.imgur.com/T8RHjlJ.png)
+<div>
+<figure class="figure">
+<figcaption class="figure-caption"><strong><i>Review note: Is there any reason to reference this image at https://i.imgur.com/T8RHjlJ.png rather than include in the IG repo?</i></strong></figcaption>
+  <br />
+  <p>
+  <img src="https://i.imgur.com/T8RHjlJ.png" style="float:none">  
+  </p>
+</figure>
+</div>
+<p></p>
 
 * **Issuer** (e.g., a lab, pharmacy, healthcare provider, EHR, public health department, or immunization information system) generates verifiable credentials
 * **Holder** stores credentials and presents them at will
@@ -249,7 +258,7 @@ Issuer ->> Holder: Holder receives Health Card
 
 The VC structure (scaffold) is shown in the following example. The Health Cards framework serializes VCs using the compact JWS serialization, where the payload is a compressed set of JWT claims (see [Appendix 3 of RFC7515](https://tools.ietf.org/html/rfc7515#appendix-A.3) for an example using ECDSA P-256 SHA-256, as required by this specification). Specific encoding choices ensure compatibility with standard JWT claims, as described at [https://www.w3.org/TR/vc-data-model/#jwt-encoding](https://www.w3.org/TR/vc-data-model/#jwt-encoding).
 
-The `type`, and `credentialSubject` properties are added to the `vc` claim of the JWT. The `type` values are defined in [Credential Types](https://terminology.smarthealth.cards/CodeSystem-health-card.html); the `https://smarthealth.cards#health-card` SHALL be present; other types SHOULD be included when they apply. Verifiers and other entities processing SMART Health Cards SHALL ignore any additional `type` elements they do not understand. The `issuer` property is represented by the registered JWT `iss` claim and the `issuanceDate` property is represented by the registered JWT `nbf` ("not before") claim (encoded as the number of seconds from 1970-01-01T00:00:00Z UTC, as specified by [RFC7519](https://tools.ietf.org/html/rfc7519)). Hence, the overall JWS payload matches the following structure (before it is [minified and compressed](#health-cards-are-compact)):
+The `type`, and `credentialSubject` properties are added to the `vc` claim of the JWT. The `type` values are defined in [Credential Types](CodeSystem-health-card.html); the `https://smarthealth.cards#health-card` SHALL be present; other types SHOULD be included when they apply. Verifiers and other entities processing SMART Health Cards SHALL ignore any additional `type` elements they do not understand. The `issuer` property is represented by the registered JWT `iss` claim and the `issuanceDate` property is represented by the registered JWT `nbf` ("not before") claim (encoded as the number of seconds from 1970-01-01T00:00:00Z UTC, as specified by [RFC7519](https://tools.ietf.org/html/rfc7519)). Hence, the overall JWS payload matches the following structure (before it is [minified and compressed](#health-cards-are-compact)):
 
 ```json
 {
@@ -388,7 +397,7 @@ A Health Wallet can `POST /Patient/:id/$health-cards-issue` to a FHIR-enabled is
 The `credentialType` parameter is required. This parameter restricts the request
 by high-level categories based on FHIR Resource Types such as "Observation" or
 "Immunization". See [FHIR Resource
-Types](https://hl7.org/fhir/R4/resourcelist.html).  Type-based filters evalute
+Types](https://hl7.org/fhir/R4/resourcelist.html) **_[Review: Should this be a link to R4 resource types (as currently) or the most recent version?]_**.  Type-based filters evalute
 Health Cards based on the FHIR resource types within the Health Card payload at
 `.vc.credentialSubject.fhirBundle.entry[].resource`.  Multiple `credentialType`
 parameters in one request SHALL be interpreted as a request for Health Cards
@@ -400,8 +409,7 @@ The following parameters are optional; clients MAY include them in a request,
 and servers MAY ignore them if present.
 
 * **`credentialValueSet`**. Restricts the request by FHIR
-content such as "any standardized vaccine code for mpox". See [Health Card
-Valuesets](https://terminology.smarthealth.cards/artifacts.html#terminology-value-sets).
+content such as "any standardized vaccine code for mpox". See [ValueSet definitions on the Artifacts page](artifacts.html#terminology-value-sets).
 Valueset-based filters apply to the FHIR Resources within the Health Card
 payload at `.vc.credentialSubject.fhirBundle.entry[].resource`.  For
 Immunizations, the `Immunization.vaccineCode` is evaluated. For Observations,
@@ -417,7 +425,7 @@ from all of the supplied Valuesets (logical AND).
     "valueUri": "Immunization"
   }, {
     "name": "credentialValueSet",
-    "valueUri": "https://terminology.smarthealth.cards/ValueSet/immunization-orthopoxvirus-all"
+    "valueUri": "http://hl7.org/fhir/uv/smart-health-cards-and-links/ValueSet/immunization-orthopoxvirus-all"
   }]
 }
 ```
@@ -513,9 +521,9 @@ Types](https://hl7.org/fhir/R4/resourcelist.html).  Type-based filters evalute
 Health Cards based on the FHIR resource types within the Health Card payload at
 `.vc.credentialSubject.fhirBundle.entry[].resource`.
 
-2. SMART Health Card value sets, to further restrict the request by FHIR
+1. SMART Health Card value sets, to further restrict the request by FHIR
 content such as "any standardized vaccine code for mpox". See [Health Card
-Valuesets](https://terminology.smarthealth.cards/artifacts.html#terminology-value-sets).
+ValueSets](artifacts.html#terminology-value-sets).
 Valueset-based filters apply to the FHIR Resources within the Health Card
 payload at `.vc.credentialSubject.fhirBundle.entry[].resource`.  For
 Immunizations, the `Immunization.vaccineCode` is evaluated. For
@@ -598,7 +606,7 @@ No. SMART Health Cards are designed for use *alongside* existing forms of identi
 
 * The data in Health Cards should focus on communicating "immutable clinical facts".
 * Each use case will define specific data profiles.
-    * For COVID-19 Vaccination Credentials, the [SMART Health Cards: Vaccination IG](http://vci.org/ig/vaccination-and-testing) defines requirements.
+    * For COVID-19 Vaccination Credentials, the [SMART Health Cards: Vaccination and Testing FHIR IG](https://build.fhir.org/ig/HL7/fhir-shc-vaccination-ig) defines requirements.
 * When Health Cards are used in decision-making, the verifier is responsible for deciding what rules to apply. For example:
     * decision-making rules may change over time as our understanding of the clinical science improves.
     * decision-making rules may be determined or influenced by international, national and local health authorities.

@@ -7,13 +7,28 @@
   "status": "draft",
   "kind": "operation",
   "date": "2021-03-08",
-  "publisher": "SMART Health Cards Project",
-  "contact": [{
-    "telecom": [{
-      "system": "url",
-      "value": "https://smarthealth.cards/"
-    }]
-  }],
+  "publisher": "HL7 International / FHIR Infrastructure",
+  "contact" : [
+    {
+      "name" : "HL7 International - FHIR Infrastructure",
+      "telecom" : [
+        {
+          "system" : "url",
+          "value" : "http://www.hl7.org/Special/committees/fiwg"
+        }
+      ]
+    },
+    {
+      "name" : "Frank McKinney",
+      "telecom" : [
+        {
+          "system" : "email",
+          "value" : "fm@frankmckinney.com"
+        }
+      ]
+    }
+  ],
+  "description" : "This operation enables a FHIR-enabled issuer to request or generate a specific type of SMART Health Card",
   "affectsState": false,
   "jurisdiction": [
      {

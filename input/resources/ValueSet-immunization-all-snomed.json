@@ -1,0 +1,48 @@
+{
+  "resourceType" : "ValueSet",
+  "id" : "immunization-all-snomed",
+  "url" : "http://hl7.org/fhir/uv/smart-health-cards-and-links/ValueSet/immunization-all-snomed",
+  "name" : "ImmunizationAllSnomedValueSet",
+  "title" : "Immunization / All / SNOMED CT",
+  "version" : "1.0.0",
+  "status" : "active",
+  "experimental" : false,
+  "date" : "2024-04-08T00:00:00-05:00",
+  "publisher": "HL7 International / FHIR Infrastructure",
+  "contact" : [
+    {
+      "name" : "HL7 International - FHIR Infrastructure",
+      "telecom" : [
+        {
+          "system" : "url",
+          "value" : "http://www.hl7.org/Special/committees/fiwg"
+        }
+      ]
+    },
+    {
+      "name" : "Frank McKinney",
+      "telecom" : [
+        {
+          "system" : "email",
+          "value" : "fm@frankmckinney.com"
+        }
+      ]
+    }
+  ],
+  "description" : "Contains descendants of SNOMED CT concept `787859002` \"Vaccine product (medicinal product)\". Note that codes from _any_ SNOMED CT extension are valid as long as they descend from this concept.",
+  "copyright" : "© 2002+ International Health Terminology Standards Development Organisation (IHTSDO)",
+  "compose" : {
+    "include" : [
+      {
+        "system" : "http://snomed.info/sct",
+        "filter" : [
+          {
+            "property" : "concept",
+            "op" : "descendent-of",
+            "value" : "787859002"
+          }
+        ]
+      }
+    ]
+  }
+}
