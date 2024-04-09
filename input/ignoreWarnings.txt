@@ -1,0 +1,6 @@
+== Suppressed Messages ==
+# Figuring out what terminology needs to be in the IG. The current code systems and value sets reflect existing SMART sites/specs. Will address these after we decide what to keep
+Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
+Error from http://tx.fhir.org/r4: Unable to provide support for code system http://id.who.int/icd11/mms
+Unknown System 'http://id.who.int/icd11/mms' specified, so Concepts and Filters can't be checked (Details: A definition for CodeSystem 'http://id.who.int/icd11/mms' could not be found, so the code cannot be validated)
+The value provided ('en-EU') was not found in the value set 'Common Languages' (http://hl7.org/fhir/ValueSet/languages|4.0.1), and a code is recommended to come from this value set) (error message = The System URI could not be determined for the code 'en-EU' in the ValueSet 'http://hl7.org/fhir/ValueSet/languages|4.0.1'; The provided code '#en-EU' was not found in the value set 'http://hl7.org/fhir/ValueSet/languages|4.0.1')

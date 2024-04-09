@@ -1,0 +1,104 @@
+{
+  "resourceType": "OperationDefinition",
+  "id": "patient-i-health-cards-issue",
+  "url": "http://hl7.org/fhir/uv/smart-health-cards-and-links/OperationDefinition/patient-i-health-cards-issue",
+  "name": "HealthCardsIssue",
+  "title": "Issue Verifiable Credential",
+  "status": "draft",
+  "kind": "operation",
+  "date": "2021-03-08",
+  "publisher": "HL7 International / FHIR Infrastructure",
+  "contact" : [
+    {
+      "name" : "HL7 International - FHIR Infrastructure",
+      "telecom" : [
+        {
+          "system" : "url",
+          "value" : "http://www.hl7.org/Special/committees/fiwg"
+        }
+      ]
+    },
+    {
+      "name" : "Frank McKinney",
+      "telecom" : [
+        {
+          "system" : "email",
+          "value" : "fm@frankmckinney.com"
+        }
+      ]
+    }
+  ],
+  "description" : "This operation enables a FHIR-enabled issuer to request or generate a specific type of SMART Health Card",
+  "affectsState": false,
+  "jurisdiction": [
+     {
+       "coding": [
+        {
+         "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001",
+          "display": "World"
+        }
+      ]
+    }
+  ],
+  "code": "health-cards-issue",
+  "resource": ["Patient"],
+  "system": false,
+  "type": false,
+  "instance": true,
+  "parameter": [{
+    "name": "credentialType",
+    "use": "in",
+    "min": 1,
+    "max": "*",
+    "type": "uri"
+  },{
+    "name": "credentialValueSet",
+    "use": "in",
+    "min": 0,
+    "max": "*",
+    "type": "uri"
+  }, {
+    "name": "includeIdentityClaim",
+    "use": "in",
+    "min": 0,
+    "max": "*",
+    "type": "string"
+  }, {
+    "name": "_since",
+    "use": "in",
+    "min": 0,
+    "max": "1",
+    "type": "dateTime"
+  }, {
+    "name": "verifiableCredential",
+    "use": "out",
+    "min": 0,
+    "max": "*",
+    "type": "string"
+  }, {
+    "name": "resourceLink",
+    "use": "out",
+    "min": 0,
+    "max": "*",
+    "part": [{
+      "name": "vcIndex",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "integer"
+    }, {
+      "name": "bundledResource",
+      "use": "out",
+      "min": 1,
+      "max": "1",
+      "type": "uri"
+    }, {
+      "name": "hostedResource",
+      "use": "out",
+      "min": 1,
+      "max": "1",
+      "type": "uri"
+    }]
+  }]
+}
