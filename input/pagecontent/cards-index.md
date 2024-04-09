@@ -35,7 +35,7 @@ Because we must ensure end-user privacy and because Health Cards must work acros
 <figcaption class="figure-caption"><strong><i>Review note: Is there any reason to reference this image at https://i.imgur.com/T8RHjlJ.png rather than include in the IG repo?</i></strong></figcaption>
   <br />
   <p>
-  <img src="https://i.imgur.com/T8RHjlJ.png" style="float:none">  
+  <img src="https://i.imgur.com/T8RHjlJ.png" style="float:none; width:800px">  
   </p>
 </figure>
 </div>
