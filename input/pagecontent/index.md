@@ -1,10 +1,39 @@
 ### Overview
 
-SMART Health Cards and SMART Health Links...
+SMART Health Cards and SMART Health Links are data exchange standards that enable patients to receive and share their health information easily and securely using QR codes, mobile apps and web sites. 
+
+They are related mechanisms that provide options to support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
+
+Some examples of what an individual can do using SMART Health Cards (Cards) alone or in combination with SMART Links (Links) include:
+
+- receive proof of critical immunizations on a physical card or in a mobile app and allow others to verify them by scanning the attached QR code
+- scan their insurance card's QR code when checking in at their doctor's office--transmitting their member ID and other coverage information directly to the clinic's system
+- send an elementary school a link to their child's immunization history, allowing the school to verify the information with the immunization registry and copy in the details if it wishes
+- receive a "ticket" to access the results of a lab test when they're ready
+- give a provider time-limited or ongoing access to some or all of their medical data, including the ability to search.
+
+Cards and Links share technologies for representing, securing and verifying a patient's information and are designed to be used together. This guide defines their features, specifies rules for implementing, and describes scenarios that illustrate their use.
+
+<p></p>
+
+### Content and organization
+The implementation guide is organized into the following sections:
+* [Use Cases and Scenarios](use-cases.html) identifies the parties and situations that can benefit from use of Cards and Links
+* ...
+* ...
+
+<p></p>
+
+### Dependencies 
+This implementation guide relies on the following other specifications: 
+
+*[to be added]*
 
 <p></p>
 
 ### Contributing
+
+*[to be updated (this is from the existing specs)]*
 
 The SMART Health Cards specification is copyright by *Computational Health Informatics Program, Boston Children's Hospital, Boston, MA* and licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
@@ -17,32 +46,14 @@ _**[remove or ?]**_ Security issues can be disclosed privately by emailing `secu
 
 <p></p>
 
-
-### Introduction
-
-...
-
-<p></p>
-
-### Content and organization
-The implementation guide is organized into the following sections:
-* *[to be added]*
-
-<p></p>
-
-### Dependencies 
-This implementation guide relies on the following other specifications: 
-
-* *[to be added]*
-
-
-
 ### Sponsoring HL7 Workgroup  
 [FHIR Infrastructure](https://confluence.hl7.org/display/FHIRI)
 
 <p></p>
 
 ### Authors
+
+*[to be updated]*
 
 <table class="grid">
     <tbody>
@@ -54,10 +65,10 @@ This implementation guide relies on the following other specifications:
 		<td><a href="mailto:fm@frankmckinney.com">fm@frankmckinney.com</a></td>
 	  </tr>
 	  <tr>
-		<td colspan="2" style="font-style:italic">[Review] Requirements are taken from prior Argonaut and Vaccination Credential Initiative (VCI) projects, as well as  from HL7 work groups who are interested parties</td>
+		<td colspan="2"><i>[?]</i> Requirements are taken from prior Argonaut and Vaccination Credential Initiative (VCI) projects, as well as  from HL7 work groups who are interested parties</td>
   	  </tr>
 	  <tr>
-		<td colspan="2" style="font-style:italic">[Review] Other mention of SMART, Boston Children's or other parties?</td>
+		<td colspan="2"><i>[?]</i> Other mention of SMART, Boston Children's or other parties?</td>
   	  </tr>
 	</tbody>
   </table>
@@ -78,7 +89,7 @@ This implementation guide relies on the following other specifications:
 
 <p></p>
 
-*[Review: Add IP statement for Boston Children's or other parties?]*
+*[?: Add IP statement for Boston Children's or other parties?]*
 
 <p></p>
 <p></p>

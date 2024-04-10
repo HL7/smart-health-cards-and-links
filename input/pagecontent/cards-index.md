@@ -409,7 +409,7 @@ The following parameters are optional; clients MAY include them in a request,
 and servers MAY ignore them if present.
 
 * **`credentialValueSet`**. Restricts the request by FHIR
-content such as "any standardized vaccine code for mpox". See [ValueSet definitions on the Artifacts page](artifacts.html#terminology-value-sets).
+content such as "any standardized vaccine code for mpox". See [Health Card ValueSets](https://terminology.smarthealth.cards/artifacts.html#terminology-value-sets).
 Valueset-based filters apply to the FHIR Resources within the Health Card
 payload at `.vc.credentialSubject.fhirBundle.entry[].resource`.  For
 Immunizations, the `Immunization.vaccineCode` is evaluated. For Observations,
@@ -425,7 +425,7 @@ from all of the supplied Valuesets (logical AND).
     "valueUri": "Immunization"
   }, {
     "name": "credentialValueSet",
-    "valueUri": "http://hl7.org/fhir/uv/smart-health-cards-and-links/ValueSet/immunization-orthopoxvirus-all"
+    "valueUri": "https://terminology.smarthealth.cards/ValueSet/immunization-orthopoxvirus-all"
   }]
 }
 ```
@@ -523,7 +523,7 @@ Health Cards based on the FHIR resource types within the Health Card payload at
 
 1. SMART Health Card value sets, to further restrict the request by FHIR
 content such as "any standardized vaccine code for mpox". See [Health Card
-ValueSets](artifacts.html#terminology-value-sets).
+ValueSets](https://terminology.smarthealth.cards/artifacts.html#terminology-value-sets).
 Valueset-based filters apply to the FHIR Resources within the Health Card
 payload at `.vc.credentialSubject.fhirBundle.entry[].resource`.  For
 Immunizations, the `Immunization.vaccineCode` is evaluated. For
