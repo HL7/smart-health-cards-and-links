@@ -1,10 +1,10 @@
 ### Overview
 
-SMART Health Cards and SMART Health Links are data exchange standards that enable patients to receive and share their health information easily and securely using QR codes, mobile apps and web sites. 
+SMART Health Cards and SMART Health Links are FHIR-based standards that enable patients to receive and share their health information easily and securely using QR codes, mobile apps and web sites. 
 
-They are related mechanisms that provide options to support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
+Together they provide options that support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
 
-Some examples of what an individual can do using SMART Health Cards (Cards) alone or in combination with SMART Links (Links) include:
+Examples of what an individual can do using SMART Health Cards (Cards) alone or in combination with SMART Links (Links) include:
 
 - receive proof of critical immunizations on a physical card or in a mobile app and allow others to verify them by scanning the attached QR code
 - scan their insurance card's QR code when checking in at their doctor's office--transmitting their member ID and other coverage information directly to the clinic's system
