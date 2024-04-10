@@ -1,6 +1,7 @@
 <ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
   <li><a href="index.html">Home</a></li>
   <li><a href="toc.html">Table of Contents</a></li>
+  <li><a href="use-cases.html">Use Cases and Scenarios</a></li>
   <li class="dropdown">
 	<a data-toggle="dropdown" href="#" class="dropdown-toggle">SMART Cards<b class="caret"></b></a>
     <ul class="dropdown-menu">
@@ -17,8 +18,8 @@
 	<a data-toggle="dropdown" href="#" class="dropdown-toggle">SMART Links<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a href="links-index.html">Links Home</a></li>
-      <li><a href="links-user-stories.html">User Stories</a></li>
       <li><a href="links-design.html">Design</a></li>
+      <li><a href="links-user-stories.html">User Stories</a></li>
       <li><a href="links-spec.html">Specification</a></li>
 	</ul>
   </li>	  
