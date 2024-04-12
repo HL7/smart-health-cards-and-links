@@ -1,10 +1,14 @@
 ### Overview
 
-SMART Health Cards and SMART Health Links are FHIR-based standards that enable patients to receive and share their health information easily and securely using QR codes, mobile apps and web sites. 
+Paper medical records, such as vaccination records or insurance cards, are easily lost or  damaged, and are often not on-hand when they're needed. Paper records are also difficult to authenticate, creating concerns about forgeries in situations such as the COVID-19 pandemic.
 
-Together they provide options that support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
+SMART Health Cards and SMART Health Links are FHIR-based standards that address these challenges, enabling patients to receive their health information and share it with others in a tamper-proof and verifiable digital form, using QR codes, mobile apps and web sites. 
 
-Examples of what an individual can do using SMART Health Cards (Cards) alone or in combination with SMART Links (Links) include:
+Together SMART Health Cards Links provide options that support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
+
+<p></p>
+
+Examples of what an individual can do using these standards include:
 
 - receive proof of critical immunizations on a physical card or in a mobile app and allow others to verify them by scanning the attached QR code
 - scan their insurance card's QR code when checking in at their doctor's office--transmitting their member ID and other coverage information directly to the clinic's system
@@ -12,7 +16,30 @@ Examples of what an individual can do using SMART Health Cards (Cards) alone or 
 - receive a "ticket" to access the results of a lab test when they're ready
 - give a provider time-limited or ongoing access to some or all of their medical data, including the ability to search.
 
-Cards and Links share technologies for representing, securing and verifying a patient's information and are designed to be used together. This guide defines their features, specifies rules for implementing, and describes scenarios that illustrate their use.
+<p></p>
+
+SMART Health Cards and Links share technologies for representing, securing and verifying a patient's information and are designed to be used together. This guide defines their features, specifies rules for implementing, and describes scenarios that illustrate their use.
+
+<p></p>
+
+### SMART Health Cards
+SMART Health Cards are verified versions of an individual's clinical information, such as vaccination history or test results. They allow a patient to keep a copy of their important health records on hand and easily share this information with others. SMART Health Cards contain a secure QR code and may be saved digitally or printed on paper.
+
+Patients can get a SMART Health Card through a qualified issuer. An issuer is any organization authorized by the [Verifiable Clinical Information coalition (VCI)](https://www.vci.org) to generate these cards, including pharmacies, hospitals, healthcare providers, medical labs, public health agencies, and more.
+
+<p></p>
+
+### SMART Health Links
+SMART Health Links add features including...
+- storage and sharing of more information than can be kept on a single SMART Health Card
+- sharing of both tamper-proof and non-tamper-proof information
+- long-term sharing of data
+- sharing data that can evolve over time
+- mitigating the damage of QRs being leaked or scanned by the wrong party, through generation of a "one-time use" QR code (or a limited-time use QR), so at the time of creation there's a limited number of "claims" or a limited time period attached to it
+- protecting the QR with a PIN, which the patient can communicate to the recipient out-of-band
+- the option to host files using encrypted cloud storage, so the hosting provider can't see file contents
+- a simple UX where Data Recipients can scans a QR and immediately retrieve the data
+- a path to additional assurance that information is only shared with the intended party, e.g. requiring a recipient authenticate or id-proof before accessing the shared data.
 
 <p></p>
 
