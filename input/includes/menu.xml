@@ -14,13 +14,13 @@
     <ul class="dropdown-menu">
   	  <li><a href="cards-specification.html">Health Cards Specification</a></li>    
       <li><a href="links-specification.html">Links Specification</a></li>
+      <li><a href="artifacts.html">FHIR Artifacts</a></li>
       <li><a href="cards-credential-modeling.html">Credential Modeling</a></li>
       <li><a href="cards-vocabulary.html">Vocabulary</a></li>  
       <li><a href="cards-faq.html">Health Cards FAQ</a></li> 
       <li><a href="cards-rfcs.html">Related RFCs</a></li> 
 	</ul>
   </li>	  
-  <li><a href="artifacts.html">FHIR Artifacts</a></li>
    <li><a href="examples.html">Examples</a></li>
   <li class="dropdown">
 	<a data-toggle="dropdown" href="#" class="dropdown-toggle">Remove?<b class="caret"></b></a>
