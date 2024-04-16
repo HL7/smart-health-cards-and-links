@@ -1,6 +1,5 @@
-# SHL Protocol Specification
 
-#### Actors
+### Actors
 
 * Software Applications
   * **SHL Sharing Application**. Helps users creates, manage, and share SHLinks. Also referred to below as "server". This application can include local software as well as server-side components.
@@ -9,7 +8,9 @@
   * **Sharing User**. An individual working with a SHL Sharing Application to create/manage/share information
   * **Receiving User**. An individual working with a SHL Receiving Application to retrieve/display/use information. In autonmous use cases there may be no Receiving User.
 
-## Pre-protocol step: Sharing User configures a new SHLink
+<p></p>
+
+### Pre-protocol step: Sharing User configures a new SHLink
 
 Working with a SHL Sharing Application, the Sharing User makes a few decisions up front:
 
@@ -26,21 +27,23 @@ Regarding "what to share": a single SHLink at a specific point in time will *res
 
 At configuration time, the SHL Sharing Application SHALL generate a random key used for encrypting/decrypting the files in the manifest (see ["Decryption"](#encrypting-and-decrypting-files)). 
 
-:::info 
-**:notebook:   Design Note: Trust and encryption**
+<p></p>
+
+** Design Note: Trust and encryption**
 
 *This pattern of encrypting files allows for deployment scenarios where the file server is not trusted to know the information inside the manifest's files. In such scenarios, the Sharing User and Receiving User can consider the server  a blind intermediary. That said: in many deployment scenarios, the file server will be hosted by a healthcare provider or other entity that already has access to such files. For consistency, this protocol always applies encryption.*
-:::
 
-:::info
-**:notebook:   Design Note: SHL Sharing Application "internals"**
+<p></p>
+
+** Design Note: SHL Sharing Application "internals"**
 
 *We do not standardize the protocol by which the SHL Sharing Application's local software communicates with its server-side components. These may be provided by the same vendor and use internal APIs to communicate -- or there may be no "local" software at all.*
-:::
 
-## SHL Sharing Application Generates a SHLink URI
+<p></p>
 
-### Establish a SHLink Manifest URL
+### SHL Sharing Application Generates a SHLink URI
+
+#### Establish a SHLink Manifest URL
 
 Based the configuration from (1), the SHL Sharing Application generates a "manifest URL" for the new SHLink. The manifest URL:
 
@@ -50,7 +53,9 @@ Based the configuration from (1), the SHL Sharing Application generates a "manif
 
 The SHL Sharing Application incorporates the manifest URL into a SHLink as described below.
 
-### Construct a SHLink Payload
+<p></p>
+
+#### Construct a SHLink Payload
 
 The SHLink Payload is a JSON object including the following properties:
 
@@ -64,17 +69,15 @@ The SHLink Payload is a JSON object including the following properties:
 * `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SHLink. 
 * `v`: Optional. Integer representing the SHLinks protocol version this SHLink conforms to. MAY be omitted when the default value (`1`) applies.
 
-
 The JSON Payload is then:
 * Minified
 * Base64urlencoded
 * Prefixed with `shlink:/`
 * Optionally prefixed with a viewer URL that ends with `#`
 
+<p></p>
 
-:::info
-
-**:notebook: Design Note: Protocol Versioning**
+**Design Note: Protocol Versioning**
 
 Implementations can rely on the following behaviors:
 
@@ -100,20 +103,19 @@ Implementations can rely on the following behaviors:
   * Changes to the cryptographic protocol will require a `v` bump
 
 This means that SHL Receiver Applications can always recognize a SHLink Payload and display its label to the user. If a SHL Receiver Application receives a SHLink with a `v` newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.
-:::
 
-:::info
+<p></p>
 
-**:notebook: Design Note: Viewer URL Prefixes**
+**Design Note: Viewer URL Prefixes**
 
 *By using viewer URLs that end in `#`, we take advantage of the browser behavior where `#` fragments are not sent to a server at the time of a request. Thus the SHLink payload will not appear in server-side logs or be available to server-side processing when a link like `https://viewer.example.org#shlink:/ey...` is opened in a browser.*
-:::
 
 The following optional step may occur sometime after a SHLink is generated:
 * **Optional: Update Shared Files**. For some sharing scenarios, Sharing User MAY update the shared files from time to time (e.g., when new lab results arrive or new immunizations are performed). Updated versions SHALL be encrypted using the same key as the initial version. 
 
+<p></p>
 
-###### Example SHLink Generation
+#### Example SHLink Generation
 ```js
 import { encode as b64urlencode } from 'https://deno.land/std@0.82.0/encoding/base64url.ts';
 
@@ -134,7 +136,9 @@ const shlink = `https://viewer.example.org#` + shlinkBare
 // "https://viewer.example.org#shlink:/eyJ1cmwiOiJodHRwczovL2Voci5leGFtcGxlLm9yZy9xci9ZOXh3a1VkdG1OOXd3b0pvTjNmZkpJaFgyVUd2Q0wxSm5sUFZOTDNrRFdNL20iLCJmbGFnIjoiTFAiLCJrZXkiOiJyeFRnWWxPYUtKUEZ0Y0VkMHFjY2VOOHdFVTRwOTRTcUF3SVdRZTZ1WDdRIiwibGFiZWwiOiJCYWNrLXRvLXNjaG9vbCBpbW11bml6YXRpb25zIGZvciBPbGl2ZXIgQnJvd24ifQ"
 ```
 
-##  Sharing User transmits a SHLink
+<p></p>
+
+####  Sharing User transmits a SHLink
 
 The Sharing User can convey a SHLink by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SHLink in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SHLink URI. 
 
@@ -143,8 +147,9 @@ When sharing a SHLink via QR code, the following recommendations apply:
 * Create the QR with Error Correction Level M
 * Include the [SMART Logo](https://demo.vaxx.link/smart-logo.svg) on a white background over the center of the QR, scaled to occupy 5-6% of the image area (inclusive of the "quiet zone" QR border).
 
+<p></p>
 
-## SHL Receiving Application processes a SHLink
+### SHL Receiving Application processes a SHLink
 
 The SHL Receiving Application can process a SHLink using the following steps.
 
@@ -153,8 +158,9 @@ The SHL Receiving Application can process a SHLink using the following steps.
 * Decrypt and process files from the manifest
 * Optional:  When the original QR includes the `L` flag for long-term use, the SHL Receiving Application can re-fetch the manifest periodically, following [polling guidance](#polling-manifest-for-changes) to avoid issing too many requests
  
----
-## SHLink Manifest Request
+<p></p>
+
+### SHLink Manifest Request
 
 When no `U` flag is present, the SHL Receiving Application SHALL retrieve a SHLink's manifest by issuing a request to the `url` with:
 
@@ -172,11 +178,12 @@ If an invalid Passcode is supplied, the Resource Server SHALL reject the request
 
 * `remainingAttempts`: number of attempts remaining before the SHL is disabled
 
+<p></p>
 
-:::info
-**:notebook: Design Note: Monitoring remaining attempts**
+**Design Note: Monitoring remaining attempts**
 Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SHLink at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.
-:::
+
+<p></p>
 
 If the SHlink request is valid, the Resource Server SHALL return a  SHLink Manifest File with `content-type: application/json`. The SHLink Manifest File is a JSON object with a `files` array where each entry includes:
 
@@ -191,7 +198,9 @@ short-lifetime signed URL to a file hosted in a cloud storage service (see signe
 embedding the encrypted contents of the file as a compact JSON Web Encryption
 string (see ["Encrypting"](#encrypting-and-decrypting-files)).
 
-### Polling manifest for changes
+<p></p>
+
+#### Polling manifest for changes
 When the original QR includes the `L` flag for long-term use, the client MAY
 periodically poll for changes in the manifest. The server MAY provide a
 [`Retry-After`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After)
@@ -201,13 +210,14 @@ issued too frequently, the server MAY respond with HTTP status `429 Too Many
 Requests` and a `Retry-After` header indicating the minimum time that a client
 SHALL wait before re-issuing a manifest request.
 
-:::info
-**:notebook: Design Note: Rate Limiting**
+<p></p>
+
+**Design Note: Rate Limiting**
 *More detailed guidance on polling will require real-world implementation experience. The current guidance provides the client a hint about how often to poll, and provides a way to convey that requests are being issued too frequently. We encourage implementers to experiment with additional capabilities.*
-:::
 
+<p></p>
 
-###  `.files.location` links
+####  `.files.location` links
 
 The SHL Sharing Application SHALL ensure that `.files.location` links can be dereferenced
 without additional authentication, and that they are short-lived. The lifetime
@@ -228,7 +238,9 @@ The SHL Sharing Application SHALL respond to the `GET` requests for `.files.loca
   * `content-type: application/jose`
 * Body: JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
 
-### `.files.embedded` content
+<p></p>
+
+#### `.files.embedded` content
 
 If the client has specified `embeddedLengthMax` in the manifest request, the sever SHALL NOT
 embedded payload longer than the client-designated maximum.
@@ -239,10 +251,9 @@ the sever SHALL NOT embedded payload longer than the client-designated maximum.
 
 The embedded content is a JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
 
----
+<p></p>
 
-
-##### Example SHLink Manifest File
+#### Example SHLink Manifest File
 
 ```json
 {
@@ -260,8 +271,9 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
   }]
 }
 ```
+<p></p>
 
-## SHLink Direct File Request (with `U` Flag)
+#### SHLink Direct File Request (with `U` Flag)
 
 When the `U` flag is present, the SHL Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SHLink's sole encrypted file by issuing a request to the `url` with:
 
@@ -269,12 +281,15 @@ When the `U` flag is present, the SHL Receiving Application SHALL NOT make a req
     * Query parameters
         * `recipient`: Required. A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Data Sharer
 
+<p></p>
 
-## Encrypting and Decrypting Files
+### Encrypting and Decrypting Files
 
 SHLink files are always symmetrically encrypted with a SHLink-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc).
 
-##### Example Encryption
+<p></p>
+
+#### Example Encryption
 
 ```ts
 import * as jose from 'https://deno.land/x/jose@v4.7.0/index.ts'
@@ -299,9 +314,10 @@ const encrypted = await new jose
 
 console.log(encrypted)
 //eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiY3R5IjoiYXBwbGljYXRpb24vc21hcnQtaGVhbHRoLWNhcmQifQ..B9Bd5AW751az-gEx.iah6mxLb5TQe2ZfCwEUs4R1t8WoP0mnFc-TUzN1NIyzUeDwJNOcxv4CY8wV6ys4Dicnr3IhqTvVU1RbR-4eq1GCd4g96faV8_0MbHwXzP246Tz9BDLhQ2zlAjYqvvCi_JuWdyWqGhKeWGX1XibNHFzzVT0FmYensfKF4o0uSeZWQDKVEEhzMSKuALMpUkfwHcmCRfLT-ctANSxq-Zj0IIeT66XbztOomStjlfi-F-FaqBGZfHOARCVvT143CTYELLJCUdD4qUVkrNuLmRZrNuqVpY0g5BjABswkIoDmyoRJAEohuZCamZNA--p-uRqJjRefED1eMrKSppabV2ugaqoFlieujTOE-a3VKib9aC-lFsmLalkwh9ctr_FZqS9H46rqGjGcOxtAXalo1jkMPGupVsE1W-xIH14wbPCYcgfldH9SH7X60462kxD8OFdHpvnnfAvjQnaE4QDqasT5ySpBRtck4GVxs2IRBt62-kOlzoI8lHapLdwIms-Gdt7z38E47ZE3afE4IIbobPGz7wGvjbi3z234ARvGQ4jREgPQb1NRYAEtZlrZNzR6N7ofXD8jF502tw-QWI_Ox0jFP5tynIiMp-hG25ecQ0s4MzPHFC0ZABPamgg3MS-UILl76gMDCHS5Te_JAXZoC1HnkETw5M217SaG5ISAU0F5qETMREfTjZR9E45MDhnw7uY1vo2lffRB3ei1QqGuLh0gUnVU7TUfFYwcOqV15sb0t1lMj0mmyG5v-_dE9H6dYtRKJARltmdfSmc1HisBewx75Xh5ChJQ1hiCEDaZ1wqFjsFJ6SrKgJ7C1N7vx6QKx8YXwFH7ePG2qG39leT5JKZnqAvi9fqc6x-YwfhSjbRKGZoj2o55Fd2fbwtK6CXpiW6AekT7PUcl_7ynTq-DaQ_Yc29WwtmgapcCRNpfcMsoqCD4giu1V3Sj5DQLglwuk1gAMcuV5fo8JpABu2_is83WZ_GJ1WWMUxyZGq6u-EGuZrP96Yewb7-zfnt2lao_LJg1ef5cqDTW7-0MS27wkmLiIi0e-PYvS-UfWVHg1oNbR-MHXMVEQ6gqNg08IgEyPDSFCUbf75HuMILN80bQNtSlFj6FR7uNKHr8sigvKI80k.5flOKKmeqYm0TamwROr8Nw
+```
+<p></p>
 
-
-##### Example Decryption
+#### Example Decryption
 
 ```ts
 import * as jose from 'https://deno.land/x/jose@v4.7.0/index.ts'
@@ -331,10 +347,11 @@ const decoded = JSON.parse(new TextDecoder().decode(decrypted.plaintext));
 }
 */
 ```
+<p></p>
 
-## Use Case Examples
+### Use Case Examples
 
-### Using SHL to share an interactive experience
+#### Using SHL to share an interactive experience
 
 While the SMART Health Links spec focuses on providing access to structured data, it's often
 useful to share an interactive experience such as a web-based diagnostic portal where the
@@ -361,19 +378,16 @@ might include a `application/fhir+json` entry with:
   "payloadType": [{"system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type", "code": "none"}],
 }
 ```
+<p></p>
 
 Notes:
 
-* There is no perfect FHIR resource for documenting an interactive experience URL. `Endpoint` and
-`DocumentReference` are both plausible candidates, and we recommend `Endpoint` here because
-`DocumentReference` is designed for static payloads.
-* If the *only* content being shared via SHL is a single interactive experience, implementers 
-might consider sharing the interactive experience URL directly, instead of through SHL. However,
-since SHL provides a consistent pattern that users and tools can recognize, starting with SHL provides
-a foundation to support future expansion.
+* There is no perfect FHIR resource for documenting an interactive experience URL. `Endpoint` and `DocumentReference` are both plausible candidates, and we recommend `Endpoint` here because `DocumentReference` is designed for static payloads.
+* If the *only* content being shared via SHL is a single interactive experience, implementers might consider sharing the interactive experience URL directly, instead of through SHL. However, since SHL provides a consistent pattern that users and tools can recognize, starting with SHL provides a foundation to support future expansion.
 
+<p></p>
 
-### "Upgrading" from SHL to a consumer-mediated SMART on FHIR Connection
+#### "Upgrading" from SHL to a consumer-mediated SMART on FHIR Connection
 
 In addition to providing direct access to a pre-configured data set, SHLs can include information
 to help establish a consumer-mediated SMART on FHIR connection to the data source. This can be
@@ -396,6 +410,7 @@ For example, the manifest for an SHL from Labs-R-Us might include a `application
   "payloadType": [{"system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type", "code": "none"}],
 }
 ```
+<p></p>
 
 Notes:
 
