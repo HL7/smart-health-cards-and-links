@@ -4,7 +4,7 @@ Paper medical records, such as vaccination records or insurance cards, are easil
 
 SMART Health Cards and SMART Health Links are FHIR-based standards that address these challenges, enabling patients to receive their health information and share it with others in a tamper-proof and verifiable digital form, using QR codes, mobile apps and web sites. 
 
-Together SMART Health Cards Links provide options that support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
+Together SMART Health Cards and Links provide options that support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
 
 <p></p>
 
@@ -23,15 +23,20 @@ SMART Health Cards and Links share technologies for representing, securing and v
 <p></p>
 
 ### SMART Health Cards
-SMART Health Cards are verified versions of an individual's clinical information, such as vaccination history or test results. They allow a patient to keep a copy of their important health records on hand and easily share this information with others. SMART Health Cards contain a secure QR code and may be saved digitally or printed on paper.
 
-Patients can get a SMART Health Card through a qualified issuer. An issuer is any organization authorized by the [Verifiable Clinical Information coalition (VCI)](https://www.vci.org) to generate these cards, including pharmacies, hospitals, healthcare providers, medical labs, public health agencies, and more.
+Health Cards are verified versions of an individual's clinical information, such as vaccination history or test results. They allow a patient to keep a copy of their important health records on hand and easily share this information with others. Health Cards contain a secure QR code and may be saved digitally or printed on paper.
+
+Patients can get a Health Card through a qualified issuer. An issuer is any organization authorized by the [Verifiable Clinical Information coalition (VCI)](https://www.vci.org) to generate these cards, including pharmacies, hospitals, healthcare providers, medical labs, public health agencies, and more.
+
+This implementation guide provides a framework for Health Cards that supports documentation of any health-related details that can be modeled with [HL7 FHIR](https://hl7.org/fhir/). This work grew out of our initial focus on enabling a consumer to receive COVID-19 Vaccination or Lab results and **present these results to another party in a verifiable manner**. Key use cases included conveying point-in-time infection status for return-to-workplace and travel.
+
+To ensure end-user privacy and the ability for Health Cards to work across organizational and jurisdictional boundaries, this framework builds on international open standards and decentralized infrastructure.
 
 <p></p>
 
 ### SMART Health Links
-SMART Health Links add features including...
-- storage and sharing of more information than can be kept on a single SMART Health Card
+Health Links add features including...
+- storage and sharing of more information than can be kept on a single Health Card
 - sharing of both tamper-proof and non-tamper-proof information
 - long-term sharing of data
 - sharing data that can evolve over time
@@ -45,7 +50,7 @@ SMART Health Links add features including...
 
 ### Content and organization
 The implementation guide is organized into the following sections:
-* [Use Cases and Scenarios](use-cases.html) identifies the parties and situations that can benefit from use of Cards and Links
+* [Use Cases and Scenarios](use-cases.html) identifies the parties and situations that can benefit from use of SMART Health Cards and Health Links
 * ...
 * ...
 
