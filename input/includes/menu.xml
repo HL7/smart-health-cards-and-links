@@ -1,27 +1,32 @@
 <ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
   <li><a href="index.html">Home</a></li>
   <li><a href="toc.html">Table of Contents</a></li>
-  <li><a href="use-cases.html">Use Cases and Scenarios</a></li>
   <li class="dropdown">
-	<a data-toggle="dropdown" href="#" class="dropdown-toggle">SMART Cards<b class="caret"></b></a>
+	<a data-toggle="dropdown" href="#" class="dropdown-toggle">Overview<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><a href="cards-index.html">Cards Home</a></li>
+	  <li><a href="use-cases.html">Use Cases and Scenarios</a></li>
+      <li><a href="technical-introduction.html">Technical Introduction</a></li>
+	  <li><a href="cards-credits.html">Credits</a></li>  	  
+    </ul>
+  </li>	  
+  <li class="dropdown">
+	<a data-toggle="dropdown" href="#" class="dropdown-toggle">Specification<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+  	  <li><a href="cards-specification.html">Health Cards Specification</a></li>    
+      <li><a href="links-specification.html">Links Specification</a></li>
       <li><a href="cards-credential-modeling.html">Credential Modeling</a></li>
-      <li><a href="cards-vocabulary.html">Vocabulary</a></li>
-      <li><a href="cards-credits.html">Credits</a></li>
-      <li><a href="cards-changelog.html">Changelog</a></li>      
-      <li><a href="cards-faq.html">FAQ</a></li> 
-      <li><a href="cards-rfcs.html">RFCs</a></li> 
+      <li><a href="cards-vocabulary.html">Vocabulary</a></li>  
+      <li><a href="cards-faq.html">Health Cards FAQ</a></li> 
+      <li><a href="cards-rfcs.html">Related RFCs</a></li> 
 	</ul>
   </li>	  
+  <li><a href="artifacts.html">FHIR Artifacts</a></li>
+   <li><a href="examples.html">Examples</a></li>
   <li class="dropdown">
-	<a data-toggle="dropdown" href="#" class="dropdown-toggle">SMART Links<b class="caret"></b></a>
+	<a data-toggle="dropdown" href="#" class="dropdown-toggle">Remove?<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><a href="links-index.html">Links Home</a></li>
-      <li><a href="links-design.html">Design</a></li>
-      <li><a href="links-user-stories.html">User Stories</a></li>
-      <li><a href="links-spec.html">Specification</a></li>
+      <li><a href="cards-changelog.html">Changelog</a></li>
+      <li><a href="links-index.html">Current Links Home Page</a></li>
 	</ul>
   </li>	  
-  <li><a href="artifacts.html">Artifacts</a></li>
 </ul>
