@@ -6,19 +6,22 @@ _Source content from the Health Card site's Specification page, except where not
 
 <div>
 <figure class="figure">
-<figcaption class="figure-caption"><strong><i>Review note: Is there any reason to reference this image at https://i.imgur.com/T8RHjlJ.png rather than include in the IG repo?</i></strong></figcaption>
+<figcaption class="figure-caption"><strong><i>Health Cards Conceptual Model</i></strong></figcaption>
   <br />
   <p>
-  <img src="https://i.imgur.com/T8RHjlJ.png" style="float:none; width:800px">  
+  <img src="health-cards-conceptual.png" style="float:none; width:800px">  
   </p>
 </figure>
 </div>
 <p></p>
 
+_Adapted from Figure 1 of the [W3C Verifiable Credentials specification](https://www.w3.org/TR/vc-data-model)_
+
+<p></p>
+
 * **Issuer** (e.g., a lab, pharmacy, healthcare provider, EHR, public health department, or immunization information system) generates verifiable credentials
 * **Holder** stores credentials and presents them at will
 * **Verifier** receives credentials from holder and ensures they are properly signed
-
 
 <p></p>
 
