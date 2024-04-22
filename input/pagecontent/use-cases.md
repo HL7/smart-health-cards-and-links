@@ -84,7 +84,7 @@ _Source content from the Health Links site's User Stories page:_
 
 <p></p>
 
-### SHL User Stories
+### SMART Health Link User Stories
 
 SMART Health Links supports multiple patterns of sharing. While the technology
 is designed for flexibility and reuse in diverse contexts, the user stories
@@ -97,14 +97,14 @@ below represent flows that have explicitly informed design of the protocol.
 Alice signs in to her state's public health portal where she can see her 
 vaccination history and recommendations. She selects an option to "Share my
 records with SMART Health Links", which prompts her to create a passcode
-and then generates a SHL. Alice is presented with options that include:
+and then generates a SMART Health Link. Alice is presented with options that include:
 
 * Copy link to clipboard.
-Alice can share this SHL with others using any channel she chooses. For example,
+Alice can share this SMART Health Link with others using any channel she chooses. For example,
 she could paste it into a "vaccine history" form in her school's vaccine
 management site as part of an online registration process. She could also share
-the SHL and passcode with a friend, caregiver, or healthcare provider. The recipient 
-can view data online or automatically load data into an SHL-enabled app. This
+the SMART Health Link and passcode with a friend, caregiver, or healthcare provider. The recipient 
+can view data online or automatically load data into an SMART Health Link-enabled app. This
 workflow can enable integration with clinician-facing EHR systems as well as
 patient-facing care management apps.
 
@@ -137,13 +137,13 @@ QR code labeled as a "SMART Health Link."
 
 Alice can:
 
-* Scan the SHL QR using a generic QR reader app.
+* Scan the SMART Health Link QR using a generic QR reader app.
 This takes her to a Labs-R-Us web-based viewer where she can enter a passcode to view her lab
 result. Initially she might see a "pending" result, indicating that the analysis
 has not been completed. Eventually she will see a "final" result with the
 details available.
 
-* Scan the SHL QR using a SHL-aware health record management app.
+* Scan the SMART Health Link QR using a SMART Health Link-aware health record management app.
 Alice's health record app prompts her for a passcode and automatically retrieves the lab
 results for display within the app's user interface. Initially this might be a "pending" 
 result which would resolve to a "final" result after the app checks for an update at a later
@@ -157,10 +157,10 @@ date.
   can sign in or create an account and authorize long-term access to her full set of 
   Labs-R-Us data.
 
-* Share the SHL with a friend, caregiver, or healthcare provider.
-As in the "Powerful Portals" user story above, Alice can copy/paste the SHL to
+* Share the SMART Health Link with a friend, caregiver, or healthcare provider.
+As in the "Powerful Portals" user story above, Alice can copy/paste the SMART Health Link to
 share this lab result with a recipient of her choice. The passcode will be shared separately. 
-The recipient can open the link in a web browser or in an SHL-aware health record management 
+The recipient can open the link in a web browser or in an SMART Health Link-aware health record management 
 app, just as Alice can. This workflow can enable integration with clinician-facing EHR
 systems as well as patient-facing care management apps.
 
@@ -181,7 +181,7 @@ Alice uses a personal health record app on her phone. She connects to data from
 various sources including clinical providers, labs, pharmacies, and others. When
 she wants to share a subset of these data, she selects an option to "Share my
 records with SMART Health Links", which prompts her to create a passcode and
-then generates a SHL. Using this technique, Alice can mix and match data from
+then generates a SMART Health Link. Using this technique, Alice can mix and match data from
 multiple sources to share a relevant subset of her records that might not exist
 within any one source. Alice taps a "share" button and is prompted to copy the
 link to her clipboard or display the link as a QR.

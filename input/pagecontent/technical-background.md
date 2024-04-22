@@ -53,17 +53,12 @@ _Source content from the Health Links site's Design Overview page:_
 
 <p></p>
 
-Historical design notes
-https://hackmd.io/@VCI/smart-health-links-historical
-
-<p></p>
-
 _end of Smart Links Design Overview content_
 <hr>
 
 <p></p>
 
-### Start Small -- Think Big
+### Approach: Start Small -- Think Big
 
 We enable Health Cards by defining building blocks that can be used across healthcare. The core building block allows us to aggregate data into meaningful sets, signed by an issuer, and stored/presented by a consumer as needed. The broader set of use cases should eventually include:
 

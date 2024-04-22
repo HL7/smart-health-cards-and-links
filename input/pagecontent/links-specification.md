@@ -2,30 +2,30 @@
 ### Actors
 
 * Software Applications
-  * **SHL Sharing Application**. Helps users creates, manage, and share SHLinks. Also referred to below as "server". This application can include local software as well as server-side components.
-  * **SHL Receiving Application**. Helps users receive SHLinks and work with associated content. Also referred to below as "client".
+  * **SMART Health Links Sharing Application**. Helps users creates, manage, and share SMART Health Links. Also referred to below as "server". This application can include local software as well as server-side components.
+  * **SMART Health Links Receiving Application**. Helps users receive SMART Health Links and work with associated content. Also referred to below as "client".
 * Users
-  * **Sharing User**. An individual working with a SHL Sharing Application to create/manage/share information
-  * **Receiving User**. An individual working with a SHL Receiving Application to retrieve/display/use information. In autonmous use cases there may be no Receiving User.
+  * **Sharing User**. An individual working with a SMART Health Links Sharing Application to create/manage/share information
+  * **Receiving User**. An individual working with a SMART Health Links Receiving Application to retrieve/display/use information. In autonomous use cases there may be no Receiving User.
 
 <p></p>
 
-### Pre-protocol step: Sharing User configures a new SHLink
+### Pre-protocol step: Sharing User configures a new SMART Health Linksink
 
-Working with a SHL Sharing Application, the Sharing User makes a few decisions up front:
+Working with a SMART Health Links Sharing Application, the Sharing User makes a few decisions up front:
 
-* **What to share**. Depending on the SHL Sharing Application, the Sharing User might explicitly choose a set of files or define a "sharing policy" that matches different data over time.
-* **Whether the SHLink will require a Passcode** to access. Depending on the SHL Sharing Application, a Passcode may be mandatory.
-* **Whether the SHLink will expire** at some pre-specified time. Depending on the SHL Sharing Application, an expiration time may be mandatory.
+* **What to share**. Depending on the SMART Health Links Sharing Application, the Sharing User might explicitly choose a set of files or define a "sharing policy" that matches different data over time.
+* **Whether the SMART Health Linksink will require a Passcode** to access. Depending on the SMART Health Links Sharing Application, a Passcode may be mandatory.
+* **Whether the SMART Health Linksink will expire** at some pre-specified time. Depending on the SMART Health Links Sharing Application, an expiration time may be mandatory.
 
-Regarding "what to share": a single SHLink at a specific point in time will *resolve* to a manifest of files of the following types:
+Regarding "what to share": a single SMART Health Linksink at a specific point in time will *resolve* to a manifest of files of the following types:
 * `application/smart-health-card`: a JSON file with a `.verifiableCredential` array containing SMART Health Card JWS strings, as specified by https://spec.smarthealth.cards#via-file-download.
 * `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may be include digital signatures or have other verification processes associated with it, which are not defined here.
 * `application/smart-api-access`: a JSON file with a SMART Access Token Response (see [SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html#response-5)). Two additional properties are defined:
   * `aud` Required string indicating the FHIR Server Base URL where this token can be used (e.g.,  ``"https://server.example.org/fhir"``)
   * `query`: Optional array of strings acting as hints to the client, indicating queries it might want to make (e.g., `["Coverage?patient=123&_tag=family-insurance"]`)
 
-At configuration time, the SHL Sharing Application SHALL generate a random key used for encrypting/decrypting the files in the manifest (see ["Decryption"](#encrypting-and-decrypting-files)). 
+At configuration time, the SMART Health Links Sharing Application SHALL generate a random key used for encrypting/decrypting the files in the manifest (see ["Decryption"](#encrypting-and-decrypting-files)). 
 
 <p></p>
 
@@ -35,39 +35,39 @@ At configuration time, the SHL Sharing Application SHALL generate a random key u
 
 <p></p>
 
-** Design Note: SHL Sharing Application "internals"**
+** Design Note: SMART Health Links Sharing Application "internals"**
 
-*We do not standardize the protocol by which the SHL Sharing Application's local software communicates with its server-side components. These may be provided by the same vendor and use internal APIs to communicate -- or there may be no "local" software at all.*
+*We do not standardize the protocol by which the SMART Health Links Sharing Application's local software communicates with its server-side components. These may be provided by the same vendor and use internal APIs to communicate -- or there may be no "local" software at all.*
 
 <p></p>
 
-### SHL Sharing Application Generates a SHLink URI
+### SMART Health Links Sharing Application Generates a SMART Health Linksink URI
 
-#### Establish a SHLink Manifest URL
+#### Establish a SMART Health Linksink Manifest URL
 
-Based the configuration from (1), the SHL Sharing Application generates a "manifest URL" for the new SHLink. The manifest URL:
+Based the configuration from (1), the SMART Health Links Sharing Application generates a "manifest URL" for the new SMART Health Linksink. The manifest URL:
 
 * SHALL include at least **256 bits of entropy**
     * A suggested approach is to generate a cryptographically strong 32-byte random sequence and then base64url-encode this sequence to obtain a 43-character string that is used as a path segment. For example: `https://shl.example.org/manifests/I91rhba3VsuGXGchcnr6VHlQFKxfE28kuZ0ssbEuxno/manifest.json`
-* SHALL NOT exceed **128 characters** in length (note, this maximum applies to the `url` field of the SHLink Payload, not to the entire SHLink URI).
+* SHALL NOT exceed **128 characters** in length (note, this maximum applies to the `url` field of the SMART Health Linksink Payload, not to the entire SMART Health Linksink URI).
 
-The SHL Sharing Application incorporates the manifest URL into a SHLink as described below.
+The SMART Health Links Sharing Application incorporates the manifest URL into a SMART Health Linksink as described below.
 
 <p></p>
 
-#### Construct a SHLink Payload
+#### Construct a SMART Health Linksink Payload
 
-The SHLink Payload is a JSON object including the following properties:
+The SMART Health Linksink Payload is a JSON object including the following properties:
 
-* `url`: Manifest URL for this SHLink
+* `url`: Manifest URL for this SMART Health Linksink
 * `key`: Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded.
-* `exp`: Optional. Number representing expiration time in Epoch seconds, as a hint to help the SHL Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)
+* `exp`: Optional. Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)
 * `flag`: Optional. String created by concatenating single-character flags in alphabetical order
-  * `L` Indicates the SHLink is intended for long-term use and manifest content can evolve over time 
-  * `P` Indicates the SHLink requires a Passcode to resolve
-  * `U` Indicates the SHLink's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
-* `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SHLink. 
-* `v`: Optional. Integer representing the SHLinks protocol version this SHLink conforms to. MAY be omitted when the default value (`1`) applies.
+  * `L` Indicates the SMART Health Linksink is intended for long-term use and manifest content can evolve over time 
+  * `P` Indicates the SMART Health Linksink requires a Passcode to resolve
+  * `U` Indicates the SMART Health Linksink's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
+* `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SMART Health Linksink. 
+* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Linksink conforms to. MAY be omitted when the default value (`1`) applies.
 
 The JSON Payload is then:
 * Minified
@@ -81,41 +81,41 @@ The JSON Payload is then:
 
 Implementations can rely on the following behaviors:
 
-* SHLink Payload processing for `shlink:` URIs
-  * SHLink Payloads SHALL be constructed as per `"v":1` (i.e., payloads are Base64urlencoded, minified JSON objects)
+* SMART Health Linksink Payload processing for `shlink:` URIs
+  * SMART Health Linksink Payloads SHALL be constructed as per `"v":1` (i.e., payloads are Base64urlencoded, minified JSON objects)
     * Any changes to this design will require a new URI scheme, rather than a `v` bump
-* SHLink Payload stability
+* SMART Health Linksink Payload stability
   * `.label`, `.exp`, and `.flag` SHALL always work as defined for `"v":1`
     * Any changes to this design will require a new URI scheme, rather than a `v` bump
   * New properties MAY be introduced without a version bump, as long as they're optional and safe to ignore
-  * SHL Receiving Application SHALL ignore properties they don't recognize
+  * SMART Health Links Receiving Application SHALL ignore properties they don't recognize
   * Introduction of properties that can't safely be ignored will require a `v` bump
-* SHLink Payload flags
+* SMART Health Linksink Payload flags
   * New flag values MAY be introduced without a version bump, as long as they're safe to ignore. For example, the v1 flag `L` is safe to ignore because the client will still be able to handle a one-time manifest request. The `P` flag however cannot be ignored because the server will respond with an error if no passcode is provided.
-  * SHL Receiver Application SHALL ignore flag values they don't recognize
+  * SMART Health Links Receiver Application SHALL ignore flag values they don't recognize
   * Introduction of new flag values that can't safely be ignored will require a `v` bump
 * Manifest URL request/response
-  * New request parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a flag or property in the SHL Payload
+  * New request parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a flag or property in the SMART Health Links Payload
   * New response parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a request parameter
-  * SHL Sharing Application and SHL Receiving Application SHALL ignore parameters and headers they don't recognize
+  * SMART Health Links Sharing Application and SMART Health Links Receiving Application SHALL ignore parameters and headers they don't recognize
   * Introduction of parameters or headers that can't safely be ignored will require a `v` bump
 * Encryption and signature schemes
   * Changes to the cryptographic protocol will require a `v` bump
 
-This means that SHL Receiver Applications can always recognize a SHLink Payload and display its label to the user. If a SHL Receiver Application receives a SHLink with a `v` newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.
+This means that SMART Health Links Receiver Applications can always recognize a SMART Health Linksink Payload and display its label to the user. If a SMART Health Links Receiver Application receives a SMART Health Linksink with a `v` newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.
 
 <p></p>
 
 **Design Note: Viewer URL Prefixes**
 
-*By using viewer URLs that end in `#`, we take advantage of the browser behavior where `#` fragments are not sent to a server at the time of a request. Thus the SHLink payload will not appear in server-side logs or be available to server-side processing when a link like `https://viewer.example.org#shlink:/ey...` is opened in a browser.*
+*By using viewer URLs that end in `#`, we take advantage of the browser behavior where `#` fragments are not sent to a server at the time of a request. Thus the SMART Health Linksink payload will not appear in server-side logs or be available to server-side processing when a link like `https://viewer.example.org#shlink:/ey...` is opened in a browser.*
 
-The following optional step may occur sometime after a SHLink is generated:
+The following optional step may occur sometime after a SMART Health Linksink is generated:
 * **Optional: Update Shared Files**. For some sharing scenarios, Sharing User MAY update the shared files from time to time (e.g., when new lab results arrive or new immunizations are performed). Updated versions SHALL be encrypted using the same key as the initial version. 
 
 <p></p>
 
-#### Example SHLink Generation
+#### Example SMART Health Linksink Generation
 ```js
 import { encode as b64urlencode } from 'https://deno.land/std@0.82.0/encoding/base64url.ts';
 
@@ -138,54 +138,54 @@ const shlink = `https://viewer.example.org#` + shlinkBare
 
 <p></p>
 
-####  Sharing User transmits a SHLink
+####  Sharing User transmits a SMART Health Linksink
 
-The Sharing User can convey a SHLink by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SHLink in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SHLink URI. 
+The Sharing User can convey a SMART Health Linksink by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Linksink in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Linksink URI. 
 
-When sharing a SHLink via QR code, the following recommendations apply:
+When sharing a SMART Health Linksink via QR code, the following recommendations apply:
 
 * Create the QR with Error Correction Level M
 * Include the [SMART Logo](https://demo.vaxx.link/smart-logo.svg) on a white background over the center of the QR, scaled to occupy 5-6% of the image area (inclusive of the "quiet zone" QR border).
 
 <p></p>
 
-### SHL Receiving Application processes a SHLink
+### SMART Health Links Receiving Application processes a SMART Health Linksink
 
-The SHL Receiving Application can process a SHLink using the following steps.
+The SMART Health Links Receiving Application can process a SMART Health Linksink using the following steps.
 
-* Decode the SHLink JSON payload
-* Issue a [SHLink Manifest Request](#shlink-manifest-request) to payload's `url`
+* Decode the SMART Health Linksink JSON payload
+* Issue a [SMART Health Linksink Manifest Request](#shlink-manifest-request) to payload's `url`
 * Decrypt and process files from the manifest
-* Optional:  When the original QR includes the `L` flag for long-term use, the SHL Receiving Application can re-fetch the manifest periodically, following [polling guidance](#polling-manifest-for-changes) to avoid issing too many requests
+* Optional:  When the original QR includes the `L` flag for long-term use, the SMART Health Links Receiving Application can re-fetch the manifest periodically, following [polling guidance](#polling-manifest-for-changes) to avoid issing too many requests
  
 <p></p>
 
-### SHLink Manifest Request
+### SMART Health Linksink Manifest Request
 
-When no `U` flag is present, the SHL Receiving Application SHALL retrieve a SHLink's manifest by issuing a request to the `url` with:
+When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Linksink's manifest by issuing a request to the `url` with:
 
 * Method: `POST`
 * Headers:
   * `content-type: application/json`
 * Body: JSON object including
   * `recipient`: Required. A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User
-  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SHLink payload
+  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Linksink payload
   * `embeddedLengthMax`: Optional. Integer upper bound on the length of embedded payloads (see [`.files.embedded`](#filesembedded-content))
 
-If the SHLink is no longer active, the Resource Server SHALL respond with a 404.
+If the SMART Health Linksink is no longer active, the Resource Server SHALL respond with a 404.
 
-If an invalid Passcode is supplied, the Resource Server SHALL reject the request and SHALL enforce a total lifetime count of incorrect Passcodes for a given SHLink, to prevent attackers from performing an exhaustive Passcode search. The error response for an invalid Passcode SHALL use the `401` HTTP status code and the response body SHALL be a JSON payload with
+If an invalid Passcode is supplied, the Resource Server SHALL reject the request and SHALL enforce a total lifetime count of incorrect Passcodes for a given SMART Health Linksink, to prevent attackers from performing an exhaustive Passcode search. The error response for an invalid Passcode SHALL use the `401` HTTP status code and the response body SHALL be a JSON payload with
 
-* `remainingAttempts`: number of attempts remaining before the SHL is disabled
+* `remainingAttempts`: number of attempts remaining before the SMART Health Links is disabled
 
 <p></p>
 
 **Design Note: Monitoring remaining attempts**
-Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SHLink at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.
+Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Linksink at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.
 
 <p></p>
 
-If the SHlink request is valid, the Resource Server SHALL return a  SHLink Manifest File with `content-type: application/json`. The SHLink Manifest File is a JSON object with a `files` array where each entry includes:
+If the SHlink request is valid, the Resource Server SHALL return a  SMART Health Linksink Manifest File with `content-type: application/json`. The SMART Health Linksink Manifest File is a JSON object with a `files` array where each entry includes:
 
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
@@ -219,20 +219,20 @@ SHALL wait before re-issuing a manifest request.
 
 ####  `.files.location` links
 
-The SHL Sharing Application SHALL ensure that `.files.location` links can be dereferenced
+The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced
 without additional authentication, and that they are short-lived. The lifetime
-of `.files.location` links SHALL NOT exceed one hour. The SHL Sharing Application MAY create
+of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create
 one-time-use `.files.location` links that are consumed as soon as they are
 dereferenced.
 
-Because the manifest and associated files are a single package that may change over time, the SHL Receiving Application SHALL treat any manifest file locations as short-lived and
-potentially limited to one-time use. The SHL Receiving Application SHALL NOT attempt to
+Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and
+potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to
 dereference a manifest's `.files.location` link more than one hour after
 requesting the manifest, and SHALL be capable of re-fetching the manifest to
 obtain fresh `location` links in the event that they have expired or been
 consumed.
 
-The SHL Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
+The SMART Health Links Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
 
 * Headers:
   * `content-type: application/jose`
@@ -253,7 +253,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 <p></p>
 
-#### Example SHLink Manifest File
+#### Example SMART Health Linksink Manifest File
 
 ```json
 {
@@ -273,9 +273,9 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 ```
 <p></p>
 
-#### SHLink Direct File Request (with `U` Flag)
+#### SMART Health Linksink Direct File Request (with `U` Flag)
 
-When the `U` flag is present, the SHL Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SHLink's sole encrypted file by issuing a request to the `url` with:
+When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Linksink's sole encrypted file by issuing a request to the `url` with:
 
 * Method: `GET`
     * Query parameters
@@ -285,7 +285,7 @@ When the `U` flag is present, the SHL Receiving Application SHALL NOT make a req
 
 ### Encrypting and Decrypting Files
 
-SHLink files are always symmetrically encrypted with a SHLink-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc).
+SMART Health Linksink files are always symmetrically encrypted with a SMART Health Linksink-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc).
 
 <p></p>
 
@@ -351,12 +351,12 @@ const decoded = JSON.parse(new TextDecoder().decode(decrypted.plaintext));
 
 ### Use Case Examples
 
-#### Using SHL to share an interactive experience
+#### Using SMART Health Links to share an interactive experience
 
 While the SMART Health Links spec focuses on providing access to structured data, it's often
 useful to share an interactive experience such as a web-based diagnostic portal where the
-SHL Receiving Application can review and add comments to a patient record. This can be accomplished
-in SHL with a manifest entry of type `application/fhir+json` that provides a
+SMART Health Links Receiving Application can review and add comments to a patient record. This can be accomplished
+in SMART Health Links with a manifest entry of type `application/fhir+json` that provides a
 [FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) where:
 
 * `name` describes the interactive experience with sufficient detail for the Receiving User to decide whether to engage
@@ -364,7 +364,7 @@ in SHL with a manifest entry of type `application/fhir+json` that provides a
 * `address` is the URI for the interactive experience
 * `period` optionally documents the window of time when the interactive experience is available
 
-For example, the manifest for an SHL that offers the user the opportunity to "Review a case"
+For example, the manifest for an SMART Health Links that offers the user the opportunity to "Review a case"
 might include a `application/fhir+json` entry with:
 
 ```json
@@ -383,22 +383,22 @@ might include a `application/fhir+json` entry with:
 Notes:
 
 * There is no perfect FHIR resource for documenting an interactive experience URL. `Endpoint` and `DocumentReference` are both plausible candidates, and we recommend `Endpoint` here because `DocumentReference` is designed for static payloads.
-* If the *only* content being shared via SHL is a single interactive experience, implementers might consider sharing the interactive experience URL directly, instead of through SHL. However, since SHL provides a consistent pattern that users and tools can recognize, starting with SHL provides a foundation to support future expansion.
+* If the *only* content being shared via SMART Health Links is a single interactive experience, implementers might consider sharing the interactive experience URL directly, instead of through SMART Health Links. However, since SMART Health Links provides a consistent pattern that users and tools can recognize, starting with SMART Health Links provides a foundation to support future expansion.
 
 <p></p>
 
-#### "Upgrading" from SHL to a consumer-mediated SMART on FHIR Connection
+#### "Upgrading" from SMART Health Links to a consumer-mediated SMART on FHIR Connection
 
-In addition to providing direct access to a pre-configured data set, SHLs can include information
+In addition to providing direct access to a pre-configured data set, SMART Health Linkss can include information
 to help establish a consumer-mediated SMART on FHIR connection to the data source. This can be
-accomplished with a SHL manifest entry of type `application/fhir+json` that provides a
+accomplished with a SMART Health Links manifest entry of type `application/fhir+json` that provides a
 [FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) where:
 
 * `name` describes the SMART on FHIR endpoint with sufficient detail for the Receiving User to decide whether to connect
 * `connectionType` is `{"system": "http://terminology.hl7.org/CodeSystem/restful-security-service", "code": "SMART-on-FHIR"}`
 * `address` is the FHIR API base URL of the server that supports [SMART App Launch](http://hl7.org/fhir/smart-app-launch/)
 
-For example, the manifest for an SHL from Labs-R-Us might include a `application/fhir+json` entry with:
+For example, the manifest for an SMART Health Links from Labs-R-Us might include a `application/fhir+json` entry with:
 
 ```json
 {
@@ -421,8 +421,8 @@ against an internal database to determine whether it can connect, retrieve
 Client Registration
 Protocol](https://hl7.org/fhir/smart-app-launch/app-launch.html#register-app-with-ehr)
 is available or come up with another way to determine connectivity in order to
-inform the user of how they can act on the SHL.
+inform the user of how they can act on the SMART Health Links.
 
-* This capability will only work in cases where the user receiving the SHL is authorized
+* This capability will only work in cases where the user receiving the SMART Health Links is authorized
 to approve SMART App Launch requests; other recipients might see the Endpoint
 but would be unable to complete a SMART App Launch
