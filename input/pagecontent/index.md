@@ -50,9 +50,9 @@ Health Links add features including...
 
 ### Content and organization
 The implementation guide is organized into the following sections:
-* [Use Cases and Scenarios](use-cases.html) identifies the parties and situations that can benefit from use of SMART Health Cards and Health Links
-* ...
-* ...
+* **SMART Health Cards** [User Stories](cards-user-stories.html), formal [Specification](cards-specification.html) and the [Issue Verifiable Credential operation definition](OperationDefinition-patient-i-health-cards-issue.html)
+* **SMART Health Links** [User Stories](links-user-stories.html) and formal [Specification](links-specification.html)
+* **Background** section containing [technical background](technical-background.html) [examples](examples.html) and other reference information. 
 
 <p></p>
 

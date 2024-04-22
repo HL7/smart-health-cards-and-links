@@ -1,4 +1,4 @@
-_Note: This page contains content from the existing [spec.smarthealth.cards](spec.smarthealth.cards) site. It may be moved, changed or removed from the balloted FHIR IG._
+_Note: This page contains content from the existing spec.smarthealth.cards site. It may be moved, changed or removed from the balloted FHIR IG._
 
 <p></p>
 
@@ -31,7 +31,7 @@ _From the Health Cards specification page, Health Cards as QR Codes section:_
 
 #### Chunking Larger SHCs (deprecated)
    
-**Deprecation note: As of December 2022, support for chunking has not been widely adopted in production SHC deployments. For SHCs that need to be presented as QRs, we recommend limiting payload size to fit in a single QR (when possible), or else considering [SMART Health Links](links-index.html).**
+**Deprecation note: As of December 2022, support for chunking has not been widely adopted in production SHC deployments. For SHCs that need to be presented as QRs, we recommend limiting payload size to fit in a single QR (when possible), or else considering [SMART Health Links](links-specification.html).**
 
 Commonly, Health Cards will fit in a single V22 QR code. Any JWS longer than 1195 characters SHALL be split into "chunks" of length 1191 or smaller; each chunk SHALL be encoded as a separate QR code of V22 or lower, to ensure ease of scanning. Each chunk SHALL be numerically encoded and prefixed with an ordinal as well as the total number of chunks required to re-assemble the JWS, as described below. The [QR code FAQ page](cards-faq-qr.html) details max JWS length restrictions at various error correction levels.
 
