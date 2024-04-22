@@ -154,13 +154,13 @@ When sharing a SMART Health Linksink via QR code, the following recommendations 
 The SMART Health Links Receiving Application can process a SMART Health Linksink using the following steps.
 
 * Decode the SMART Health Linksink JSON payload
-* Issue a [SMART Health Linksink Manifest Request](#shlink-manifest-request) to payload's `url`
+* Issue a [SMART Health Linksink Manifest Request](#smart-health-links-manifest-request) to payload's `url`
 * Decrypt and process files from the manifest
 * Optional:  When the original QR includes the `L` flag for long-term use, the SMART Health Links Receiving Application can re-fetch the manifest periodically, following [polling guidance](#polling-manifest-for-changes) to avoid issing too many requests
  
 <p></p>
 
-### SMART Health Linksink Manifest Request
+### SMART Health Links Manifest Request
 
 When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Linksink's manifest by issuing a request to the `url` with:
 

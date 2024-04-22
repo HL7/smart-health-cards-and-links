@@ -8,5 +8,4 @@ Please see <https://terminology.smarthealth.cards>.
 
 SMART Health Cards are identified by the `https://smarthealth.cards#health-card`
 credential type. Additional types MAY be included, but use of additional types
-is deprecated. All defined types are documented in [this canonical
-list](CodeSystem-health-card.html).
+is deprecated. All defined types are documented in [this code system](https://terminology.smarthealth.cards/CodeSystem-health-card.html).

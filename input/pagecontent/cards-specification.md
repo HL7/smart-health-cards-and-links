@@ -156,7 +156,7 @@ Issuer ->> Holder: Holder receives Health Card
 
 The VC structure (scaffold) is shown in the following example. The Health Cards framework serializes VCs using the compact JWS serialization, where the payload is a compressed set of JWT claims (see [Appendix 3 of RFC7515](https://tools.ietf.org/html/rfc7515#appendix-A.3) for an example using ECDSA P-256 SHA-256, as required by this specification). Specific encoding choices ensure compatibility with standard JWT claims, as described at [https://www.w3.org/TR/vc-data-model/#jwt-encoding](https://www.w3.org/TR/vc-data-model/#jwt-encoding).
 
-The `type`, and `credentialSubject` properties are added to the `vc` claim of the JWT. The `type` values are defined in [Credential Types](CodeSystem-health-card.html); the `https://smarthealth.cards#health-card` SHALL be present; other types SHOULD be included when they apply. Verifiers and other entities processing SMART Health Cards SHALL ignore any additional `type` elements they do not understand. The `issuer` property is represented by the registered JWT `iss` claim and the `issuanceDate` property is represented by the registered JWT `nbf` ("not before") claim (encoded as the number of seconds from 1970-01-01T00:00:00Z UTC, as specified by [RFC7519](https://tools.ietf.org/html/rfc7519)). Hence, the overall JWS payload matches the following structure (before it is [minified and compressed](#health-cards-are-compact)):
+The `type`, and `credentialSubject` properties are added to the `vc` claim of the JWT. The `type` values are defined in [Credential Types](https://terminology.smarthealth.cards/CodeSystem-health-card.html); the `https://smarthealth.cards#health-card` SHALL be present; other types SHOULD be included when they apply. Verifiers and other entities processing SMART Health Cards SHALL ignore any additional `type` elements they do not understand. The `issuer` property is represented by the registered JWT `iss` claim and the `issuanceDate` property is represented by the registered JWT `nbf` ("not before") claim (encoded as the number of seconds from 1970-01-01T00:00:00Z UTC, as specified by [RFC7519](https://tools.ietf.org/html/rfc7519)). Hence, the overall JWS payload matches the following structure (before it is [minified and compressed](#health-cards-are-compact)):
 
 ```json
 {
@@ -311,7 +311,7 @@ The `credentialType` parameter is required. This parameter restricts the request
 by high-level categories based on FHIR Resource Types such as "Observation" or
 "Immunization". See [FHIR Resource Types](https://hl7.org/fhir/R4/resourcelist.html). 
 
-_[Review: Should the preceding  reference link to R4 resource types (as currently) or the most recent FHIR version?]_.  
+_[TBD: Should the preceding  reference link to R4 resource types (as currently) or the most recent FHIR version?]_.  
 
 Type-based filters evaluate Health Cards based on the FHIR resource types within the Health Card payload at `.vc.credentialSubject.fhirBundle.entry[].resource`.  Multiple `credentialType` parameters in one request SHALL be interpreted as a request for Health Cards that contain all of the requested types (logical AND). To maintain compatibility with the initial release of this specification, servers SHOULD process
 `#immunization` as `Immunization`, and `#laboratory` as `Observation`.

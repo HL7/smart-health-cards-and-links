@@ -9,7 +9,7 @@ _Source content from the Health Card site's Specification page, except where not
 <figcaption class="figure-caption"><strong><i>Health Cards Conceptual Model</i></strong></figcaption>
   <br />
   <p>
-  <img src="health-cards-conceptual.png" style="float:none; width:800px">  
+  <img src="health-cards-conceptual.png" style="float:none; width:700px">  
   </p>
 </figure>
 </div>
@@ -58,6 +58,21 @@ _end of Smart Links Design Overview content_
 
 <p></p>
 
+### Use Cases
+<hr>
+
+_Source content from the Health Links site's Design Overview page:_
+
+* Share a link to any collection of FHIR data, including signed data
+* Share link to a static SMART Health Card that's too big to fit in a QR
+* Share link to a "dynamic" SMART Health Card -- i.e., a file that can evolve over time (e.g., "my most recent COVID-19 lab results")
+* Share a link to Bundles of patient-supplied data (e.g., "my advance directive" to share with EMS, or "my at-home weight measurements" to share with a weight loss program, or "my active prescriptions" to share with a service that helps you find better drug prices)
+  * Note that for specific use cases, these data don't need to be tamper-proof, and could be aggressively stripped down (e.g., for a drug pricing service, just the drug codes and dosage would go a long way)
+* Provision access to a patient's SMART on FHIR API endpoint (e.g., "I'm going to see a specialist and by presenting a single QR, I can give them access to the FHIR API from my primary care provider's portal")
+
+_end of Smart Links Design Overview content_
+<hr>
+
 ### Approach: Start Small -- Think Big
 
 We enable Health Cards by defining building blocks that can be used across healthcare. The core building block allows us to aggregate data into meaningful sets, signed by an issuer, and stored/presented by a consumer as needed. The broader set of use cases should eventually include:
@@ -79,7 +94,7 @@ When we launched the project, our short-term definition of success included:
 * **User Receives** a Health Card from an Issuer. The Health Card is a signed data artifact that the user can obtain through any of these methods:
     * issuer offers a Health Card on paper or PDF, including a QR code (required method)
     * issuer offers a Health Card for download as a `.smart-health-card` file (required method)
-    * issuer hosts a Health Card for [FHIR API access](#healthwalletissuevc-operation) via a compatible Health Wallet application. This workflow includes a SMART on FHIR authorization step with an Issuer, where the user grants read access to any resources that will be present in Health Cards (e.g., `Patient`, `Immunization`, `Observation`, `DiagnosticReport`)
+    * issuer hosts a Health Card for [FHIR API access](cards-specification.html#healthwalletissuevc-operation) via a compatible Health Wallet application. This workflow includes a SMART on FHIR authorization step with an Issuer, where the user grants read access to any resources that will be present in Health Cards (e.g., `Patient`, `Immunization`, `Observation`, `DiagnosticReport`)
 * **User Saves** a Health Card, whether on paper or digitally.
 * **User Presents** a Health Card to a Verifier. Presentation includes explicit user opt-in and approval, and may involve displaying a QR code, sharing a file, or using an on-device SDK (e.g., for verifier-to-holder app-to-app communications)
 
@@ -119,15 +134,26 @@ If we identify *optional* data elements for a given use case, we might incorpora
 
 <p></p>
 
-### Data Model
+### Data Model for Specific Use Cases
 
 This framework defines a general approach to **representing demographic and clinical data in FHIR**, outlined in [Modeling Verifiable Credentials in FHIR](cards-credential-modeling.html).
 
-The data model for the Health Card payload at `.vc.credentialSubject.fhirBundle` is specific to a given use case (e.g., a COVID-19 immunization card). These use case-specific details are not included as part of this framework. Instead, they are described in use case-specific [FHIR Implementation Guides](https://www.hl7.org/fhir/implementationguide.html):
+The data model for the Health Card payload at `.vc.credentialSubject.fhirBundle` is specific to a given use case (e.g., a COVID-19 immunization card). These use case-specific details are not included as part of this framework. Instead, they are described in use case-specific FHIR Implementation Guides:
 
-| Use Case | FHIR Implementation Guide |
-| - | - |
-| Vaccination records and laboratory testing status for infectious diseases | [SMART Health Cards: Vaccination & Testing Implementation Guide ](http://vci.org/ig/vaccination-and-testing) |
+<table class="grid">
+    <tbody>
+	  <tr>
+		<th><b>Use Case</b></th>
+		<th><b>FHIR Implementation Guide</b></th>
+  	  </tr>
+	  <tr>
+		<td>Vaccination records and laboratory testing status for infectious diseases</td>
+		<td><a href="https://build.fhir.org/ig/HL7/fhir-shc-vaccination-ig">SMART Health Cards: Vaccination & Testing Implementation Guide</a>/</td>
+  	  </tr>
+	</tbody>
+  </table>
+<p></p>
+
 
 <p></p>
 
