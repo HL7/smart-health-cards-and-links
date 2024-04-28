@@ -4,7 +4,12 @@
 	<a data-toggle="dropdown" href="#" class="dropdown-toggle">SMART Health Cards<b class="caret"></b></a>
     <ul class="dropdown-menu">
 	  <li><a href="cards-user-stories.html">Health Cards User Stories</a></li>
-  	  <li><a href="cards-specification.html">Health Cards Specification</a></li>    
+  	  <li><a href="cards-specification.html">Health Cards Specification</a></li>
+  	  <li><a href="OperationDefinition-patient-i-health-cards-issue.html">Issue Verifiable Credential Operation</a></li>
+      <li><a href="cards-credential-modeling.html">Credential Modeling</a></li>
+      <li><a href="cards-faq.html">Health Cards FAQ</a></li> 
+      <li><a href="cards-changelog.html">SMART Healthcards Changelog</a></li>
+	  <li><a href="credits.html">Credits</a></li>  	  
     </ul>
   </li>	  
   <li class="dropdown">
@@ -20,17 +25,5 @@
       <li><a href="artifacts.html">FHIR Artifacts</a></li>
       <li><a href="examples.html">Examples</a></li>
     </ul>
-  </li>	  
-  <li class="dropdown">
-	<a data-toggle="dropdown" href="#" class="dropdown-toggle">Background<b class="caret"></b></a>
-    <ul class="dropdown-menu">
-	  <li><a href="technical-background.html">Technical Background</a></li>
-      <li><a href="cards-credential-modeling.html">Credential Modeling</a></li>
-      <li><a href="cards-vocabulary.html">Vocabulary</a></li>  
-      <li><a href="cards-faq.html">Health Cards FAQ</a></li> 
-      <li><a href="cards-rfcs.html">Related RFCs</a></li> 
-      <li><a href="cards-changelog.html">Changelog</a></li>
-	  <li><a href="credits.html">Credits</a></li>  	  
-	</ul>
   </li>	  
 </ul>

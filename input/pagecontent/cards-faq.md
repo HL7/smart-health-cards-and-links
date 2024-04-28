@@ -61,5 +61,9 @@ Other resources that are helpful for learning about and implementing SMART Healt
 The [Libraries for SMART Health Cards](https://github.com/smart-on-fhir/health-cards/wiki/Libraries-for-SMART-Health-Cards) wiki page includes suggestions about useful libraries.
 
 
+### Where can I find earlier Requests for Comment (RFCs)?
+
+This [RFC page](https://github.com/smart-on-fhir/health-cards/tree/main/rfcs) in the SMART Health Cards GitHub contains RFCs related to SMART Health Cards.
+
 <p></p>
 <p></p>
