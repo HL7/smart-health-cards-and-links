@@ -1,10 +1,15 @@
 ### Overview
 
-Paper medical records, such as vaccination records or insurance cards, are easily lost or  damaged, and are often not on-hand when they're needed. Paper records are also difficult to authenticate, creating concerns about forgeries in situations such as the COVID-19 pandemic.
+Paper medical records--such as vaccination histories and insurance cards--are easily lost or damaged, are difficult to authenticate, and are often not on-hand when they’re needed. 
 
-SMART Health Cards and SMART Health Links are FHIR-based standards that address these challenges, enabling patients to receive their health information and share it with others in a tamper-proof and verifiable digital form, using QR codes, mobile apps and web sites. 
+SMART Health Cards and Links are FHIR-based standards that address these challenges, enabling individuals to receive their health information and share it with others in a tamper-proof and verifiable digital form.They provide a digital version of an individual's clinical information that can be kept at the ready and easily shared with others when the need arises--using a QR code, mobile app or web browser.
 
-Together SMART Health Cards and Links provide options that support different patient goals--from keeping a small amount of verifiable medical information on-hand to authorizing a trusted party to access their entire medical record. 
+
+* [SMART Health Cards](cards-user-stories.html) allow an individual to keep a copy of their important health records with them and easily share this information with others. They contain a secure QR code and may be saved digitally or printed on paper. SMART Health Cards build on international open standards and decentralized infrastructure to provide end-user privacy and the ability to work across organizational and jurisdictional boundaries
+
+* [SMART Health Links](links-user-stories.html) add the ability to store and share more information than can be kept on a single SMART Health Card, and provide sharing options including limited-time access, long-term sharing of data that can evolve over time, and protecting access with a PIN that can be communicated to the recipient out-of-band.
+
+Together SMART Health Cards and Links provide options that support multiple goals--from keeping a small amount of verifiable medical information close by to authorizing a trusted party to access their entire medical record. They empower individuals with secure, equitable, and privacy-preserving access to their clinical information.
 
 <p></p>
 
@@ -15,36 +20,6 @@ Examples of what an individual can do using these standards include:
 - send an elementary school a link to their child's immunization history, allowing the school to verify the information with the immunization registry and copy in the details if it wishes
 - receive a "ticket" to access the results of a lab test when they're ready
 - give a provider time-limited or ongoing access to some or all of their medical data, including the ability to search.
-
-<p></p>
-
-SMART Health Cards and Links share technologies for representing, securing and verifying a patient's information and are designed to be used together. This guide defines their features, specifies rules for implementing, and describes scenarios that illustrate their use.
-
-<p></p>
-
-### SMART Health Cards
-
-Health Cards are verified versions of an individual's clinical information, such as vaccination history or test results. They allow a patient to keep a copy of their important health records on hand and easily share this information with others. Health Cards contain a secure QR code and may be saved digitally or printed on paper.
-
-Patients can get a Health Card through a qualified issuer. An issuer is any organization authorized by the [Verifiable Clinical Information coalition (VCI)](https://www.vci.org) to generate these cards, including pharmacies, hospitals, healthcare providers, medical labs, public health agencies, and more.
-
-This implementation guide provides a framework for Health Cards that supports documentation of any health-related details that can be modeled with [HL7 FHIR](https://hl7.org/fhir/). This work grew out of our initial focus on enabling a consumer to receive COVID-19 Vaccination or Lab results and **present these results to another party in a verifiable manner**. Key use cases included conveying point-in-time infection status for return-to-workplace and travel.
-
-To ensure end-user privacy and the ability for Health Cards to work across organizational and jurisdictional boundaries, this framework builds on international open standards and decentralized infrastructure.
-
-<p></p>
-
-### SMART Health Links
-Health Links add features including...
-- storage and sharing of more information than can be kept on a single Health Card
-- sharing of both tamper-proof and non-tamper-proof information
-- long-term sharing of data
-- sharing data that can evolve over time
-- mitigating the damage of QRs being leaked or scanned by the wrong party, through generation of a "one-time use" QR code (or a limited-time use QR), so at the time of creation there's a limited number of "claims" or a limited time period attached to it
-- protecting the QR with a PIN, which the patient can communicate to the recipient out-of-band
-- the option to host files using encrypted cloud storage, so the hosting provider can't see file contents
-- a simple UX where Data Recipients can scans a QR and immediately retrieve the data
-- a path to additional assurance that information is only shared with the intended party, e.g. requiring a recipient authenticate or id-proof before accessing the shared data.
 
 <p></p>
 
