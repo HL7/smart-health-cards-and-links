@@ -10,15 +10,15 @@
 
 <p></p>
 
-### Pre-protocol step: Sharing User configures a new SMART Health Linksink
+### Pre-protocol step: Sharing User configures a new SMART Health Links
 
 Working with a SMART Health Links Sharing Application, the Sharing User makes a few decisions up front:
 
 * **What to share**. Depending on the SMART Health Links Sharing Application, the Sharing User might explicitly choose a set of files or define a "sharing policy" that matches different data over time.
-* **Whether the SMART Health Linksink will require a Passcode** to access. Depending on the SMART Health Links Sharing Application, a Passcode may be mandatory.
-* **Whether the SMART Health Linksink will expire** at some pre-specified time. Depending on the SMART Health Links Sharing Application, an expiration time may be mandatory.
+* **Whether the SMART Health Links will require a Passcode** to access. Depending on the SMART Health Links Sharing Application, a Passcode may be mandatory.
+* **Whether the SMART Health Links will expire** at some pre-specified time. Depending on the SMART Health Links Sharing Application, an expiration time may be mandatory.
 
-Regarding "what to share": a single SMART Health Linksink at a specific point in time will *resolve* to a manifest of files of the following types:
+Regarding "what to share": a single SMART Health Links at a specific point in time will *resolve* to a manifest of files of the following types:
 * `application/smart-health-card`: a JSON file with a `.verifiableCredential` array containing SMART Health Card JWS strings, as specified by https://spec.smarthealth.cards#via-file-download.
 * `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may be include digital signatures or have other verification processes associated with it, which are not defined here.
 * `application/smart-api-access`: a JSON file with a SMART Access Token Response (see [SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html#response-5)). Two additional properties are defined:
@@ -29,45 +29,45 @@ At configuration time, the SMART Health Links Sharing Application SHALL generate
 
 <p></p>
 
-** Design Note: Trust and encryption**
+**Design Note: Trust and encryption**
 
 *This pattern of encrypting files allows for deployment scenarios where the file server is not trusted to know the information inside the manifest's files. In such scenarios, the Sharing User and Receiving User can consider the server  a blind intermediary. That said: in many deployment scenarios, the file server will be hosted by a healthcare provider or other entity that already has access to such files. For consistency, this protocol always applies encryption.*
 
 <p></p>
 
-** Design Note: SMART Health Links Sharing Application "internals"**
+**Design Note: SMART Health Links Sharing Application "internals"**
 
 *We do not standardize the protocol by which the SMART Health Links Sharing Application's local software communicates with its server-side components. These may be provided by the same vendor and use internal APIs to communicate -- or there may be no "local" software at all.*
 
 <p></p>
 
-### SMART Health Links Sharing Application Generates a SMART Health Linksink URI
+### SMART Health Links Sharing Application Generates a SMART Health Links URI
 
-#### Establish a SMART Health Linksink Manifest URL
+#### Establish a SMART Health Links Manifest URL
 
-Based the configuration from (1), the SMART Health Links Sharing Application generates a "manifest URL" for the new SMART Health Linksink. The manifest URL:
+Based the configuration from (1), the SMART Health Links Sharing Application generates a "manifest URL" for the new SMART Health Links. The manifest URL:
 
 * SHALL include at least **256 bits of entropy**
     * A suggested approach is to generate a cryptographically strong 32-byte random sequence and then base64url-encode this sequence to obtain a 43-character string that is used as a path segment. For example: `https://shl.example.org/manifests/I91rhba3VsuGXGchcnr6VHlQFKxfE28kuZ0ssbEuxno/manifest.json`
-* SHALL NOT exceed **128 characters** in length (note, this maximum applies to the `url` field of the SMART Health Linksink Payload, not to the entire SMART Health Linksink URI).
+* SHALL NOT exceed **128 characters** in length (note, this maximum applies to the `url` field of the SMART Health Links Payload, not to the entire SMART Health Links URI).
 
-The SMART Health Links Sharing Application incorporates the manifest URL into a SMART Health Linksink as described below.
+The SMART Health Links Sharing Application incorporates the manifest URL into a SMART Health Links as described below.
 
 <p></p>
 
-#### Construct a SMART Health Linksink Payload
+#### Construct a SMART Health Links Payload
 
-The SMART Health Linksink Payload is a JSON object including the following properties:
+The SMART Health Links Payload is a JSON object including the following properties:
 
-* `url`: Manifest URL for this SMART Health Linksink
+* `url`: Manifest URL for this SMART Health Links
 * `key`: Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded.
 * `exp`: Optional. Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)
 * `flag`: Optional. String created by concatenating single-character flags in alphabetical order
-  * `L` Indicates the SMART Health Linksink is intended for long-term use and manifest content can evolve over time 
-  * `P` Indicates the SMART Health Linksink requires a Passcode to resolve
-  * `U` Indicates the SMART Health Linksink's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
-* `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SMART Health Linksink. 
-* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Linksink conforms to. MAY be omitted when the default value (`1`) applies.
+  * `L` Indicates the SMART Health Links is intended for long-term use and manifest content can evolve over time 
+  * `P` Indicates the SMART Health Links requires a Passcode to resolve
+  * `U` Indicates the SMART Health Links's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
+* `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SMART Health Links. 
+* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Links conforms to. MAY be omitted when the default value (`1`) applies.
 
 The JSON Payload is then:
 * Minified
@@ -81,16 +81,16 @@ The JSON Payload is then:
 
 Implementations can rely on the following behaviors:
 
-* SMART Health Linksink Payload processing for `shlink:` URIs
-  * SMART Health Linksink Payloads SHALL be constructed as per `"v":1` (i.e., payloads are Base64urlencoded, minified JSON objects)
+* SMART Health Links Payload processing for `shlink:` URIs
+  * SMART Health Links Payloads SHALL be constructed as per `"v":1` (i.e., payloads are Base64urlencoded, minified JSON objects)
     * Any changes to this design will require a new URI scheme, rather than a `v` bump
-* SMART Health Linksink Payload stability
+* SMART Health Links Payload stability
   * `.label`, `.exp`, and `.flag` SHALL always work as defined for `"v":1`
     * Any changes to this design will require a new URI scheme, rather than a `v` bump
   * New properties MAY be introduced without a version bump, as long as they're optional and safe to ignore
   * SMART Health Links Receiving Application SHALL ignore properties they don't recognize
   * Introduction of properties that can't safely be ignored will require a `v` bump
-* SMART Health Linksink Payload flags
+* SMART Health Links Payload flags
   * New flag values MAY be introduced without a version bump, as long as they're safe to ignore. For example, the v1 flag `L` is safe to ignore because the client will still be able to handle a one-time manifest request. The `P` flag however cannot be ignored because the server will respond with an error if no passcode is provided.
   * SMART Health Links Receiver Application SHALL ignore flag values they don't recognize
   * Introduction of new flag values that can't safely be ignored will require a `v` bump
@@ -102,20 +102,20 @@ Implementations can rely on the following behaviors:
 * Encryption and signature schemes
   * Changes to the cryptographic protocol will require a `v` bump
 
-This means that SMART Health Links Receiver Applications can always recognize a SMART Health Linksink Payload and display its label to the user. If a SMART Health Links Receiver Application receives a SMART Health Linksink with a `v` newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.
+This means that SMART Health Links Receiver Applications can always recognize a SMART Health Links Payload and display its label to the user. If a SMART Health Links Receiver Application receives a SMART Health Links with a `v` newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.
 
 <p></p>
 
 **Design Note: Viewer URL Prefixes**
 
-*By using viewer URLs that end in `#`, we take advantage of the browser behavior where `#` fragments are not sent to a server at the time of a request. Thus the SMART Health Linksink payload will not appear in server-side logs or be available to server-side processing when a link like `https://viewer.example.org#shlink:/ey...` is opened in a browser.*
+*By using viewer URLs that end in `#`, we take advantage of the browser behavior where `#` fragments are not sent to a server at the time of a request. Thus the SMART Health Links payload will not appear in server-side logs or be available to server-side processing when a link like `https://viewer.example.org#shlink:/ey...` is opened in a browser.*
 
-The following optional step may occur sometime after a SMART Health Linksink is generated:
+The following optional step may occur sometime after a SMART Health Links is generated:
 * **Optional: Update Shared Files**. For some sharing scenarios, Sharing User MAY update the shared files from time to time (e.g., when new lab results arrive or new immunizations are performed). Updated versions SHALL be encrypted using the same key as the initial version. 
 
 <p></p>
 
-#### Example SMART Health Linksink Generation
+#### Example SMART Health Links Generation
 ```js
 import { encode as b64urlencode } from 'https://deno.land/std@0.82.0/encoding/base64url.ts';
 
@@ -138,23 +138,23 @@ const shlink = `https://viewer.example.org#` + shlinkBare
 
 <p></p>
 
-####  Sharing User transmits a SMART Health Linksink
+####  Sharing User transmits a SMART Health Links
 
-The Sharing User can convey a SMART Health Linksink by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Linksink in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Linksink URI. 
+The Sharing User can convey a SMART Health Links by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Links in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Links URI. 
 
-When sharing a SMART Health Linksink via QR code, the following recommendations apply:
+When sharing a SMART Health Links via QR code, the following recommendations apply:
 
 * Create the QR with Error Correction Level M
 * Include the [SMART Logo](https://demo.vaxx.link/smart-logo.svg) on a white background over the center of the QR, scaled to occupy 5-6% of the image area (inclusive of the "quiet zone" QR border).
 
 <p></p>
 
-### SMART Health Links Receiving Application processes a SMART Health Linksink
+### SMART Health Links Receiving Application processes a SMART Health Links
 
-The SMART Health Links Receiving Application can process a SMART Health Linksink using the following steps.
+The SMART Health Links Receiving Application can process a SMART Health Links using the following steps.
 
-* Decode the SMART Health Linksink JSON payload
-* Issue a [SMART Health Linksink Manifest Request](#smart-health-links-manifest-request) to payload's `url`
+* Decode the SMART Health Links JSON payload
+* Issue a [SMART Health Links Manifest Request](#smart-health-links-manifest-request) to payload's `url`
 * Decrypt and process files from the manifest
 * Optional:  When the original QR includes the `L` flag for long-term use, the SMART Health Links Receiving Application can re-fetch the manifest periodically, following [polling guidance](#polling-manifest-for-changes) to avoid issing too many requests
  
@@ -162,30 +162,30 @@ The SMART Health Links Receiving Application can process a SMART Health Linksink
 
 ### SMART Health Links Manifest Request
 
-When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Linksink's manifest by issuing a request to the `url` with:
+When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Links's manifest by issuing a request to the `url` with:
 
 * Method: `POST`
 * Headers:
   * `content-type: application/json`
 * Body: JSON object including
   * `recipient`: Required. A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User
-  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Linksink payload
+  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Links payload
   * `embeddedLengthMax`: Optional. Integer upper bound on the length of embedded payloads (see [`.files.embedded`](#filesembedded-content))
 
-If the SMART Health Linksink is no longer active, the Resource Server SHALL respond with a 404.
+If the SMART Health Links is no longer active, the Resource Server SHALL respond with a 404.
 
-If an invalid Passcode is supplied, the Resource Server SHALL reject the request and SHALL enforce a total lifetime count of incorrect Passcodes for a given SMART Health Linksink, to prevent attackers from performing an exhaustive Passcode search. The error response for an invalid Passcode SHALL use the `401` HTTP status code and the response body SHALL be a JSON payload with
+If an invalid Passcode is supplied, the Resource Server SHALL reject the request and SHALL enforce a total lifetime count of incorrect Passcodes for a given SMART Health Links, to prevent attackers from performing an exhaustive Passcode search. The error response for an invalid Passcode SHALL use the `401` HTTP status code and the response body SHALL be a JSON payload with
 
 * `remainingAttempts`: number of attempts remaining before the SMART Health Links is disabled
 
 <p></p>
 
 **Design Note: Monitoring remaining attempts**
-Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Linksink at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.
+Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Links at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.
 
 <p></p>
 
-If the SHlink request is valid, the Resource Server SHALL return a  SMART Health Linksink Manifest File with `content-type: application/json`. The SMART Health Linksink Manifest File is a JSON object with a `files` array where each entry includes:
+If the SHlink request is valid, the Resource Server SHALL return a  SMART Health Links Manifest File with `content-type: application/json`. The SMART Health Links Manifest File is a JSON object with a `files` array where each entry includes:
 
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
@@ -253,7 +253,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 <p></p>
 
-#### Example SMART Health Linksink Manifest File
+#### Example SMART Health Links Manifest File
 
 ```json
 {
@@ -273,9 +273,9 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 ```
 <p></p>
 
-#### SMART Health Linksink Direct File Request (with `U` Flag)
+#### SMART Health Links Direct File Request (with `U` Flag)
 
-When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Linksink's sole encrypted file by issuing a request to the `url` with:
+When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Links's sole encrypted file by issuing a request to the `url` with:
 
 * Method: `GET`
     * Query parameters
@@ -285,7 +285,7 @@ When the `U` flag is present, the SMART Health Links Receiving Application SHALL
 
 ### Encrypting and Decrypting Files
 
-SMART Health Linksink files are always symmetrically encrypted with a SMART Health Linksink-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc).
+SMART Health Links files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc).
 
 <p></p>
 

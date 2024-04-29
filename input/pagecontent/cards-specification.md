@@ -660,6 +660,12 @@ To address use cases such as the preceding one, an optional SMART Health Card ex
 
 <p></p>
 
+### Examples
+
+See the [examples page] for examples of SMART Health Cards and components.
+
+<p></p>
+
 ### Potential Extension: Standardized presentation workflows
 
 The spec is currently focused on representing Health Cards in a standardized data payload. This allows many simple patterns for sharing, but future work can introduce standardized presentation exchange flows (e.g., OpenID Self-Issued Identity Provider, a.k.a. SIOP)
