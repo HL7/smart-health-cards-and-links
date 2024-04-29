@@ -24,9 +24,10 @@ And while Alice received a vaccination in this story, she could have instead had
 ### An Organization Verifies the Patient's Vaccine 
 Later in the week, Alice needs to provide information about her vaccination in order to participate in an event. Because the pharmacy digitally signed the data on her SMART Health Card using its "private key", her vaccination information can be confirmed by others using the "public key" that the pharmacy makes available to verifier applications.
 
-Alice can provide her vaccination information in a couple of ways:
+Alice can provide her vaccination information in a few differernt ways:
   * If she downloaded the SMART Health Card to her computer, she could **share the digital file** with the event administrator others using any method she chooses
   * If she needs to present proof of her vaccination in person, she can **show the the QR code** on her paper card or wallet app on her phone. The administrator can scan the code and verify the immunization info using an application that supports SMART Health Cards.
+  * Using a [personal health record app that supports SMART Health Links](links-user-stories.html#personal-platforms), Alice can combine her vaccination record with other information and share it electronically with others.
 
 <p></p>
 

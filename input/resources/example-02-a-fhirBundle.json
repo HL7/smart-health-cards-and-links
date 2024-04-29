@@ -1,5 +1,6 @@
 {
     "resourceType": "Bundle",
+    "id": "02-a",
     "type": "collection",
     "entry": [
         {
@@ -21,14 +22,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -78,12 +76,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "collection": {
                     "collector": {
-                        "reference": "Practitioner/f202"
+                        "display": "Adam Amster, MD"
                     },
                     "collectedDateTime": "2015-08-16T06:40:17Z"
                 },
@@ -117,12 +112,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "collection": {
                     "collector": {
-                        "reference": "Practitioner/f202"
+                        "display": "Adam Amster, MD"
                     },
                     "collectedDateTime": "2015-08-16T06:40:17Z"
                 },
@@ -156,12 +148,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "collection": {
                     "collector": {
-                        "reference": "Practitioner/f202"
+                        "display": "Adam Amster, MD"
                     },
                     "collectedDateTime": "2015-08-16T06:40:17Z"
                 },
@@ -196,7 +185,6 @@
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -272,12 +260,8 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -318,12 +302,8 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -364,12 +344,8 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -414,12 +390,8 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -470,12 +442,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -526,12 +495,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -572,12 +538,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -618,12 +581,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -648,12 +608,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -704,12 +661,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -734,12 +688,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -790,12 +741,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -820,12 +768,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -866,12 +811,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -896,12 +838,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -952,12 +891,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -982,12 +918,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1026,7 +959,7 @@
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1121,12 +1054,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1165,12 +1095,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1209,12 +1136,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1253,12 +1177,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1297,12 +1218,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1341,12 +1259,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1385,12 +1300,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1429,12 +1341,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1473,12 +1382,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1527,12 +1433,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1571,12 +1474,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1615,12 +1515,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1659,12 +1556,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1703,12 +1597,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1757,12 +1648,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1801,12 +1689,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1845,12 +1730,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1889,12 +1771,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1933,12 +1812,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -1977,12 +1853,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2021,12 +1894,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2065,12 +1935,9 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2109,7 +1976,7 @@
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2161,14 +2028,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2195,14 +2059,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2233,14 +2094,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2266,14 +2124,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2304,14 +2159,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2342,14 +2194,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2380,14 +2229,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2414,14 +2260,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],
@@ -2449,14 +2292,11 @@
                         }
                     ]
                 },
-                "subject": {
-                    "reference": "resource:0"
-                },
                 "effectiveDateTime": "2015-08-16T06:40:17Z",
                 "issued": "2015-08-17T06:40:17Z",
                 "performer": [
                     {
-                        "reference": "Organization/1832473e-2fe0-452d-abe9-3cdb9879522f",
+
                         "display": "Acme Laboratory, Inc"
                     }
                 ],

@@ -3,11 +3,6 @@
 Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
 
 # Figuring out how to arrange/link to the examples pulled from the SMART Cards site
-The link 'spec.smarthealth.cards' for "spec.smarthealth.cards" cannot be resolved
-The link 'links-index.html' for "SMART Health Links" cannot be resolved
-The link 'CodeSystem-health-card.html' for "Credential Types" cannot be resolved
-The link 'vci.org' for "Verifiable Clinical Information coalition (VCI)" cannot be resolved
-The link 'CodeSystem-health-card.html' for "this canonical list" cannot be resolved
 The link 'example-00-a-fhirBundle.json' for "example-00-a-fhirBundle.json" cannot be resolved
 The link 'example-00-b-jws-payload-expanded.json' for "example-00-b-jws-payload-expanded.json" cannot be resolved
 The link 'example-00-c-jws-payload-minified.json' for "example-00-c-jws-payload-minified.json" cannot be resolved
@@ -34,3 +29,22 @@ The link 'example-03-c-jws-payload-minified.json' for "example-03-c-jws-payload-
 The link 'example-03-d-jws.txt' for "example-03-d-jws.txt" cannot be resolved
 The link 'example-03-e-file.smart-health-card' for "example-03-e-file.smart-health-card" cannot be resolved
 The link 'example-03-f-qr-code-numeric-value-0.txt' for "example-03-f-qr-code-numeric-value-0.txt" cannot be resolved
+
+# SMART Cards minimize included data so that it can fit in a QR code
+Best Practice Recommendation: In general, all observations should have an effective[x] ()
+Best Practice Recommendation: In general, all observations should have a subject
+
+# Descriptions are present in the custon Examples page where these resources are listed. A custom page was used instead of the standard Artifacts page to enable organization of releated examples
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource Bundle/00-a.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource Bundle/01-a.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource Bundle/02-a.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+WARNING: Unable to find ImplementationGuide.definition.resource.description for the resource Bundle/03-a.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list.
+
+# The report code in this example is qualified by a fictional code system associated with the example lab organization
+A definition for CodeSystem 'http://acme.com/labs/reports' could not be found, so the code cannot be validated
+None of the codings provided are in the value set 'LOINC Diagnostic Report Codes' (http://hl7.org/fhir/ValueSet/report-codes|4.0.1), and a coding is recommended to come from this value set) (codes = http://acme.com/labs/reports#GHP)
+
+# The observation codes in this example are local to the fictional lab organization
+INFORMATION: Bundle/02-a: Bundle.entry[1].resource/*Specimen/null*/.container[0].type.coding[0]: A definition for CodeSystem 'http://acme.com/labs' could not be found, so the code cannot be validated
+INFORMATION: Bundle/02-a: Bundle.entry[2].resource/*Specimen/null*/.container[0].type.coding[0]: A definition for CodeSystem 'http://acme.com/labs' could not be found, so the code cannot be validated
+INFORMATION: Bundle/02-a: Bundle.entry[3].resource/*Specimen/null*/.container[0].type.coding[0]: A definition for CodeSystem 'http://acme.com/labs' could not be found, so the code cannot be validated
