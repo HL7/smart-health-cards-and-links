@@ -52,7 +52,7 @@ This [RFC page](https://github.com/smart-on-fhir/health-cards/tree/main/rfcs) in
 
 The [Libraries for SMART Health Cards](https://github.com/smart-on-fhir/health-cards/wiki/Libraries-for-SMART-Health-Cards) wiki page includes suggestions about useful libraries.
 
-<p><p>
+<p></p>
 
 ### What are security considerations for an issuer?
 
@@ -83,19 +83,24 @@ Expired private keys should be deleted, the corresponding public keys should sta
 
 **Some cards have been erroneously issued, can they be revoked?**
 
-Starting from v1.2.0, individual health cards issued by mistake can be revoked by listing its revocation identifier in an issuer's revocation list. Legacy health cards can use an external mechanism to derive a revocation identifier based on the health card's content. See the [revocation FAQ](cards-faq-revocation.html) for more details.
+Starting from v1.2.0, individual health cards issued by mistake can be revoked by listing its revocation identifier in an issuer's revocation list. Legacy health cards can use an external mechanism to derive a revocation identifier based on the health card's content. See [the revocation section](#what-are-methods-for-revoking-smart-health-cards) below for more details.
 
 <p></p>
 
 ### What are security considerations for the patient?
 
+
 **Can someone steal my health card?**
 
 A health card (digital file or paper QR code) is a “bearer” credential, anyone holding it can present it. Since all the contents of the health card is presented to verifiers, an attacker would need to have matching identifying information to use it illegitimately.
 
+<p></p>
+
 **What if I lose my health card?**
 
 A health card file is a normal file, you can make back-ups. The QR code on a paper card contains all the digitally signed information to present to a verifier; presenting a backup photocopy or a picture of the QR code is enough for a verifier to validate the health card information.
+
+<p></p>
 
 **Am I disclosing too much information when presenting a health card?**
 
@@ -108,6 +113,8 @@ All the content of the health card is disclosed when presenting it. Issuers, wal
 
 **How do I recognize forged health cards?**
 Health cards are digitally signed, using strong, state-of-the-art cryptographic algorithms. It is infeasible to forge a health card without compromising a trusted issuer private key, and to modify one without invalidating its signature. Never rely solely on the textual elements of a paper card or a wallet app, always verify the cryptographic signature protecting the health card.
+
+<p></p>
 
 **How can I trust the issuer of a health card?**
 
@@ -136,7 +143,7 @@ The max JWS size that can fit in a single Version 22 QR code depends on the rema
 | Quartile  | 4544  |
 | High  | 3536  |
 
-[<sup>2 (Table Source)</sup>](https://www.qrcode.com/en/about/version.html)
+[<sup>(Table Source)</sup>](https://www.qrcode.com/en/about/version.html)
 
 
 Each JWS character is encoded into two numeric characters (As described in [Encoding Chunks as QR codes](https://spec.smarthealth.cards/#encoding-chunks-as-qr-codes))
@@ -215,17 +222,13 @@ Note: This section will contain information about the legacy methods once these 
 
 **Why are the legacy methods specified externally?**
 
-The legacy methods must derive a revocation ID based on the SHC content. Since the revocation IDs are publicly published, it is inevitable to prevent a determined attacker with sufficient resources from guessing the correct data leading to a particular revocation ID. Since this has privacy implications, each issuer must decide on the appropriate method to use in their jurisdiction.
+The legacy methods must derive a revocation ID based on the SHC content. Since the 
+ IDs are publicly published, it is inevitable to prevent a determined attacker with sufficient resources from guessing the correct data leading to a particular revocation ID. Since this has privacy implications, each issuer must decide on the appropriate method to use in their jurisdiction.
 
+<p></p>
 
-
-
-
-
-
-
-
-### Patient-Focused FAQs
+### What is some patient onboading information I can provide?
+Below is an introduction to SMART Health Cards and answers to common patient questions.
 
 **Introduction**
 

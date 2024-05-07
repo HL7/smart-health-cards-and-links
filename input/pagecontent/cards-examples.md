@@ -1,12 +1,8 @@
-_These files are in the CI build, but I need to figure out how to reference them..._
-
-<p></p>
-
 ### Example Resources
 
 #### Example 0: Three COVID-19 Vaccine Doses
 
-- [example-00-a-fhirBundle.json](Bundle-00-a.html)
+- [example-00-a-fhirBundle.json](example-00-a-fhirBundle.json)
 - [example-00-b-jws-payload-expanded.json](example-00-b-jws-payload-expanded.json)
 - [example-00-c-jws-payload-minified.json](example-00-c-jws-payload-minified.json)
 - [example-00-d-jws.txt](example-00-d-jws.txt)
@@ -19,7 +15,7 @@ _These files are in the CI build, but I need to figure out how to reference them
 
 Signed with an issuer key that includes x5c claim. Useful for testing code paths that rely on an X.509-based trust framework.
 
-- [example-01-a-fhirBundle.json](Bundle-01-a.html)
+- [example-01-a-fhirBundle.json](example-01-a-fhirBundle.json)
 - [example-01-b-jws-payload-expanded.json](example-01-b-jws-payload-expanded.json)
 - [example-01-c-jws-payload-minified.json](example-01-c-jws-payload-minified.json)
 - [example-01-d-jws.txt](example-01-d-jws.txt)
@@ -28,11 +24,9 @@ Signed with an issuer key that includes x5c claim. Useful for testing code paths
 - [example-01-g-qr-code-0.svg](example-01-g-qr-code-0.svg)
 
 
-Example 2: Multi-QR Testing Payload
+#### Example 2: International Patient Summary (IPS)
 
-Large payload with no particular clinical semantics. Useful for testing code paths where the JWS is too large to fit in a single QR.
-
-- [example-02-a-fhirBundle.json](Bundle-02-a.html)
+- [example-02-a-fhirBundle.json](example-02-a-fhirBundle.json)
 - [example-02-b-jws-payload-expanded.json](example-02-b-jws-payload-expanded.json)
 - [example-02-c-jws-payload-minified.json](example-02-c-jws-payload-minified.json)
 - [example-02-d-jws.txt](example-02-d-jws.txt)
@@ -49,7 +43,7 @@ Large payload with no particular clinical semantics. Useful for testing code pat
 
 Useful for testing code paths that evaluate the revocation status of a JWS.
 
-- [example-03-a-fhirBundle.json](Bundle-03-a.html)
+- [example-03-a-fhirBundle.json](example-03-a-fhirBundle.json)
 - [example-03-b-jws-payload-expanded.json](example-03-b-jws-payload-expanded.json)
 - [example-03-c-jws-payload-minified.json](example-03-c-jws-payload-minified.json)
 - [example-03-d-jws.txt](example-03-d-jws.txt)
