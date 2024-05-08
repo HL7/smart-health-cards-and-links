@@ -25,8 +25,8 @@
 ### Actors
 
 * Software Applications
-  * **SMART Health Links Sharing Application**. Helps users creates, manage, and share SMART Health Links. Also referred to below as "server". This application can include local software as well as server-side components.
-  * **SMART Health Links Receiving Application**. Helps users receive SMART Health Links and work with associated content. Also referred to below as "client".
+  * **SMART Health Links Sharing Application**. Software that is used to create, manage, and share SMART Health Links. Also referred to below as "server". This application can include local software as well as server-side components.
+  * **SMART Health Links Receiving Application**.  Software that enables users to receive and access health information shared through SMART Health Links. Also referred to below as a "client", this application can take many forms, including a lightweight web page with Javascript, a full-fledged module in a native EHR system, or a standalone mobile app.
 * Users
   * **Sharing User**. An individual working with a SMART Health Links Sharing Application to create/manage/share information
   * **Receiving User**. An individual working with a SMART Health Links Receiving Application to retrieve/display/use information. In autonomous use cases there may be no Receiving User.
@@ -35,7 +35,7 @@
 
 ### Pre-protocol step: Sharing User configures a new SMART Health Links
 
-Working with a SMART Health Links Sharing Application, the Sharing User makes a few decisions up front:
+Working with a [SMART Health Links Sharing Application](#actors), the Sharing User makes a few decisions up front:
 
 * **What to share**. Depending on the SMART Health Links Sharing Application, the Sharing User might explicitly choose a set of files or define a "sharing policy" that matches different data over time.
 * **Whether the SMART Health Links will require a Passcode** to access. Depending on the SMART Health Links Sharing Application, a Passcode may be mandatory.
