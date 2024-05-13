@@ -1,4 +1,6 @@
-IN PROCESS
+PLACEHOLDER. This page will be updated with IPS and/or CARIN Insurance Card examples. 
+
+<hr>
 
 ### SMART Health Links Example
 This SMART Health Link provides access to the past 120 days of a patient's raw glucose history.

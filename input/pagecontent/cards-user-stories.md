@@ -37,7 +37,7 @@ Later in the year, Alice goes back to the pharmacy for an immunization booster.
 
 Because SMART Health Cards do not change over time, she receives a new card containing her updated vaccination record that includes both the original and booster doses.
 
-And if the pharmacy supports health links, they may be able to associate the new vaccination with Alice’s existing records using [SMART Health Links](links-user-stories.html).
+And if the pharmacy supports SMART Health Links, Alice may also be able to access immunization information through a Link that automatically stays updated as described [here](links-user-stories.html).
 
 
 <p></p>

@@ -7,17 +7,18 @@
   	  <li><a href="cards-specification.html">Health Cards Specification</a></li>
   	  <li><a href="OperationDefinition-patient-i-health-cards-issue.html">Issue Verifiable Credential Operation</a></li>
       <li><a href="cards-credential-modeling.html">Credential Modeling</a></li>
-      <li><a href="cards-examples.html">SMART Health Cards Examples</a></li>
+      <li><a href="cards-examples.html">Health Cards Examples</a></li>
       <li><a href="frequently-asked-questions.html">Health Cards FAQ</a></li> 
-      <li><a href="cards-changelog.html">SMART Healthcards Changelog</a></li>
+      <li><a href="cards-changelog.html">Health Cards Change Log</a></li>
     </ul>
   </li>	  
   <li class="dropdown">
 	<a data-toggle="dropdown" href="#" class="dropdown-toggle">SMART Health Links<b class="caret"></b></a>
     <ul class="dropdown-menu">
-	  <li><a href="links-user-stories.html">Links User Stories</a></li>
+	  <li><a href="links-user-stories.html">Health Links User Stories</a></li>
       <li><a href="links-specification.html">Health Links Specification</a></li>
-      <li><a href="links-examples.html">SMART Health Links Examples</a></li>
+      <li><a href="links-examples.html">Health Links Examples</a></li>
     </ul>
   </li>	  
+  <li><a href="downloads.html">Downloads</a></li>
  </ul>

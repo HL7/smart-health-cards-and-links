@@ -36,15 +36,33 @@ publisher:
 #  downloads.xml:
 #    title: Downloads
 
-# menu:
-#   Home: index.html
-#   Background:
-#     Use Cases: use-cases.html
-#     Technical: technical-background.html
-#   Specification: specification.html 
-#   Artifacts: artifacts.html
-# 
-# 
+pages:
+  index.md:
+    title: Home Page
+  cards-user-stories.md:
+    title: Health Cards User Stories
+  cards-specification.md:
+    title: Health Cards Specification
+  cards-credential-modeling.md:
+    title: Credential Modeling
+  cards-examples.md:
+    title: Health Cards Examples
+  frequently-asked-questions.md:
+    title: Frequently Asked Questions
+  cards-changelog.md:
+    title: Health Cards Change Log
+  links-user-stories.md:
+    title: Health Links User Stories
+  links-specification.md:
+    title: Health Links Specification
+  links-examples.md:
+    title: Health Links Examples
+  downloads.xml:
+    title: Downloads
+  changes.md:
+    title: IG Change Log
+
+
 contact:
   - name: Frank McKinney
     telecom:
