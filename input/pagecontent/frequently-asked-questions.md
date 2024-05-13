@@ -191,7 +191,7 @@ On March 19th, 2021, the WHO released [Interim guidance for developing a Smart V
 
 ### What are methods for revoking SMART Health Cards?
 
-Starting from v1.2.0 of the SMART Health Card (SHC) framework, individual health cards issued by mistake can be revoked by listing its revocation identifier in an issuer's revocation list. Legacy health cards can use an external mechanism to derive a revocation identifier based on the health card's content; see the [legacy revocation methods](#legacy-revocation-methods) section below.
+Starting from v1.2.0 of the SMART Health Card (SHC) framework, individual health cards issued by mistake can be revoked by listing its revocation identifier in an issuer's revocation list. 
 
 #### Main revocation method
 
@@ -212,18 +212,6 @@ Since SHC don’t have expiry dates, public keys and revocation information must
 Per-design, SHC are small to fit into QR codes. Moreover, verifier applications might need to store the aggregated revocation information from many issuers; capping the `rid` size therefore limits the bandwidth and storage requirements of verifiers.
 
 The recommended methods of taking the base64url encoding of the b4-bit truncated HMAC-SHA-256 output results in 11 characters. The 24-character limit allows the encoding of 128-bit values in base64url, if required by an issuer.
-
-<p></p>
-
-#### Legacy revocation methods
-_**To be reviewed**_
-
-Note: This section will contain information about the legacy methods once these are specified.
-
-**Why are the legacy methods specified externally?**
-
-The legacy methods must derive a revocation ID based on the SHC content. Since the 
- IDs are publicly published, it is inevitable to prevent a determined attacker with sufficient resources from guessing the correct data leading to a particular revocation ID. Since this has privacy implications, each issuer must decide on the appropriate method to use in their jurisdiction.
 
 <p></p>
 

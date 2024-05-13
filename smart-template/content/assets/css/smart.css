@@ -1,30 +1,33 @@
-p, li, table.grid th, table.grid td, table.colsi th, table.colsi td, table.dict th, table.dict td, table.list th, table.list td { }
-.smart-code code {
-  word-break: break-all;
-  white-space: pre-wrap;
+body {
+word-wrap:break-word;
+margin:0
 }
 
-.optional { color: #CC3F00; }
-.caption { color: darkgreen; font-weight: bold; }
-.expSpan { background-color: #fff5e6; }
-.expBlock { padding-top: 5px; padding-left: 5px; padding-right: 10px; padding-bottom: 5px; background-color: #fff5e6; }
-.expIcon { padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #fff5e6 vertical-align: middle;}
+html {
+font:100%/1.65 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"
+}
 
+p {
+margin:0 0 10px
+}
 
 .smart-styles-alert {
-background-color:#eef9fd;
 border:0px solid #4cb3d4;
 border-left-width:5px;
 border-radius:8px;
 box-shadow:0 1px 2px 0 rgba(0,0,0,.1);
-padding:16px 16px
+padding:16px 16px 16px 16px
 }
 
 .smart-styles-alert--info {
---ifm-alert-background-color:#eef9fd;
---ifm-alert-border-color:#4cb3d4
+background-color:#eef9fd;
+border-color:#4cb3d4
 }
 
+.smart-styles-alert--deprecated {
+background-color:whitesmoke;
+border-color:lightgrey
+}
 
 .smart-styles-admonitionIcon_kALy {
 display:inline-block;
@@ -33,7 +36,7 @@ vertical-align:middle
 }
 
 .smart-styles-admonitionIcon_kALy svg {
-fill:var(--ifm-alert-foreground-color);
+fill:black;
 display:inline-block;
 height:1.6em;
 width:1.6em

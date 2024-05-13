@@ -26,17 +26,13 @@ Signed with an issuer key that includes x5c claim. Useful for testing code paths
 
 #### Example 2: International Patient Summary (IPS)
 
+In this example, the data minimization process was not applied because the payload is too big to fit in a QR.
+
 - [example-02-a-fhirBundle.json](example-02-a-fhirBundle.json)
 - [example-02-b-jws-payload-expanded.json](example-02-b-jws-payload-expanded.json)
 - [example-02-c-jws-payload-minified.json](example-02-c-jws-payload-minified.json)
 - [example-02-d-jws.txt](example-02-d-jws.txt)
 - [example-02-e-file.smart-health-card](example-02-e-file.smart-health-card)
-- [example-02-f-qr-code-numeric-value-0.txt](example-02-f-qr-code-numeric-value-0.txt)
-- [example-02-f-qr-code-numeric-value-1.txt](example-02-f-qr-code-numeric-value-1.txt)
-- [example-02-f-qr-code-numeric-value-2.txt](example-02-f-qr-code-numeric-value-2.txt)
-- [example-02-g-qr-code-0.svg](example-02-g-qr-code-0.svg)
-- [example-02-g-qr-code-1.svg](example-02-g-qr-code-1.svg)
-- [example-02-g-qr-code-2.svg](example-02-g-qr-code-2.svg)
 
 
 #### Example 3: Revoked COVID-19 Credential

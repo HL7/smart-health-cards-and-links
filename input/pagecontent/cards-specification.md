@@ -458,23 +458,61 @@ The following limitations apply when presenting Health Card as QR codes, rather 
 
 When printing or displaying a Health Card using QR codes, let "N" be the total number of chunks required, and let "C" be a variable indicating the index of the current chunk. Each chunk of the JWS string value SHALL be represented as a QR with two data segments:
 
-1. A segment encoded with `bytes` mode consisting of
-    * the fixed string `shc:/` (registered as an [IANA scheme](https://www.iana.org/assignments/uri-schemes/prov/shc))
-    * plus (only if more than one chunk is required; note this feature is *deprecated*)
-        * decimal representation of "C" (e.g., `1` for the first chunk, `2` for the second chunk, and so on)
-        * plus the fixed string `/`
-        * plus decimal representation of "N" (e.g., `2` if there are two chunks in total, `3` if there three chunks in total, and so on)
-        * plus the fixed string `/`
-2. A segment encoded with `numeric` mode consisting of the characters `0`-`9`. Each character "c" of the JWS is converted into a sequence of two digits as by taking `Ord(c)-45` and treating the result as a two-digit base ten number. For example, `'X'` is encoded as `43`, since `Ord('X')` is `88`, and `88-45` is `43`. (The constant "45" appears here because it is the ordinal value of `-`, the lowest-valued character that can appear in a compact JWS. Subtracting 45 from the ordinal values of valid JWS characters produces a range between 00 and 99, ensuring that each character of the JWS can be represented in exactly two base-10 numeric digits.)
+<ol>
+   <li>
+      A segment encoded with <code class=" highlighter-rouge language-plaintext">bytes</code> mode consisting of
+      <ul>
+         <li>the fixed string <code class=" highlighter-rouge language-plaintext">shc:/</code> (registered as an <a href="https://www.iana.org/assignments/uri-schemes/prov/shc">IANA scheme</a>)</li>
+      </ul>
+   </li>
+   <div  class="smart-styles-alert smart-styles-alert--deprecated ">
+      <div >
+         <span class="smart-styles-admonitionIcon_kALy">
+            <svg viewBox="0 0 14 16">
+               <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+            </svg>
+         </span>
+         DEPRECATED
+      </div>
+      <ul>
+         <li>
+            plus (only if more than one chunk is required; note this feature is deprecated): 
+            <ul>
+               <li>decimal representation of “C” (e.g., <code class=" highlighter-rouge language-plaintext">1</code> for the first chunk, <code class=" highlighter-rouge language-plaintext">2</code> for the second chunk, and so on)</li>
+               <li>plus the fixed string <code class=" highlighter-rouge language-plaintext">/</code></li>
+               <li>plus decimal representation of “N” (e.g., <code class=" highlighter-rouge language-plaintext">2</code> if there are two chunks in total, <code class=" highlighter-rouge language-plaintext">3</code> if there three chunks in total, and so on)</li>
+               <li>plus the fixed string <code class=" highlighter-rouge language-plaintext">/</code></li>
+            </ul>
+         </li>
+      </ul>
+   </div>
+   <p></p>
+   <li>A segment encoded with <code class=" highlighter-rouge language-plaintext">numeric</code> mode consisting of the characters <code class=" highlighter-rouge language-plaintext">0</code>-<code class=" highlighter-rouge language-plaintext">9</code>. Each character “c” of the JWS is converted into a sequence of two digits as by taking <code class=" highlighter-rouge language-plaintext">Ord(c)-45</code> and treating the result as a two-digit base ten number. For example, <code class=" highlighter-rouge language-plaintext">'X'</code> is encoded as <code class=" highlighter-rouge language-plaintext">43</code>, since <code class=" highlighter-rouge language-plaintext">Ord('X')</code> is <code class=" highlighter-rouge language-plaintext">88</code>, and <code class=" highlighter-rouge language-plaintext">88-45</code> is <code class=" highlighter-rouge language-plaintext">43</code>. (The constant “45” appears here because it is the ordinal value of <code class=" highlighter-rouge language-plaintext">-</code>, the lowest-valued character that can appear in a compact JWS. Subtracting 45 from the ordinal values of valid JWS characters produces a range between 00 and 99, ensuring that each character of the JWS can be represented in exactly two base-10 numeric digits.)</li>
+</ol>
+
 
 (The reason for representing Health Cards using Numeric Mode QRs instead of Binary Mode (Latin-1) QRs is information density: with Numeric Mode, 20% more data can fit in a given QR, vs Binary Mode. This is because the JWS character set conveys only log_2(65) bits per character (~6 bits); binary encoding requires log_2(256) bits per character (8 bits), which means ~2 wasted bits per character.)
 
 For example:
 
-* a single chunk might produce a QR code like `shc:/56762909524320603460292437404460<snipped for brevity>`
-* in a longer JWS, the second chunk in a set of three might produce a QR code like `shc:/2/3/56762909524320603460292437404460<snipped for brevity>` (note this feature is *deprecated*)
+<ul>
+  <li>a single chunk might produce a QR code like <code class=" highlighter-rouge language-plaintext">shc:/56762909524320603460292437404460</code> &lt;snipped for brevity&gt;</li>
+</ul>
 
-When reading a QR code, scanning software can recognize a SMART Health Card from the `shc:/` prefix. Stripping this prefix and the following `<ordinal>/<count>/` and decoding the remaining pairs of numerals yields a JWS.
+  <div  class="smart-styles-alert smart-styles-alert--deprecated ">
+    <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+        <svg viewBox="0 0 14 16">
+          <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+        </svg>
+      </span>
+      DEPRECATED
+    </div>
+    <ul>
+      <li>in a longer JWS, the second chunk in a set of three might produce a QR code like: <code class=" highlighter-rouge language-plaintext">shc:/2/3/56762909524320603460292437404460 &lt;snipped for brevity&gt;</code> 
+      <br/>(note this feature is deprecated)</li>
+    </ul>
+</div>
 
 <p></p>
 
@@ -490,7 +528,7 @@ To address use cases such as the preceding one, an optional SMART Health Card ex
 
 ### Examples
 
-See the [examples page] for examples of SMART Health Cards and components.
+See the [examples page](cards-examples.html) for examples of SMART Health Cards and components.
 
 <p></p>
 
