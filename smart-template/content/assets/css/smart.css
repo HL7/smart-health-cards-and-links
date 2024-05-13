@@ -9,3 +9,34 @@ p, li, table.grid th, table.grid td, table.colsi th, table.colsi td, table.dict 
 .expSpan { background-color: #fff5e6; }
 .expBlock { padding-top: 5px; padding-left: 5px; padding-right: 10px; padding-bottom: 5px; background-color: #fff5e6; }
 .expIcon { padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #fff5e6 vertical-align: middle;}
+
+
+.smart-styles-alert {
+background-color:#eef9fd;
+border:0px solid #4cb3d4;
+border-left-width:5px;
+border-radius:8px;
+box-shadow:0 1px 2px 0 rgba(0,0,0,.1);
+padding:16px 16px
+}
+
+.smart-styles-alert--info {
+--ifm-alert-background-color:#eef9fd;
+--ifm-alert-border-color:#4cb3d4
+}
+
+
+.smart-styles-admonitionIcon_kALy {
+display:inline-block;
+margin-right:.4em;
+vertical-align:middle
+}
+
+.smart-styles-admonitionIcon_kALy svg {
+fill:var(--ifm-alert-foreground-color);
+display:inline-block;
+height:1.6em;
+width:1.6em
+}
+
+

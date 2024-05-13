@@ -52,15 +52,37 @@ At configuration time, the SMART Health Links Sharing Application SHALL generate
 
 <p></p>
 
-**Design Note: Trust and encryption**
-
-*This pattern of encrypting files allows for deployment scenarios where the file server is not trusted to know the information inside the manifest's files. In such scenarios, the Sharing User and Receiving User can consider the server  a blind intermediary. That said: in many deployment scenarios, the file server will be hosted by a healthcare provider or other entity that already has access to such files. For consistency, this protocol always applies encryption.*
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Design Note: Trust and encryption</strong></p>
+      <p>This pattern of encrypting files allows for deployment scenarios where the file server is not trusted to know the information inside the manifest's files. In such scenarios, the Sharing User and Receiving User can consider the server  a blind intermediary. That said: in many deployment scenarios, the file server will be hosted by a healthcare provider or other entity that already has access to such files. For consistency, this protocol always applies encryption.</p>
+   </div>
+</div>
 
 <p></p>
 
-**Design Note: SMART Health Links Sharing Application "internals"**
-
-*We do not standardize the protocol by which the SMART Health Links Sharing Application's local software communicates with its server-side components. These may be provided by the same vendor and use internal APIs to communicate -- or there may be no "local" software at all.*
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Design Note: SMART Health Links Sharing Application "Internals"</strong></p>
+      <p>We do not standardize the protocol by which the SMART Health Links Sharing Application's local software communicates with its server-side components. These may be provided by the same vendor and use internal APIs to communicate -- or there may be no "local" software at all.</p>
+   </div>
+</div>
 
 <p></p>
 
@@ -100,38 +122,39 @@ The JSON Payload is then:
 
 <p></p>
 
-**Design Note: Protocol Versioning**
-
-Implementations can rely on the following behaviors:
-
-* SMART Health Links Payload processing for `shlink:` URIs
-  * SMART Health Links Payloads SHALL be constructed as per `"v":1` (i.e., payloads are Base64urlencoded, minified JSON objects)
-    * Any changes to this design will require a new URI scheme, rather than a `v` bump
-* SMART Health Links Payload stability
-  * `.label`, `.exp`, and `.flag` SHALL always work as defined for `"v":1`
-    * Any changes to this design will require a new URI scheme, rather than a `v` bump
-  * New properties MAY be introduced without a version bump, as long as they're optional and safe to ignore
-  * SMART Health Links Receiving Application SHALL ignore properties they don't recognize
-  * Introduction of properties that can't safely be ignored will require a `v` bump
-* SMART Health Links Payload flags
-  * New flag values MAY be introduced without a version bump, as long as they're safe to ignore. For example, the v1 flag `L` is safe to ignore because the client will still be able to handle a one-time manifest request. The `P` flag however cannot be ignored because the server will respond with an error if no passcode is provided.
-  * SMART Health Links Receiver Application SHALL ignore flag values they don't recognize
-  * Introduction of new flag values that can't safely be ignored will require a `v` bump
-* Manifest URL request/response
-  * New request parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a flag or property in the SMART Health Links Payload
-  * New response parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a request parameter
-  * SMART Health Links Sharing Application and SMART Health Links Receiving Application SHALL ignore parameters and headers they don't recognize
-  * Introduction of parameters or headers that can't safely be ignored will require a `v` bump
-* Encryption and signature schemes
-  * Changes to the cryptographic protocol will require a `v` bump
-
-This means that SMART Health Links Receiver Applications can always recognize a SMART Health Links Payload and display its label to the user. If a SMART Health Links Receiver Application receives a SMART Health Links with a `v` newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Design Note: Design Note: Protocol Versioning</strong></p>
+      <p>Implementations can rely on the following behaviors:</p><ul class=""><li>SHLink Payload processing for <code>shlink:</code> URIs<ul class=""><li>SHLink Payloads SHALL be constructed as per <code>"v":1</code> (i.e., payloads are Base64urlencoded, minified JSON objects)<ul class=""><li>Any changes to this design will require a new URI scheme, rather than a <code>v</code> bump</li></ul></li></ul></li><li>SHLink Payload stability<ul class=""><li><code>.label</code>, <code>.exp</code>, and <code>.flag</code> SHALL always work as defined for <code>"v":1</code><ul class=""><li>Any changes to this design will require a new URI scheme, rather than a <code>v</code> bump</li></ul></li><li>New properties MAY be introduced without a version bump, as long as they're optional and safe to ignore</li><li>SHL Receiving Application SHALL ignore properties they don't recognize</li><li>Introduction of properties that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>SHLink Payload flags<ul class=""><li>New flag values MAY be introduced without a version bump, as long as they're safe to ignore. For example, the v1 flag <code>L</code> is safe to ignore because the client will still be able to handle a one-time manifest request. The <code>P</code> flag however cannot be ignored because the server will respond with an error if no passcode is provided.</li><li>SHL Receiver Application SHALL ignore flag values they don't recognize</li><li>Introduction of new flag values that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>Manifest URL request/response<ul class=""><li>New request parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a flag or property in the SHL Payload</li><li>New response parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a request parameter</li><li>SHL Sharing Application and SHL Receiving Application SHALL ignore parameters and headers they don't recognize</li><li>Introduction of parameters or headers that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>Encryption and signature schemes<ul class=""><li>Changes to the cryptographic protocol will require a <code>v</code> bump</li></ul></li></ul><p>This means that SHL Receiver Applications can always recognize a SHLink Payload and display its label to the user. If a SHL Receiver Application receives a SHLink with a <code>v</code> newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.</p>
+   </div>
+</div>
 
 <p></p>
 
-**Design Note: Viewer URL Prefixes**
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Design Note: Design Note: Viewer URL Prefixes</strong></p>
+      <p>By using viewer URLs that end in <code>#</code>, we take advantage of the browser behavior where <code>#</code> fragments are not sent to a server at the time of a request. Thus the SHLink payload will not appear in server-side logs or be available to server-side processing when a link like <code>https://viewer.example.org#shlink:/ey...</code> is opened in a browser.</p>
+   </div>
+</div>
 
-*By using viewer URLs that end in `#`, we take advantage of the browser behavior where `#` fragments are not sent to a server at the time of a request. Thus the SMART Health Links payload will not appear in server-side logs or be available to server-side processing when a link like `https://viewer.example.org#shlink:/ey...` is opened in a browser.*
+<p></p>
 
 The following optional step may occur sometime after a SMART Health Links is generated:
 * **Optional: Update Shared Files**. For some sharing scenarios, Sharing User MAY update the shared files from time to time (e.g., when new lab results arrive or new immunizations are performed). Updated versions SHALL be encrypted using the same key as the initial version. 
@@ -203,8 +226,21 @@ If an invalid Passcode is supplied, the Resource Server SHALL reject the request
 
 <p></p>
 
-**Design Note: Monitoring remaining attempts**
-Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Links at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Design Note: Monitoring remaining attempts</strong></p>
+      <p>Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Links at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.</p>
+   </div>
+</div>
+
 
 <p></p>
 
@@ -235,8 +271,20 @@ SHALL wait before re-issuing a manifest request.
 
 <p></p>
 
-**Design Note: Rate Limiting**
-*More detailed guidance on polling will require real-world implementation experience. The current guidance provides the client a hint about how often to poll, and provides a way to convey that requests are being issued too frequently. We encourage implementers to experiment with additional capabilities.*
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Design Note: Rate Limiting</strong></p>
+      <p>More detailed guidance on polling will require real-world implementation experience. The current guidance provides the client a hint about how often to poll, and provides a way to convey that requests are being issued too frequently. We encourage implementers to experiment with additional capabilities.</p>
+   </div>
+</div>
 
 <p></p>
 
