@@ -27,7 +27,7 @@ The implementation guide is organized into two sections:
   * the [Issue Verifiable Credential operation](OperationDefinition-patient-i-health-cards-issue.html)
   * [Cards examples](cards-examples.html)
   * a description of [Cards credential modeling](cards-credential-modeling.html)
-  * a [Cards FAQ](cards-faq.html) and [changelog](cards-changelog.html)
+  * a [Cards FAQ](frequently-asked-questions.html) and [changelog](cards-changelog.html)
 
 <p></p>
 
@@ -40,22 +40,14 @@ The implementation guide is organized into two sections:
 ### Dependencies 
 This implementation guide relies on the following other specifications: 
 
-*[to be added]*
+_[To be added. Collect references made throughout the IG]_
 
 <p></p>
 
 ### Contributing
+The Verifiable Clinical Information (VCI) coalition convened the original consensus group that started the work that led to this implementation guide. The Argonaut Project and CARIN Alliance were also key contributors.
 
-*[to be updated (this is from the existing specs)]*
-
-The SMART Health Cards specification is copyright by *Computational Health Informatics Program, Boston Children's Hospital, Boston, MA* and licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
-We welcome discussion on the [SMART Health Cards channel](https://chat.fhir.org/#narrow/stream/284830-smart.2Fhealth-cards) of the FHIR community chat. 
-
-_**[remove or reference HL7 jira?]**_ You can also propose changes via GitHub [Issues](https://github.com/smart-on-fhir/health-cards/issues) or create a [Pull Request](https://github.com/smart-on-fhir/health-cards/pulls).
-
-_**[remove or ?]**_ Security issues can be disclosed privately by emailing `security@smarthealth.cards` to allow for a responsible disclosure to affected parties.
-
+_[To be expanded]_
 
 <p></p>
 
@@ -66,23 +58,15 @@ _**[remove or ?]**_ Security issues can be disclosed privately by emailing `secu
 
 ### Authors
 
-*[to be updated]*
-
 <table class="grid">
     <tbody>
 	  <tr>
-		<td colspan="2">HL7 FHIR Infrastructure Work Group</td>
+		<td colspan="2">Sponsor: HL7 FHIR Infrastructure Work Group</td>
   	  </tr>
   	  <tr>
-		<td>Frank McKinney</td>
-		<td><a href="mailto:fm@frankmckinney.com">fm@frankmckinney.com</a></td>
+		<td>Editor: Josh Mandel</td>
+		<td><a href="mailto:jmandel@gmail.com">jmandel@gmail.com</a></td>
 	  </tr>
-	  <tr>
-		<td colspan="2"><i>[?]</i> SMART, Boston Children's</td>
-  	  </tr>
-	  <tr>
-		<td colspan="2"><i>[?]</i> Argonaut and Vaccination Credential Initiative (VCI) projects</td>
-  	  </tr>
 	</tbody>
   </table>
 

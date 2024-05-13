@@ -244,7 +244,7 @@ If the `crlVersion` is present in the Issuer's JWK for key `<<kid>>`, Verifiers 
 
 Revocation of Health Cards without a `rid` field (including all pre-v1.2.0 ones) can be done using external mechanisms to calculate a dynamic `rid` value based on the JWS’s content.
 
-If individual revocation of SMART Health Cards is not possible, then an issuer SHOULD revoke its issuing key, and allow users to obtain new Health Cards; limiting the validity period of a key helps to mitigate the adverse effects of this situation. See the [revocation FAQ](cards-faq.html#what-are-methods-for-revoking-smart-health-cards) for more details.
+If individual revocation of SMART Health Cards is not possible, then an issuer SHOULD revoke its issuing key, and allow users to obtain new Health Cards; limiting the validity period of a key helps to mitigate the adverse effects of this situation. See the [revocation FAQ](frequently-asked-questions.html#what-are-methods-for-revoking-smart-health-cards) for more details.
 
 <p></p>
 
