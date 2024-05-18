@@ -1,0 +1,10 @@
+{
+    "shlinkJsonPayload": {
+        "url": "https://joshuamandel.com/cgm/shl/120day_raw_obs_unguessable_shl_id0000000000",
+        "flag": "LU",
+        "key": "raw_obs_unguessable_random_key0000000000000",
+        "label": "Josh's CGM Data"
+    },
+    "shlinkBare": "shlink:/eyJ1cmwiOiJodHRwczovL2pvc2h1YW1hbmRlbC5jb20vY2dtL3NobC8xMjBkYXlfcmF3X29ic191bmd1ZXNzYWJsZV9zaGxfaWQwMDAwMDAwMDAwIiwiZmxhZyI6IkxVIiwia2V5IjoicmF3X29ic191bmd1ZXNzYWJsZV9yYW5kb21fa2V5MDAwMDAwMDAwMDAwMCIsImxhYmVsIjoiSm9zaCdzIENHTSBEYXRhIn0",
+    "shlink": "https://joshuamandel.com/cgm#shlink:/eyJ1cmwiOiJodHRwczovL2pvc2h1YW1hbmRlbC5jb20vY2dtL3NobC8xMjBkYXlfcmF3X29ic191bmd1ZXNzYWJsZV9zaGxfaWQwMDAwMDAwMDAwIiwiZmxhZyI6IkxVIiwia2V5IjoicmF3X29ic191bmd1ZXNzYWJsZV9yYW5kb21fa2V5MDAwMDAwMDAwMDAwMCIsImxhYmVsIjoiSm9zaCdzIENHTSBEYXRhIn0"
+}

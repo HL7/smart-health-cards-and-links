@@ -33,7 +33,7 @@
 
 <p></p>
 
-### Pre-protocol step: Sharing User configures a new SMART Health Links
+### Pre-protocol step: Sharing User configures a new SMART Health Link
 
 Working with a [SMART Health Links Sharing Application](#actors), the Sharing User makes a few decisions up front:
 
@@ -41,8 +41,10 @@ Working with a [SMART Health Links Sharing Application](#actors), the Sharing Us
 * **Whether the SMART Health Links will require a Passcode** to access. Depending on the SMART Health Links Sharing Application, a Passcode may be mandatory.
 * **Whether the SMART Health Links will expire** at some pre-specified time. Depending on the SMART Health Links Sharing Application, an expiration time may be mandatory.
 
-Regarding "what to share": a single SMART Health Links at a specific point in time will *resolve* to a manifest of files of the following types:
-* `application/smart-health-card`: a JSON file with a `.verifiableCredential` array containing SMART Health Card JWS strings, as specified by https://spec.smarthealth.cards#via-file-download.
+<p></p>
+
+Regarding "what to share": a single SMART Health Link at a specific point in time will *resolve* to a manifest of files of the following types:
+* `application/smart-health-card`: a JSON file with a `.verifiableCredential` array containing SMART Health Card JWS strings, as specified in the [via File Download](cards-specification.html#via-file-download) section of the SMART Health Cards specification.
 * `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may be include digital signatures or have other verification processes associated with it, which are not defined here.
 * `application/smart-api-access`: a JSON file with a SMART Access Token Response (see [SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html#response-5)). Two additional properties are defined:
   * `aud` Required string indicating the FHIR Server Base URL where this token can be used (e.g.,  ``"https://server.example.org/fhir"``)
@@ -86,33 +88,33 @@ At configuration time, the SMART Health Links Sharing Application SHALL generate
 
 <p></p>
 
-### SMART Health Links Sharing Application Generates a SMART Health Links URI
+### SMART Health Links Sharing Application Generates a SMART Health Link URI
 
-#### Establish a SMART Health Links Manifest URL
+#### Establish a SMART Health Link Manifest URL
 
 Based the configuration from (1), the SMART Health Links Sharing Application generates a "manifest URL" for the new SMART Health Links. The manifest URL:
 
 * SHALL include at least **256 bits of entropy**
     * A suggested approach is to generate a cryptographically strong 32-byte random sequence and then base64url-encode this sequence to obtain a 43-character string that is used as a path segment. For example: `https://shl.example.org/manifests/I91rhba3VsuGXGchcnr6VHlQFKxfE28kuZ0ssbEuxno/manifest.json`
-* SHALL NOT exceed **128 characters** in length (note, this maximum applies to the `url` field of the SMART Health Links Payload, not to the entire SMART Health Links URI).
+* SHALL NOT exceed **128 characters** in length (note, this maximum applies to the `url` field of the SMART Health Link Payload, not to the entire SMART Health Link URI).
 
-The SMART Health Links Sharing Application incorporates the manifest URL into a SMART Health Links as described below.
+The SMART Health Links Sharing Application incorporates the manifest URL into a SMART Health Link as described below.
 
 <p></p>
 
-#### Construct a SMART Health Links Payload
+#### Construct a SMART Health Link Payload
 
-The SMART Health Links Payload is a JSON object including the following properties:
+The SMART Health Link Payload is a JSON object including the following properties:
 
 * `url`: Manifest URL for this SMART Health Links
 * `key`: Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded.
 * `exp`: Optional. Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)
 * `flag`: Optional. String created by concatenating single-character flags in alphabetical order
-  * `L` Indicates the SMART Health Links is intended for long-term use and manifest content can evolve over time 
-  * `P` Indicates the SMART Health Links requires a Passcode to resolve
+  * `L` Indicates the SMART Health Link is intended for long-term use and manifest content can evolve over time 
+  * `P` Indicates the SMART Health Link requires a Passcode to resolve
   * `U` Indicates the SMART Health Links's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
 * `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SMART Health Links. 
-* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Links conforms to. MAY be omitted when the default value (`1`) applies.
+* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Link conforms to. MAY be omitted when the default value (`1`) applies.
 
 The JSON Payload is then:
 * Minified
@@ -133,7 +135,7 @@ The JSON Payload is then:
    </div>
    <div >
       <p><strong>📓   Design Note: Design Note: Protocol Versioning</strong></p>
-      <p>Implementations can rely on the following behaviors:</p><ul class=""><li>SHLink Payload processing for <code>shlink:</code> URIs<ul class=""><li>SHLink Payloads SHALL be constructed as per <code>"v":1</code> (i.e., payloads are Base64urlencoded, minified JSON objects)<ul class=""><li>Any changes to this design will require a new URI scheme, rather than a <code>v</code> bump</li></ul></li></ul></li><li>SHLink Payload stability<ul class=""><li><code>.label</code>, <code>.exp</code>, and <code>.flag</code> SHALL always work as defined for <code>"v":1</code><ul class=""><li>Any changes to this design will require a new URI scheme, rather than a <code>v</code> bump</li></ul></li><li>New properties MAY be introduced without a version bump, as long as they're optional and safe to ignore</li><li>SHL Receiving Application SHALL ignore properties they don't recognize</li><li>Introduction of properties that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>SHLink Payload flags<ul class=""><li>New flag values MAY be introduced without a version bump, as long as they're safe to ignore. For example, the v1 flag <code>L</code> is safe to ignore because the client will still be able to handle a one-time manifest request. The <code>P</code> flag however cannot be ignored because the server will respond with an error if no passcode is provided.</li><li>SHL Receiver Application SHALL ignore flag values they don't recognize</li><li>Introduction of new flag values that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>Manifest URL request/response<ul class=""><li>New request parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a flag or property in the SHL Payload</li><li>New response parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a request parameter</li><li>SHL Sharing Application and SHL Receiving Application SHALL ignore parameters and headers they don't recognize</li><li>Introduction of parameters or headers that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>Encryption and signature schemes<ul class=""><li>Changes to the cryptographic protocol will require a <code>v</code> bump</li></ul></li></ul><p>This means that SHL Receiver Applications can always recognize a SHLink Payload and display its label to the user. If a SHL Receiver Application receives a SHLink with a <code>v</code> newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.</p>
+      <p>Implementations can rely on the following behaviors:</p><ul class=""><li>SMART Health Link Payload processing for <code>shlink:</code> URIs<ul class=""><li>SMART Health Link Payloads SHALL be constructed as per <code>"v":1</code> (i.e., payloads are Base64urlencoded, minified JSON objects)<ul class=""><li>Any changes to this design will require a new URI scheme, rather than a <code>v</code> bump</li></ul></li></ul></li><li>SMART Health Link Payload stability<ul class=""><li><code>.label</code>, <code>.exp</code>, and <code>.flag</code> SHALL always work as defined for <code>"v":1</code><ul class=""><li>Any changes to this design will require a new URI scheme, rather than a <code>v</code> bump</li></ul></li><li>New properties MAY be introduced without a version bump, as long as they're optional and safe to ignore</li><li>SHL Receiving Application SHALL ignore properties they don't recognize</li><li>Introduction of properties that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>SMART Health Link Payload flags<ul class=""><li>New flag values MAY be introduced without a version bump, as long as they're safe to ignore. For example, the v1 flag <code>L</code> is safe to ignore because the client will still be able to handle a one-time manifest request. The <code>P</code> flag however cannot be ignored because the server will respond with an error if no passcode is provided.</li><li>SHL Receiver Application SHALL ignore flag values they don't recognize</li><li>Introduction of new flag values that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>Manifest URL request/response<ul class=""><li>New request parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a flag or property in the SHL Payload</li><li>New response parameters or headers MAY be introduced without a version bump, as long as they're optional and safe to ignore, or gated by a request parameter</li><li>SHL Sharing Application and SHL Receiving Application SHALL ignore parameters and headers they don't recognize</li><li>Introduction of parameters or headers that can't safely be ignored will require a <code>v</code> bump</li></ul></li><li>Encryption and signature schemes<ul class=""><li>Changes to the cryptographic protocol will require a <code>v</code> bump</li></ul></li></ul><p>This means that SHL Receiver Applications can always recognize a SMART Health Link Payload and display its label to the user. If a SHL Receiver Application receives a SMART Health Link with a <code>v</code> newer than what it supports, it SHOULD display an appropriate message to the user and SHOULD NOT proceed with a manifest request, unless it has some reason to believe that proceeding is safe.</p>
    </div>
 </div>
 
@@ -150,18 +152,18 @@ The JSON Payload is then:
    </div>
    <div >
       <p><strong>📓   Design Note: Design Note: Viewer URL Prefixes</strong></p>
-      <p>By using viewer URLs that end in <code>#</code>, we take advantage of the browser behavior where <code>#</code> fragments are not sent to a server at the time of a request. Thus the SHLink payload will not appear in server-side logs or be available to server-side processing when a link like <code>https://viewer.example.org#shlink:/ey...</code> is opened in a browser.</p>
+      <p>By using viewer URLs that end in <code>#</code>, we take advantage of the browser behavior where <code>#</code> fragments are not sent to a server at the time of a request. Thus the SMART Health Link payload will not appear in server-side logs or be available to server-side processing when a link like <code>https://viewer.example.org#shlink:/ey...</code> is opened in a browser.</p>
    </div>
 </div>
 
 <p></p>
 
-The following optional step may occur sometime after a SMART Health Links is generated:
+The following optional step may occur sometime after a SMART Health Link is generated:
 * **Optional: Update Shared Files**. For some sharing scenarios, Sharing User MAY update the shared files from time to time (e.g., when new lab results arrive or new immunizations are performed). Updated versions SHALL be encrypted using the same key as the initial version. 
 
 <p></p>
 
-#### Example SMART Health Links Generation
+#### Example SMART Health Link Generation
 ```js
 import { encode as b64urlencode } from 'https://deno.land/std@0.82.0/encoding/base64url.ts';
 
@@ -184,29 +186,29 @@ const shlink = `https://viewer.example.org#` + shlinkBare
 
 <p></p>
 
-####  Sharing User transmits a SMART Health Links
+####  Sharing User transmits a SMART Health Link
 
-The Sharing User can convey a SMART Health Links by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Links in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Links URI. 
+The Sharing User can convey a SMART Health Link by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Link in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Link URI. 
 
-When sharing a SMART Health Links via QR code, the following recommendations apply:
+When sharing a SMART Health Link via QR code, the following recommendations apply:
 
 * Create the QR with Error Correction Level M
 * Include the [SMART Logo](https://demo.vaxx.link/smart-logo.svg) on a white background over the center of the QR, scaled to occupy 5-6% of the image area (inclusive of the "quiet zone" QR border).
 
 <p></p>
 
-### SMART Health Links Receiving Application processes a SMART Health Links
+### SMART Health Links Receiving Application processes a SMART Health Link
 
-The SMART Health Links Receiving Application can process a SMART Health Links using the following steps.
+The SMART Health Links Receiving Application can process a SMART Health Link using the following steps.
 
-* Decode the SMART Health Links JSON payload
-* Issue a [SMART Health Links Manifest Request](#smart-health-links-manifest-request) to payload's `url`
+* Decode the SMART Health Link JSON payload
+* Issue a [SMART Health Link Manifest Request](#smart-health-link-manifest-request) to payload's `url`
 * Decrypt and process files from the manifest
 * Optional:  When the original QR includes the `L` flag for long-term use, the SMART Health Links Receiving Application can re-fetch the manifest periodically, following [polling guidance](#polling-manifest-for-changes) to avoid issing too many requests
  
 <p></p>
 
-### SMART Health Links Manifest Request
+### SMART Health Link Manifest Request
 
 When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Links's manifest by issuing a request to the `url` with:
 
@@ -215,10 +217,10 @@ When no `U` flag is present, the SMART Health Links Receiving Application SHALL 
   * `content-type: application/json`
 * Body: JSON object including
   * `recipient`: Required. A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User
-  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Links payload
+  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Link payload
   * `embeddedLengthMax`: Optional. Integer upper bound on the length of embedded payloads (see [`.files.embedded`](#filesembedded-content))
 
-If the SMART Health Links is no longer active, the Resource Server SHALL respond with a 404.
+If the SMART Health Link is no longer active, the Resource Server SHALL respond with a 404.
 
 If an invalid Passcode is supplied, the Resource Server SHALL reject the request and SHALL enforce a total lifetime count of incorrect Passcodes for a given SMART Health Links, to prevent attackers from performing an exhaustive Passcode search. The error response for an invalid Passcode SHALL use the `401` HTTP status code and the response body SHALL be a JSON payload with
 
@@ -237,14 +239,14 @@ If an invalid Passcode is supplied, the Resource Server SHALL reject the request
    </div>
    <div >
       <p><strong>📓   Design Note: Monitoring remaining attempts</strong></p>
-      <p>Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Links at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.</p>
+      <p>Servers need to enforce a total lifetime count of incorrect Passcodes even in the face of attacks that attempt multiple Passcodes in separate, parallel HTTP requests (i.e., with little or no delay between requests). For example, servers might employ measures to limit the number of in-flight requests for a single SMART Health Link at any given time, ensuring that requests are processed serially through the use of synchronization or shared state.</p>
    </div>
 </div>
 
 
 <p></p>
 
-If the SHlink request is valid, the Resource Server SHALL return a  SMART Health Links Manifest File with `content-type: application/json`. The SMART Health Links Manifest File is a JSON object with a `files` array where each entry includes:
+If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest File with `content-type: application/json`. The SMART Health Link Manifest File is a JSON object with a `files` array where each entry includes:
 
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
@@ -324,7 +326,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 <p></p>
 
-#### Example SMART Health Links Manifest File
+#### Example SMART Health Link Manifest File
 
 ```json
 {
@@ -344,7 +346,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 ```
 <p></p>
 
-#### SMART Health Links Direct File Request (with `U` Flag)
+#### SMART Health Link Direct File Request (with `U` Flag)
 
 When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Links's sole encrypted file by issuing a request to the `url` with:
 
@@ -356,7 +358,7 @@ When the `U` flag is present, the SMART Health Links Receiving Application SHALL
 
 ### Encrypting and Decrypting Files
 
-SMART Health Links files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc).
+SMART Health Link files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc). The JWE MAY include a `zip` header with the value `DEF` to indicate that the plaintext of the JWE is compressed using the DEFLATE algorithm as specified in RFC 1951, before being encrypted. (Note, this indicates "raw" DEFLATE compression, omitting any zlib headers.)
 
 <p></p>
 
@@ -364,6 +366,7 @@ SMART Health Links files are always symmetrically encrypted with a SMART Health 
 
 ```ts
 import * as jose from 'https://deno.land/x/jose@v4.7.0/index.ts'
+import * as pako from 'https://deno.land/x/pako@v2.0.3/pako.js'
 
 const exampleShcFromWeb = await fetch("https://spec.smarthealth.cards/examples/example-00-e-file.smart-health-card");
 const exampleShcBody = new Uint8Array(await exampleShcFromWeb.arrayBuffer());
@@ -392,6 +395,7 @@ console.log(encrypted)
 
 ```ts
 import * as jose from 'https://deno.land/x/jose@v4.7.0/index.ts'
+import * as pako from 'https://deno.land/x/pako@v2.0.3/pako.js'
 
 const shlinkPayload =  {
   "key": "rxTgYlOaKJPFtcEd0qcceN8wEU4p94SqAwIWQe6uX7Q",
@@ -403,7 +407,8 @@ const fileEncrypted = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwiY3R5IjoiYXBwbGljY
 
 const decrypted = await jose.compactDecrypt(
   fileEncrypted,
-  jose.base64url.decode(shlinkPayload.key)
+  jose.base64url.decode(shlinkPayload.key),
+  {inflateRaw: async (bytes) => pako.inflateRaw(bytes)}
 );
 
 console.log(decrypted.protectedHeader.cty)

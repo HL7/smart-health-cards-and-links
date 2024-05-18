@@ -26,7 +26,7 @@ Signed with an issuer key that includes x5c claim. Useful for testing code paths
 
 #### Example 2: International Patient Summary (IPS)
 
-In this example, the data minimization process was not applied because the payload is too big to fit in a QR.
+In this example, the data [minimization process](cards-specification.html#card-content-minified) was not applied because the payload is too big to fit in a QR.
 
 - [example-02-a-fhirBundle.json](example-02-a-fhirBundle.json)
 - [example-02-b-jws-payload-expanded.json](example-02-b-jws-payload-expanded.json)
