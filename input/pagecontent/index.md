@@ -23,9 +23,9 @@ The implementation guide is organized into two sections:
 
 * **SMART Health Cards** describes the protocol that allows an individual to keep a copy of their important health records with them in the form of a secure QR code that may be saved digitally or printed on paper. SMART Health Cards build on international open standards and decentralized infrastructure to provide end-user privacy and the ability to work across organizational and jurisdictional boundaries. This section includes:
   * [Cards User Stories](cards-user-stories.html) 
-  * the formal protocol Cards [specification](cards-specification.html)
-  * the [Issue Verifiable Credential operation](OperationDefinition-patient-i-health-cards-issue.html)
-  * [Cards examples](cards-examples.html)
+  * the formal SMART Health Cards [specification](cards-specification.html)
+  * the [Issue Verifiable Credential operation](OperationDefinition-patient-i-health-cards-issue.html) for requesting and generating SMART Health Cards
+  * [SMART Health Card examples](cards-examples.html)
   * a description of [Cards credential modeling](cards-credential-modeling.html)
   * a [Cards FAQ](frequently-asked-questions.html) and [changelog](cards-changelog.html)
 
@@ -33,7 +33,8 @@ The implementation guide is organized into two sections:
 
 * **SMART Health Links** describes the protocol that enables storage and sharing of more information than can be kept on a single SMART Health Card (using cloud storage) and provides additional sharing options including limited-time access, long-term sharing of data that can evolve over time, and protecting access with a PIN that can be communicated to the recipient out-of-band. This section contains:
   * [Links User Stories](links-user-stories.html) 
-  * and the formal protocol [Specification](links-specification.html)
+  * the formal SMART Health Links [specification](links-specification.html)
+  * [SMART Health Link examples](links-examples.html)
 
 <p></p>
 
@@ -59,9 +60,6 @@ The Verifiable Clinical Information (VCI) coalition convened the original consen
 <table class="grid">
     <tbody>
 	  <tr>
-		<td colspan="2">Sponsor: HL7 FHIR Infrastructure Work Group</td>
-  	  </tr>
-  	  <tr>
 		<td>Editor: Josh Mandel</td>
 		<td><a href="mailto:jmandel@gmail.com">jmandel@gmail.com</a></td>
 	  </tr>
