@@ -302,20 +302,29 @@ Issuers SHALL ensure that the following constraints apply at the time of issuanc
     * header includes `alg: "ES256"`
     * header includes `zip: "DEF"`
     * header includes `kid` equal to the base64url-encoded (see section 5 of [RFC4648](https://tools.ietf.org/html/rfc4648#section-5)) SHA-256 JWK Thumbprint of the key (see [RFC7638](https://tools.ietf.org/html/rfc7638))
+
 * JWS Payload
     * payload is minified (i.e., all optional whitespace is stripped)
     * payload is compressed with the DEFLATE (see [RFC1951](https://www.ietf.org/rfc/rfc1951.txt)) algorithm before being signed (note, this should be "raw" DEFLATE compression, omitting any zlib or gz headers)
-   
-For Health Cards that will be directly represented as QR codes, issuers SHALL ensure that:
 
-* JWS payload `.vc.credentialSubject.fhirBundle` is created:
-    * without `Resource.id` elements
-    * without `Resource.meta` elements (or if present, `.meta.security` is included and no other fields are included)
-    * without `DomainResource.text` elements
-    * without `CodeableConcept.text` elements
-    * without `Coding.display` elements
-    * with `Bundle.entry.fullUrl` populated with short `resource`-scheme URIs (e.g., `{"fullUrl": "resource:0"}`)
-    * with `Reference.reference` populated with short `resource`-scheme URIs (e.g., `{"patient": {"reference": "resource:0"}}`)
+<div style="margin-left:40px">
+<a name="card-content-minified"></a>
+<h5>Payload content minified for QR codes</h5>
+For Health Cards that will be directly represented as QR codes, issuers SHALL ensure that content is minified as follows:
+<p></p>
+<div style="margin-left:20px">
+JWS payload `.vc.credentialSubject.fhirBundle` is created...
+  <ul>
+    <li>without `Resource.id` elements</li>
+    <li>without `Resource.meta` elements (or if present, `.meta.security` is included and no other fields are included)</li>
+    <li>without `DomainResource.text` elements</li>
+    <li>without `CodeableConcept.text` elements</li>
+    <li>without `Coding.display` elements</li>
+    <li>with `Bundle.entry.fullUrl` populated with short `resource`-scheme URIs (e.g., `{"fullUrl": "resource:0"}`)</li>
+    <li>with `Reference.reference` populated with short `resource`-scheme URIs (e.g., `{"patient": {"reference": "resource:0"}}`)</li>
+  </ul>
+  </div>
+</div>
 
 For details about how to represent a Health Card as a QR code, [see below](#health-cards-as-qr-codes).
 
@@ -451,6 +460,29 @@ The following limitations apply when presenting Health Card as QR codes, rather 
   * Verifier cannot include requirements in-band
   * Verifier cannot include purposes of use in-band
 * Does not capture a digital record of the presentation
+
+<p></p>
+
+  <div  class="smart-styles-alert smart-styles-alert--deprecated ">
+    <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+        <svg viewBox="0 0 14 16">
+          <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+        </svg>
+      </span>
+      DEPRECATED
+    </div>
+    <b>Chunking Larger SMART Health Cards</b><br/>
+<i>Deprecation note: As of December 2022, support for chunking has not been widely adopted in production SHC deployments. For SHCs that need to be presented as QRs, we recommend limiting payload size to fit in a single QR (when possible), or else considering SMART Health Links.</i>
+<p></p>
+Commonly, SMART Health Cards will fit in a single V22 QR code. Any JWS longer than 1195 characters SHALL be split into "chunks" of length 1191 or smaller; each chunk SHALL be encoded as a separate QR code of V22 or lower, to ensure ease of scanning. Each chunk SHALL be numerically encoded and prefixed with an ordinal as well as the total number of chunks required to re-assemble the JWS, as described below. The <a href="https://github.com/smart-on-fhir/health-cards/blob/main/FAQ/qr.md">QR code FAQ page</a> details max JWS length restrictions at various error correction levels.
+<p></p>
+To ensure the best user experience when producing and consuming multiple QR codes:
+    <ul>
+      <li>Producers of QR codes SHOULD balance the sizes of chunks. For example, if a JWS is 1200 characters long, producers should create two ~600 character chunks rather than a 1191 character chunk and a 9 character chunk.</li>
+      <li>Consumers of QR codes SHOULD allow for scanning the multiple QR codes in any order. Once the full set is scanned, the JWS can be assembled and validated.</li>
+    </ul>
+</div>
 
 <p></p>
 

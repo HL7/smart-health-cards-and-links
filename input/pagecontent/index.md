@@ -47,8 +47,6 @@ _[To be added. Collect references made throughout the IG]_
 ### Contributing
 The Verifiable Clinical Information (VCI) coalition convened the original consensus group that started the work that led to this implementation guide. The Argonaut Project and CARIN Alliance were also key contributors.
 
-_[To be expanded]_
-
 <p></p>
 
 ### Sponsoring HL7 Workgroup  
@@ -66,6 +64,14 @@ _[To be expanded]_
   	  <tr>
 		<td>Editor: Josh Mandel</td>
 		<td><a href="mailto:jmandel@gmail.com">jmandel@gmail.com</a></td>
+	  </tr>
+  	  <tr>
+		<td>Assisting author: Frank McKinney</td>
+		<td><a href="mailto:fm@frankmckinney.com">fm@frankmckinney.com</a></td>
+	  </tr>
+  	  <tr>
+		<td>Publishing lead: Mark Roberts</td>
+		<td><a href="mailto:mark.roberts@leavittpartners.com">mark.roberts@leavittpartners.com</a></td>
 	  </tr>
 	</tbody>
   </table>
