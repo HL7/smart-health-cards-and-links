@@ -246,7 +246,7 @@ If an invalid Passcode is supplied, the Resource Server SHALL reject the request
 
 <p></p>
 
-If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest File with `content-type: application/json`. The SMART Health Link Manifest File is a JSON object with a `files` array where each entry includes:
+If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest with `content-type: application/json`. The SMART Health Link Manifest is a JSON object with a `files` array where each entry includes:
 
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
@@ -326,7 +326,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 <p></p>
 
-#### Example SMART Health Link Manifest File
+#### Example SMART Health Link Manifest
 
 ```json
 {
