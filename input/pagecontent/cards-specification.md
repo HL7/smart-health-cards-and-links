@@ -109,6 +109,10 @@ The data model for the Health Card payload at `.vc.credentialSubject.fhirBundle`
 		<td>Vaccination records and laboratory testing status for infectious diseases</td>
 		<td><a href="https://build.fhir.org/ig/HL7/fhir-shc-vaccination-ig">SMART Health Cards: Vaccination & Testing Implementation Guide</a>/</td>
   	  </tr>
+  	  <tr>
+		<td>Health insurance card information including payer, beneficiary and coverage details</td>
+		<td><a href="https://hl7.org/fhir/us/insurance-card">CARIN Digital Insurance Card Implementation Guide</a>/</td>
+  	  </tr>
 	</tbody>
   </table>
 <p></p>

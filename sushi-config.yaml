@@ -6,15 +6,19 @@ name: SMART Health Cards and Links
 title: SMART Health Cards and Links FHIR IG
 description: FHIR Implementation Guide for SMART Health Cards and Links
 status: draft # draft | active | retired | unknown
-version: 1.0.0
+version: 1.0.0-ballot
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2024+
-releaseLabel: CI Build # ci-build | STU1 Ballot
+releaseLabel: STU1 Ballot # CI Build | STU1 Ballot
 license: CC0-1.0 
 jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#001 "World"
 publisher:
   name: HL7 International / FHIR Infrastructure
   url: http://www.hl7.org/Special/committees/fiwg
+
+parameters:
+  jira-code: uv-smart-health-cards-and-links
+# FHIR-uv-smart-health-cards-and-links
 #dependencies:
 #  hl7.fhir.us.core:
 #    id: uscore
@@ -70,6 +74,7 @@ contact:
 extension:
   - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-wg
     valueCode: fhir
+
 #auto-oid-root: tbd
 
 # * modifierExtension
