@@ -218,6 +218,31 @@ The recommended methods of taking the base64url encoding of the b4-bit truncated
 ### Where can I find patient-focused information about SMART Health Cards?
 The [consumer-facing SMART Health Cards site](https://smarthealth.cards) contains information oriented to patients.
 
+<p></p>
+
+### Are there guidelines for formatting and presenting a SMART Health Card QR code or SMART Health Link QR code to users? 
+The community is currently discussing potential conventions for presenting QR codes associated with SMART Health Cards and Links in a consistent way--for example on a card issued by a healthcare agency or insurer--with the goal of helping patients easily recognize and use them.
+
+Two general guidelines can help users recognize a QR as a SMART Health Card or Link and increase the reliability of their experience using it.
+
+**First,** present the QR code in a three-layer stack arrangement that includes: 
+- the SMART logo at the top or bottom, to reinforce a recognizable SMART "brand" that patients will become increasingly familiar with over time
+- the QR code in the middle
+- the name or logo of the entity that issued the code opposite the SMART logo.
+
+<p></p>
+<div>
+<figure class="figure">
+<figcaption class="figure-caption"><strong><i>3-Layer Stack QR Code Presentation</i></strong></figcaption>
+  <br />
+  <p>
+  <img src="qr-stack.png" style="float:none">  
+  </p>
+</figure>
+</div>
+
+
+**Second,** avoid placing an icon within the QR code. Because SMART Health Cards and Links often hold a large amount of data compared to other QR codes, maximizing the area available for information and fault tolerance is important. And using a smaller icon to reduce the loss of data capacity will likely reduce its legibility.
 
 <p></p>
 <p></p>

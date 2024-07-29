@@ -38,10 +38,20 @@ The implementation guide is organized into two sections:
 
 <p></p>
 
-### Dependencies 
-This implementation guide relies on the following other specifications: 
+### Referenced Specifications
+This implementation guide relies on the following external specifications: 
 
-_[To be added. Collect references made throughout the IG]_
+- [IETF (Internet Engineering Task Force) RFC 7515 - JSON Web Signature (JWS)](https://datatracker.ietf.org/doc/html/rfc7515)
+- [IETF RFC 7517 - JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517)
+- [IETF RFC 7518 - JSON Web Algorithms (JWA)](https://datatracker.ietf.org/doc/html/rfc7518)
+- [IETF RFC 7519 - JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)
+- [IETF RFC 7638 - JSON Web Key (JWK) Thumbprint](https://datatracker.ietf.org/doc/html/rfc7638)
+- [IETF Network Working Group RFC 1951 - DEFLATE Compressed Data Format Specification version 1.3](https://www.ietf.org/rfc/rfc1951.txt)
+- [IETF Network Working Group RFC 4648 - Base64 Data Encodings](https://datatracker.ietf.org/doc/html/rfc4648)
+- [IETF Network Working Group RFC 4868 - Using HMAC-SHA-256, HMAC-SHA-384, and HMAC-SHA-512 with IPsec](https://datatracker.ietf.org/doc/html/rfc4868)
+- [IETF Network Working Group RFC 5280 - X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL)](https://datatracker.ietf.org/doc/html/rfc5280)
+- [IETF BCP 195 - Transport Layer Security (TLS)](https://www.rfc-editor.org/info/bcp195)
+- [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 
 
 <p></p>
 
