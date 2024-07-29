@@ -1,6 +1,3 @@
-IN PROCESS. This page will be updated with a CARIN Insurance Card example and other updates. 
-
-<hr>
 
 ### International Patient Summary (IPS)
 This SMART Health Link provides access to an IPS patient summary document. It demonstrates the use of the U flag (no manifest required) because manifest links require a backend server.
