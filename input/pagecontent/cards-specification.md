@@ -3,6 +3,7 @@
 ### Health Cards Conceptual Model
 
 <div>
+<p></p>
 <figure class="figure">
 <figcaption class="figure-caption"><strong><i>Health Cards Conceptual Model</i></strong></figcaption>
   <br />
@@ -259,7 +260,7 @@ When the issuer is ready to generate a Health Card, the issuer creates a FHIR pa
 
 <div>
 <figure class="figure">
-<figcaption class="figure-caption"><strong><i>Health Cards Conceptual Model</i></strong></figcaption>
+<figcaption class="figure-caption"><strong><i>Issuer Generates a Health Card</i></strong></figcaption>
   <br />
   <p>
   <img src="issuer-generates-results.png" style="float:none; width:500px">  
