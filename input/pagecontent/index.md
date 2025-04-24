@@ -22,19 +22,24 @@ Examples of what an individual can do using these standards include:
 The implementation guide is organized into two sections:
 
 * **SMART Health Cards** describes the protocol that allows an individual to keep a copy of their important health records with them in the form of a secure QR code that may be saved digitally or printed on paper. SMART Health Cards build on international open standards and decentralized infrastructure to provide end-user privacy and the ability to work across organizational and jurisdictional boundaries. This section includes:
-  * [Cards User Stories](cards-user-stories.html) 
-  * the formal SMART Health Cards [specification](cards-specification.html)
+  * [Health Cards user stories](cards-user-stories.html) 
+  * the formal [Health Cards specification](cards-specification.html)
   * the [Issue Verifiable Credential operation](OperationDefinition-patient-i-health-cards-issue.html) for requesting and generating SMART Health Cards
+  * a description of [Health Cards credential modeling](cards-credential-modeling.html)
   * [SMART Health Card examples](cards-examples.html)
-  * a description of [Cards credential modeling](cards-credential-modeling.html)
-  * a [Cards FAQ](frequently-asked-questions.html) and [changelog](cards-changelog.html)
+  * a [Health Cards FAQ](frequently-asked-questions.html) and [changelog](cards-changelog.html)
+  * the historical [log of changes to the SMART Health Cards specification](cards-changelog.html) prior to it becoming an HL7 standard
 
 <p></p>
 
 * **SMART Health Links** describes the protocol that enables storage and sharing of more information than can be kept on a single SMART Health Card (using cloud storage) and provides additional sharing options including limited-time access, long-term sharing of data that can evolve over time, and protecting access with a PIN that can be communicated to the recipient out-of-band. This section contains:
-  * [Links User Stories](links-user-stories.html) 
-  * the formal SMART Health Links [specification](links-specification.html)
-  * [SMART Health Link examples](links-examples.html)
+  * [Health Links user stories](links-user-stories.html) 
+  * the formal [Health Links specification](links-specification.html)
+  * [Health Link examples](links-examples.html)
+
+<p></p>
+
+In addition, there is a **[glossary](glossary.html)** of related terms and abbreviations used throughout the guide.
 
 <p></p>
 

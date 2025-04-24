@@ -224,7 +224,7 @@ The Sharing User can convey a SMART Health Link by any common means including e-
 When sharing a SMART Health Link via QR code, the following recommendations apply:
 
 * Create the QR with Error Correction Level M
-* Consider presenting the SMART Logo in close approximation with the QR. See [Boston Children's Hospital SMART Logo Page](https://smarthealthit.org/smart-logo-for-smart-health-cards) for details
+* Consider presenting the SMART Logo in close approximation with the QR. See the [Boston Children's Hospital SMART Logo Page](https://smarthealthit.org/smart-logo-for-smart-health-cards) for details
 
 The Sharing Application SHOULD NOT require additional supporting material from the Requesting Application. 
 - If that Sharing Application does require additional material, it SHALL NOT use the SMART Health Links name or logo in user-facing materials
