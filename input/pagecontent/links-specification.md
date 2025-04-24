@@ -183,7 +183,7 @@ Note that an implementation imposing additional controls would not be compatible
 To support extensions, the specification provides the following features:
 
 **For extensibility on the manifest**:
-- A FHIR [List resource](https://[hl7.org/fhir/list.html|http://hl7.org/fhir/list.html]) provides a designated location for extensions related to the manifest or individual files using the standard FHIR [extension](https://hl7.org/fhir/extensibility.html) mechanism.
+- A FHIR [List resource](https://[hl7.org/fhir/list.html) provides a designated location for extensions related to the manifest or individual files using the standard FHIR [extension](https://hl7.org/fhir/extensibility.html) mechanism.
 - The structure and specific extensions allowed within this `List` resource may be further defined by downstream implementation guides.
 - Clients SHALL ignore FHIR extensions they do not understand.
 
