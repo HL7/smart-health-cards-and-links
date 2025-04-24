@@ -43,6 +43,7 @@ This implementation guide relies on the following external specifications:
 
 - [IETF (Internet Engineering Task Force) RFC 7515 - JSON Web Signature (JWS)](https://datatracker.ietf.org/doc/html/rfc7515)
 - [IETF RFC 7517 - JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517)
+- [IETF RFC 7517 - JSON Web Key Set (JWK Set)](https://tools.ietf.org/html/rfc7517#section-5)
 - [IETF RFC 7518 - JSON Web Algorithms (JWA)](https://datatracker.ietf.org/doc/html/rfc7518)
 - [IETF RFC 7519 - JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519)
 - [IETF RFC 7638 - JSON Web Key (JWK) Thumbprint](https://datatracker.ietf.org/doc/html/rfc7638)

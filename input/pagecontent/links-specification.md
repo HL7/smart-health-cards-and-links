@@ -1,6 +1,6 @@
-### Use Cases
+### SMART Health Link (SHL) Use Cases
 * Share a link to any collection of FHIR data, including signed data
-* Share link to a static SMART Health Card that's too big to fit in a QR
+* Share link to a static SMART Health Card (SHC) that's too big to fit in a QR
 * Share link to a "dynamic" SMART Health Card -- i.e., a file that can evolve over time (e.g., "my most recent COVID-19 lab results")
 * Share a link to Bundles of patient-supplied data (e.g., "my advance directive" to share with EMS, or "my at-home weight measurements" to share with a weight loss program, or "my active prescriptions" to share with a service that helps you find better drug prices)
   * Note that for specific use cases, these data don't need to be tamper-proof, and could be aggressively stripped down (e.g., for a drug pricing service, just the drug codes and dosage would go a long way)
@@ -45,7 +45,7 @@ Working with a [SMART Health Links Sharing Application](#actors), the Sharing Us
 
 Regarding "what to share": a single SMART Health Link at a specific point in time will *resolve* to a manifest of files of the following types:
 * `application/smart-health-card`: a JSON file with a `.verifiableCredential` array containing SMART Health Card JWS strings, as specified in the [via File Download](cards-specification.html#via-file-download) section of the SMART Health Cards specification.
-* `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may be include digital signatures or have other verification processes associated with it, which are not defined here.
+* `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may include digital signatures or have other verification processes associated with it, which are not defined here.
 * `application/smart-api-access`: a JSON file with a SMART Access Token Response (see [SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html#response-5)). Two additional properties are defined:
   * `aud` Required string indicating the FHIR Server Base URL where this token can be used (e.g.,  ``"https://server.example.org/fhir"``)
   * `query`: Optional array of strings acting as hints to the client, indicating queries it might want to make (e.g., `["Coverage?patient=123&_tag=family-insurance"]`)
@@ -163,6 +163,38 @@ The following optional step may occur sometime after a SMART Health Link is gene
 
 <p></p>
 
+#### Including signatures in a SMART Health Link payload
+Downstream implementation guides may further specify how to add signatures to a SMART Health Link payload, under the following condition:
+- If clients need to be aware of a signing or wrapping scheme, the resulting artifact cannot be called a SMART Health Link in user-facing contexts.
+
+However, if the result is a SMART Health Link that clients can process as usual while ignoring the signature (e.g., a detached signature added as a property within the existing JSON SMART Health Link structure, next to label/flag/etc.), the resulting artifact can still be called a SMART Health Link in user-facing contexts
+
+<p></p>
+
+#### Including signatures in a SMART Health Link payload
+Downstream implementation guides can optionally layer on additional client authentication protocols in order to ensure that a purported SHL Sharing Application is a trusted service. 
+
+Such additional protocols might include features such as mTLS or an "aud" claim in a client-supplied JWT, which would prevent a "man-in-the-middle" attacker from forwarding on a request to a real server (e.g., because the "aud" claim in the client authentication wouldn't match).
+
+Note that an implementation imposing additional controls would not be compatible with clients that were ignorant of the server-specific constraints, and so this functionality could not be advertised as a SMART Health Link to end users.
+
+#### Extensions
+
+To support extensions, the specification provides the following features:
+
+**For extensibility on the manifest**:
+- A FHIR [List resource](https://[hl7.org/fhir/list.html|http://hl7.org/fhir/list.html]) provides a designated location for extensions related to the manifest or individual files using the standard FHIR [extension](https://hl7.org/fhir/extensibility.html) mechanism.
+- The structure and specific extensions allowed within this `List` resource may be further defined by downstream implementation guides.
+- Clients SHALL ignore FHIR extensions they do not understand.
+
+**For extensibility on SHL payload JSON**:
+- The specification reserves the name, `extension`, and will never define an element with that name. 
+- In addition, property names beginning with an underscore ("_") are reserved for extensions defined by downstream implementation guides or specific implementations. 
+- Extension property names SHOULD be kept short due to payload size constraints, especially when SMART Health Links are represented as QR codes. 
+- SMART Health Link Receiving Applications SHALL ignore extension properties they do not understand.
+
+<p></p>
+
 #### Example SMART Health Link Generation
 ```js
 import { encode as b64urlencode } from 'https://deno.land/std@0.82.0/encoding/base64url.ts';
@@ -183,17 +215,19 @@ const shlinkBare = `shlink:/` + encodedPayload;
 const shlink = `https://viewer.example.org#` + shlinkBare
 // "https://viewer.example.org#shlink:/eyJ1cmwiOiJodHRwczovL2Voci5leGFtcGxlLm9yZy9xci9ZOXh3a1VkdG1OOXd3b0pvTjNmZkpJaFgyVUd2Q0wxSm5sUFZOTDNrRFdNL20iLCJmbGFnIjoiTFAiLCJrZXkiOiJyeFRnWWxPYUtKUEZ0Y0VkMHFjY2VOOHdFVTRwOTRTcUF3SVdRZTZ1WDdRIiwibGFiZWwiOiJCYWNrLXRvLXNjaG9vbCBpbW11bml6YXRpb25zIGZvciBPbGl2ZXIgQnJvd24ifQ"
 ```
-
 <p></p>
 
-####  Sharing User transmits a SMART Health Link
+###  Sharing User transmits a SMART Health Link
 
 The Sharing User can convey a SMART Health Link by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Link in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Link URI. 
 
 When sharing a SMART Health Link via QR code, the following recommendations apply:
 
 * Create the QR with Error Correction Level M
-* Include the [SMART Logo](https://demo.vaxx.link/smart-logo.svg) on a white background over the center of the QR, scaled to occupy 5-6% of the image area (inclusive of the "quiet zone" QR border).
+* Consider presenting the SMART Logo in close approximation with the QR. See [Boston Children's Hospital SMART Logo Page](https://smarthealthit.org/smart-logo-for-smart-health-cards) for details
+
+The Sharing Application SHOULD NOT require additional supporting material from the Requesting Application. 
+- If that Sharing Application does require additional material, it SHALL NOT use the SMART Health Links name or logo in user-facing materials
 
 <p></p>
 
@@ -358,7 +392,11 @@ When the `U` flag is present, the SMART Health Links Receiving Application SHALL
 
 ### Encrypting and Decrypting Files
 
-SMART Health Link files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc). The JWE MAY include a `zip` header with the value `DEF` to indicate that the plaintext of the JWE is compressed using the DEFLATE algorithm as specified in RFC 1951, before being encrypted. (Note, this indicates "raw" DEFLATE compression, omitting any zlib headers.)
+SMART Health Link files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc). 
+
+The JWE MAY include a `zip` header with the value `DEF` to indicate that the plaintext of the JWE is compressed using the DEFLATE algorithm as specified in RFC 1951, before being encrypted. (Note, this indicates "raw" DEFLATE compression, omitting any zlib headers.)
+
+Because the same encryption key is used for all files over time within a SMART Health Link, the SHL Sharing Application SHALL ensure a unique nonce (also known as initialization vector, or IV) for each encryption operation, including initial encryption of each file and every subsequent update.
 
 <p></p>
 

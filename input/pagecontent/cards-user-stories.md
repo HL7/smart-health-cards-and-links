@@ -1,6 +1,6 @@
 SMART Health Cards are verified versions of your clinical information, such as vaccination history or test results. They allow you to keep a copy of your important health records on hand and easily share this information with others if you choose. SMART Health Cards contain a secure QR code and may be saved digitally or printed on paper.
 
-An individual receives a SMART Health Card from a qualified issuer. An issuer is any organization authorized by the [Verifiable Clinical Information coalition (VCI)](https://www.vci.org) to generate these cards, including pharmacies, hospitals, healthcare providers, medical labs, public health agencies, and more.
+An individual receives a SMART Health Card from an issuer. For example, the issuer might be an organization authorized by the [Verifiable Clinical Information coalition (VCI)](https://vci.org) to generate these cards, including pharmacies, hospitals, healthcare providers, medical labs, public health agencies, and more.
 
 The user stories below describe example situations where SMART Health Cards are used.
 

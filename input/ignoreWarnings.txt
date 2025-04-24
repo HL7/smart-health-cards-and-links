@@ -1,3 +1,7 @@
 == Suppressed Messages ==
 # Duplicate anchor warnings related to anchors created by the publisher (in this Zulip thread, Grahame indicated these could be ignored: https://chat.fhir.org/#narrow/stream/179252-IG-creation/topic/Publisher.20v1.2E6.2E12)
 The html source has duplicate anchor Ids: full-guide
+# This is a canonical ValueSet URI which does not resolve to an endpoint
+URL value 'https://terminology.smarthealth.cards/ValueSet/immunization-orthopoxvirus-all' does not resolve
+# This is a URI identifying a resource within a verifiable credential’s .credentialSubject.fhirBundle and does not resolve to an endpoint
+URL value 'resource:2' does not resolve

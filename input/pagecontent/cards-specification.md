@@ -62,7 +62,7 @@ When we launched the project, our short-term definition of success included:
 
 ### Trust
 
-Anyone can _issue_ Health Cards, and every verifier can make its own decision about which issuers to _trust_. A "trust framework" can help verifiers to externalize these decisions and drive toward more consistent practices. The SMART Health Cards IG is designed to operate independent of any trust framework, while allowing trust frameworks to be layered on top. We anticipate such frameworks will emerge to meet different jurisdictional and use case driven requirements. In all cases, verifiers can discover public keys associated with an issuer via `/.well-known/jwks.json` URLs.
+Anyone can _issue_ Health Cards, and every verifier can make its own decision about which issuers to _trust_. A "trust framework"&ndash;a set of rules that helps verifiers decide which issuers to trust&ndash;can help verifiers to externalize these decisions and drive toward more consistent practices. The SMART Health Cards IG is designed to operate independent of any trust framework, while allowing trust frameworks to be layered on top. We anticipate such frameworks will emerge to meet different jurisdictional and use case driven requirements. In all cases, verifiers can discover public keys associated with an issuer via `/.well-known/jwks.json` URLs.
 
 <p></p>
 
@@ -134,7 +134,7 @@ The following key types are used in the Health Cards Framework:
 #### Signing *Health Cards*
 
 * Issuers sign Health Card VCs (Verifiable Credentials) with a signing key (private key)
-* Issuer publish the corresponding public key (public key) at `/.well-known/jwks.json`
+* Issuers publish the corresponding public key (public key) at `/.well-known/jwks.json`
 * Wallets and Verifiers use the public key to verify Issuer signatures on Health Cards
 
 <p></p>
@@ -249,7 +249,7 @@ If the `crlVersion` is present in the Issuer's JWK for key `<<kid>>`, Verifiers 
 
 Revocation of Health Cards without a `rid` field (including all pre-v1.2.0 ones) can be done using external mechanisms to calculate a dynamic `rid` value based on the JWS’s content.
 
-If individual revocation of SMART Health Cards is not possible, then an issuer SHOULD revoke its issuing key, and allow users to obtain new Health Cards; limiting the validity period of a key helps to mitigate the adverse effects of this situation. See the [revocation FAQ](frequently-asked-questions.html#what-are-methods-for-revoking-smart-health-cards) for more details.
+If revocation is desired and individual revocation of SMART Health Cards is not possible, the issuer has the option of revoking its issuing key and allowing users to obtain new Health Cards. Limiting the validity period of a key helps to mitigate the adverse effects of this situation. See the [revocation FAQ](frequently-asked-questions.html#what-are-methods-for-revoking-smart-health-cards) for more details.
 
 <p></p>
 
@@ -343,7 +343,7 @@ In this step, the user learns that a new Health Card is available (e.g., by rece
 
 #### via File Download
 
-To facilitate this workflow, the issuer can include a link to help the user download the credentials directly, e.g., from a login-protected page in the Issuer's patient portal. The file SHALL be served with a `.smart-health-card` file extension and SHALL be provided with a MIME type of `application/smart-health-card` (e.g., web servers SHALL include `Content-Type: application/smart-health-card` as an HTTP Response containing a Health Card), so the Health Wallet app can be configured to recognize this extension and/or MIME type. Contents should be a JSON object containing an array of Verifiable Credential JWS strings:
+To facilitate this workflow, the issuer can include a link to help the user download the credentials directly, e.g., from a login-protected page in the Issuer's patient portal. The file SHALL be served with a `.smart-health-card` file extension and SHALL be provided with a MIME type of `application/smart-health-card` (e.g., web servers SHALL include `Content-Type: application/smart-health-card` as an HTTP Response containing a Health Card), so the Health Wallet app can be configured to recognize this extension and/or MIME type. Contents SHALL be a JSON object with a verifiableCredential array containing one or more verifiable credential JWS strings:
 
 ```json
 {
@@ -575,9 +575,9 @@ The spec is currently focused on representing Health Cards in a standardized dat
 
 <p></p>
 
-### Requests for Comment (RFCs)
+### Historical Requests for Comment (RFCs)
 
-This [RFC page](https://github.com/smart-on-fhir/health-cards/tree/main/rfcs) in the SMART Health Cards GitHub contains RFCs related to SMART Health Cards.
+For historical reference, past Requests for Comments related to SMART Health Cards can be found on this [RFC page](https://github.com/smart-on-fhir/health-cards/tree/main/rfcs) in the SMART Health Cards GitHub.
 
 <p></p>
 
