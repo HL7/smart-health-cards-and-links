@@ -27,7 +27,7 @@ The implementation guide is organized into two sections:
   * the [Issue Verifiable Credential operation](OperationDefinition-patient-i-health-cards-issue.html) for requesting and generating SMART Health Cards
   * a description of [Health Cards credential modeling](cards-credential-modeling.html)
   * [SMART Health Card examples](cards-examples.html)
-  * a [Health Cards FAQ](frequently-asked-questions.html) and [changelog](cards-changelog.html)
+  * a [Health Cards FAQ](frequently-asked-questions.html)
   * the historical [log of changes to the SMART Health Cards specification](cards-changelog.html) prior to it becoming an HL7 standard
 
 <p></p>
