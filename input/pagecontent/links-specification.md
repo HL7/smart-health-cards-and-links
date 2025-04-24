@@ -171,7 +171,7 @@ However, if the result is a SMART Health Link that clients can process as usual 
 
 <p></p>
 
-#### Including signatures in a SMART Health Link payload
+#### Including additional client authentication
 Downstream implementation guides can optionally layer on additional client authentication protocols in order to ensure that a purported SHL Sharing Application is a trusted service. 
 
 Such additional protocols might include features such as mTLS or an "aud" claim in a client-supplied JWT, which would prevent a "man-in-the-middle" attacker from forwarding on a request to a real server (e.g., because the "aud" claim in the client authentication wouldn't match).
