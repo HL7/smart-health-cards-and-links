@@ -38,6 +38,9 @@ pages:
   cards-user-stories.md:
     title: Health Cards User Stories
   cards-specification.md:
+    extension:
+    - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status
+      valueCode: trial-use
     title: Health Cards Specification
   cards-credential-modeling.md:
     title: Credential Modeling
@@ -50,6 +53,9 @@ pages:
   links-user-stories.md:
     title: Health Links User Stories
   links-specification.md:
+    extension:
+    - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-standards-status
+      valueCode: trial-use
     title: Health Links Specification
   links-examples.md:
     title: Health Links Examples

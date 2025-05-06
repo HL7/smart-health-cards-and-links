@@ -286,12 +286,35 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
     * `"application/smart-health-card"` or
     *  `"application/smart-api-access"` or 
     *  `"application/fhir+json"`
-* `location` (SHALL be present if no `embedded` content is included): URL to the file.
-This URL SHALL be short-lived and intended for single use. For example, it could be a
-short-lifetime signed URL to a file hosted in a cloud storage service (see signed URL docs for [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html), [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas), and [GCP](https://cloud.google.com/storage/docs/access-control/signed-urls)).
+* `location` (SHALL be present if no `embedded` content is included): URL to the file. This URL SHALL be short-lived and intended for single use. For example, it could be a short-lifetime signed URL to a file hosted in a cloud storage service (see signed URL docs for [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html), [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas), and [GCP](https://cloud.google.com/storage/docs/access-control/signed-urls)).
 * `embedded` (SHALL be present if no `location` is included): JSON string directly
 embedding the encrypted contents of the file as a compact JSON Web Encryption
 string (see ["Encrypting"](#encrypting-and-decrypting-files)).
+
+In addition to the the required elements above, the following optional properties are used to further describe an entry:
+  * `lastUpdated: ISO 8601 timestamp` (optional) 
+  * `status: string` (optional)
+  * `fhirVersion: string` (optional)
+
+<p></p>
+
+##### `.files.lastUpdated` property
+
+If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
+
+<p></p>
+
+##### `.files.status` property
+
+If present, the optional `status` value is a string indicating whether a file may change in the future. Values are: `"finalized"|"can-change"|"entered-in-error"|"no-longer-valid"|"retracted"`
+
+<p></p>
+
+##### `.fhirVersion` property
+
+The `fhirVersion` property SHOULD be present when the referenced file contains FHIR content. If the property is absent, clients MAY assume FHIR Release 4.0.1.
+
+Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
 
 <p></p>
 
@@ -326,18 +349,9 @@ SHALL wait before re-issuing a manifest request.
 
 ####  `.files.location` links
 
-The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced
-without additional authentication, and that they are short-lived. The lifetime
-of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create
-one-time-use `.files.location` links that are consumed as soon as they are
-dereferenced.
+The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced without additional authentication, and that they are short-lived. The lifetime of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create one-time-use `.files.location` links that are consumed as soon as they are dereferenced.
 
-Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and
-potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to
-dereference a manifest's `.files.location` link more than one hour after
-requesting the manifest, and SHALL be capable of re-fetching the manifest to
-obtain fresh `location` links in the event that they have expired or been
-consumed.
+Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to dereference a manifest's `.files.location` link more than one hour after requesting the manifest, and SHALL be capable of re-fetching the manifest to obtain fresh `location` links in the event that they have expired or been consumed.
 
 The SMART Health Links Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
 
@@ -354,7 +368,7 @@ embedded payload longer than the client-designated maximum.
 
 If present, the `embedded` value SHALL be up-to-date as of the time the manifest is
 requested. If the client has specified `embeddedLengthMax` in the manifest request,
-the sever SHALL NOT embedded payload longer than the client-designated maximum.
+the sever SHALL NOT return embedded payload longer than the client-designated maximum.
 
 The embedded content is a JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
 
@@ -374,7 +388,10 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
   },
   {
     "contentType": "application/fhir+json",
-    "location": "https://bucket.cloud.example.org/file2?sas=T34xzj1XtqTYb2lzcgj59XCY4I6vLN3AwrTUIT9GuSc"
+    "location": "https://bucket.cloud.example.org/file2?sas=T34xzj1XtqTYb2lzcgj59XCY4I6vLN3AwrTUIT9GuSc",
+    "lastUpdated": "2025-03-09T15:29:46Z",
+    "status": "finalized",
+    "fhirVersion": "4.0.1"
   }]
 }
 ```
@@ -462,8 +479,23 @@ const decoded = JSON.parse(new TextDecoder().decode(decrypted.plaintext));
 */
 ```
 <p></p>
-
+ 
 ### Use Case Examples
+
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Informative section</strong></p>
+      <p>The examples in this section are provided for informative purposes only and are not part of the formal SMART Health Links specification.</p>
+   </div>
+ </div>
 
 #### Using SMART Health Links to share an interactive experience
 

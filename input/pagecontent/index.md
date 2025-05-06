@@ -2,7 +2,7 @@
 
 Paper medical records--such as vaccination histories and insurance cards--are easily lost or damaged, are difficult to authenticate, and are often not on-hand when they’re needed. 
 
-SMART Health Cards and Links are FHIR-based standards that address these challenges, enabling individuals to receive their health information and share it with others in a tamper-proof and verifiable digital form.They provide a digital version of an individual's clinical information that can be kept at the ready and easily shared with others when the need arises--using a QR code, mobile app or web browser.
+SMART Health Cards and Links are FHIR-based standards that address these challenges, enabling individuals to receive their health information and share it with others in a tamper-proof and verifiable digital form. The standards can also be used to share less sensitive information that doesn't need to be verified by the receiver. They provide a digital version of an individual's clinical information that can be kept at the ready and easily shared with others when the need arises--using a QR code, mobile app or web browser.
 
 Together SMART Health Cards and Links provide options that support multiple goals--from keeping a small amount of verifiable medical information close by to authorizing a trusted party to access their entire medical record. They empower individuals with secure, equitable, and privacy-preserving access to their clinical information.
 
@@ -11,10 +11,11 @@ Together SMART Health Cards and Links provide options that support multiple goal
 Examples of what an individual can do using these standards include:
 
 - receive proof of critical immunizations on a physical card or in a mobile app and allow others to verify them by scanning the attached QR code
-- scan their insurance card's QR code when checking in at their doctor's office--transmitting their member ID and other coverage information directly to the clinic's system
+- using a SMART Health Link to transmit their member ID when checking in at their doctor's office
 - send an elementary school a link to their child's immunization history, allowing the school to verify the information with the immunization registry and copy in the details if it wishes
 - receive a "ticket" to access the results of a lab test when they're ready
-- give a provider time-limited or ongoing access to some or all of their medical data, including the ability to search.
+- give a provider time-limited or ongoing access to some or all of their medical data, including the ability to search
+- scan a prescription bottle to receive the full prescription details.
 
 <p></p>
 
