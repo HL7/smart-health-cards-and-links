@@ -5,3 +5,9 @@ The html source has duplicate anchor Ids: full-guide
 URL value 'https://terminology.smarthealth.cards/ValueSet/immunization-orthopoxvirus-all' does not resolve
 # This is a URI identifying a resource within a verifiable credential’s .credentialSubject.fhirBundle and does not resolve to an endpoint
 URL value 'resource:2' does not resolve
+# This IG contains profiles on the R4 Endpoint resource, whose StructureDefinition contains the deprecated extension, elementdefinition-maxValueSet, on Endpoint.language
+The extension http://hl7.org/fhir/StructureDefinition/elementdefinition-maxValueSet|5.2.0 is deprecated
+# This codesystem is referenced only in an informational section of the IG. It is supplied for evaluation by implementers and may be formalized in a future version of the IG
+Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
+# This R4 codesystem is not supported by the IG publisher's terminology server. Confirmed that it is specified correctly in the IG
+Error from http://tx.fhir.org/r4: Unable to provide support for code system http://hl7.org/fhir/restful-security-service

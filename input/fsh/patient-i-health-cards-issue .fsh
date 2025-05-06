@@ -66,3 +66,30 @@ Usage: #definition
 * parameter[=].part[=].min = 1
 * parameter[=].part[=].max = "1"
 * parameter[=].part[=].type = #uri
+
+Instance: example-health-cards-issue-request-1
+InstanceOf: Parameters
+Usage: #example
+Description: "Example of an Issue Verifiable Credential operation request containing all input parameters"
+* parameter[0].name = "credentialType"
+* parameter[=].valueUri = "Immunization"
+* parameter[+].name = "credentialValueSet"
+* parameter[=].valueUri = "https://terminology.smarthealth.cards/ValueSet/immunization-orthopoxvirus-all"
+* parameter[+].name = "includeIdentityClaim"
+* parameter[=].valueString = "Patient.name"
+* parameter[+].name = "_since"
+* parameter[=].valueDateTime = "2023-03"
+
+Instance: example-health-cards-issue-response-1
+InstanceOf: Parameters
+Usage: #example
+Description: "Example of an Issue Verifiable Credential operation response containing all output parameters"
+* parameter[0].name = "verifiableCredential"
+* parameter[=].valueString = "<<Health Card as JWS>>"
+* parameter[+].name = "resourceLink"
+* parameter[=].part[0].name = "vcIndex"
+* parameter[=].part[=].valueInteger = 0
+* parameter[=].part[+].name = "bundledResource"
+* parameter[=].part[=].valueUri = "resource:2"
+* parameter[=].part[+].name = "hostedResource"
+* parameter[=].part[=].valueUri = "https://fhir.example.org/Immunization/123"

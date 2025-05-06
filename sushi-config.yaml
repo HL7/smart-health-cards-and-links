@@ -18,7 +18,16 @@ publisher:
 
 parameters:
   jira-code: uv-smart-health-cards-and-links
+
+
 # FHIR-uv-smart-health-cards-and-links
+#dependencies:
+#  hl7.fhir.uv.extensions.r4:
+#    id: ext
+#    version: 5.1.0
+
+#  hl7.terminology: 5.5.0
+
 #dependencies:
 #  hl7.fhir.us.core:
 #    id: uscore
