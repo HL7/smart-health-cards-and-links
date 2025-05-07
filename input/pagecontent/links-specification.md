@@ -328,6 +328,33 @@ In addition to the the required elements above, the following optional propertie
 
 <p></p>
 
+####  `.files.location` links
+
+The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced without additional authentication, and that they are short-lived. The lifetime of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create one-time-use `.files.location` links that are consumed as soon as they are dereferenced.
+
+Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to dereference a manifest's `.files.location` link more than one hour after requesting the manifest, and SHALL be capable of re-fetching the manifest to obtain fresh `location` links in the event that they have expired or been consumed.
+
+The SMART Health Links Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
+
+* Headers:
+  * `content-type: application/jose`
+* Body: JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
+
+<p></p>
+
+#### `.files.embedded` content
+
+If the client has specified `embeddedLengthMax` in the manifest request, the sever SHALL NOT
+embedded payload longer than the client-designated maximum.
+
+If present, the `embedded` value SHALL be up-to-date as of the time the manifest is
+requested. If the client has specified `embeddedLengthMax` in the manifest request,
+the sever SHALL NOT return embedded payload longer than the client-designated maximum.
+
+The embedded content is a JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
+
+<p></p>
+
 #### Polling manifest for changes
 When the original QR includes the `L` flag for long-term use, the client MAY
 periodically poll for changes in the manifest. The server MAY provide a
@@ -354,33 +381,6 @@ SHALL wait before re-issuing a manifest request.
       <p>More detailed guidance on polling will require real-world implementation experience. The current guidance provides the client a hint about how often to poll, and provides a way to convey that requests are being issued too frequently. We encourage implementers to experiment with additional capabilities.</p>
    </div>
 </div>
-
-<p></p>
-
-####  `.files.location` links
-
-The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced without additional authentication, and that they are short-lived. The lifetime of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create one-time-use `.files.location` links that are consumed as soon as they are dereferenced.
-
-Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to dereference a manifest's `.files.location` link more than one hour after requesting the manifest, and SHALL be capable of re-fetching the manifest to obtain fresh `location` links in the event that they have expired or been consumed.
-
-The SMART Health Links Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
-
-* Headers:
-  * `content-type: application/jose`
-* Body: JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
-
-<p></p>
-
-#### `.files.embedded` content
-
-If the client has specified `embeddedLengthMax` in the manifest request, the sever SHALL NOT
-embedded payload longer than the client-designated maximum.
-
-If present, the `embedded` value SHALL be up-to-date as of the time the manifest is
-requested. If the client has specified `embeddedLengthMax` in the manifest request,
-the sever SHALL NOT return embedded payload longer than the client-designated maximum.
-
-The embedded content is a JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
 
 <p></p>
 
