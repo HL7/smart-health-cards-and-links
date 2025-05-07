@@ -106,15 +106,26 @@ The SMART Health Links Sharing Application incorporates the manifest URL into a 
 
 The SMART Health Link Payload is a JSON object including the following properties:
 
-* `url`: Manifest URL for this SMART Health Links
-* `key`: Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded.
-* `exp`: Optional. Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)
-* `flag`: Optional. String created by concatenating single-character flags in alphabetical order
-  * `L` Indicates the SMART Health Link is intended for long-term use and manifest content can evolve over time 
-  * `P` Indicates the SMART Health Link requires a Passcode to resolve
-  * `U` Indicates the SMART Health Links's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
-* `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SMART Health Links. 
-* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Link conforms to. MAY be omitted when the default value (`1`) applies.
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Property</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>url</td><td>1..1</td><td>url</td><td>Manifest URL for this SMART Health Link</td></tr>
+      <tr><td>key</td><td>1..1</td><td>base64 url encoded string</td><td>Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded</td></tr>
+      <tr><td>exp</td><td>0..1</td><td>number</td><td>Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)</td></tr>
+      <tr><td>flag</td><td>0..1</td><td>string</td><td>String created by concatenating single-character flags in alphabetical order<br/>
+      <ul>
+      <li><samp>L</samp> Indicates the SMART Health Link is intended for long-term use and manifest content can evolve over time </li>
+      <li><samp>P</samp> Indicates the SMART Health Link requires a Passcode to resolve</li>
+      <li><samp>U</samp> Indicates the SMART Health Links's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with <samp>P</samp></li>
+      </ul></td></tr>
+      <tr><td>label</td><td>0..1</td><td>string</td><td>String no longer than 80 characters that provides a short description of the data behind the SMART Health Link</td></tr>
+      <tr><td>v</td><td>0..1</td><td>number</td><td>Integer representing the SMART Health Links protocol version this SMART Health Link conforms to. MAY be omitted when the default value (<samp>1</samp>) applies</td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 The JSON Payload is then:
 * Minified
