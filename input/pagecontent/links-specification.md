@@ -280,41 +280,51 @@ If an invalid Passcode is supplied, the Resource Server SHALL reject the request
 
 <p></p>
 
-If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest File with `content-type: application/json`. The SMART Health Link Manifest File is a JSON object with a `files` array where each entry includes:
+#### SMART Health Link Manifest File 
+
+If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest File with `content-type: application/json`. The SMART Health Link Manifest File is a JSON object containing a listing of available content items in the following structure:
+
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td colspan="4" style="white-space:nowrap"><b>Element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td colspan="4">Manifest</td><td>1..1</td><td>JSON object</td><td>SMART Health Link Manifest File object</td></tr>
+      <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="3">list</td><td>0..1</td><td>FHIR List resource</td><td>Property containing a List resource with metadata related to contained files</td></tr>
+      <tr><td></td><td colspan="3">files</td><td>1..1</td><td>array</td><td>Object containing metadata related to one or more contained files</td></tr>
+      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2"><i>(array entry)</i></td><td>1..*</td><td>JSON object</td><td></td></tr>
+      <tr><td></td><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
+      <tr><td></td><td></td><td></td><td>location</td><td>0..1 *</td><td>string</td><td>URL to the content</td></tr>
+      <tr><td></td><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
+      <tr><td></td><td></td><td></td><td>lastUpdated</td><td>0..1</td><td>ISO 8601 timestamp</td><td>Last time the content was modified</td></tr>
+      <tr><td></td><td></td><td></td><td>status</td><td>0..1</td><td>string</td><td>Indicates whether a file may be changed in the future (fixed values, see below)</td></tr>
+      <tr><td></td><td></td><td></td><td>fhirVersion</td><td>0..1</td><td>string</td><td>Version of FHIR content</td></tr>
+        <tr><td colspan="7"  style="background-color:rgba(0, 0, 0, 0); border-color:rgba(0, 0, 0, 0)"><i>* Either <samp>location</samp> or <samp>embedded</samp> must be present</i></td></tr>
+</tbody>
+</table>
+
+#### `list` property
+The optional `list` property contains a FHIR List resource with metadata related to files contained within the Manifest object's `files` array. 
+
+#### `files` array
+Each entry in the `files` array includes:
 
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
-    *  `"application/smart-api-access"` or 
-    *  `"application/fhir+json"`
+    * `"application/smart-api-access"` or 
+    * `"application/fhir+json"`
 * `location` (SHALL be present if no `embedded` content is included): URL to the file. This URL SHALL be short-lived and intended for single use. For example, it could be a short-lifetime signed URL to a file hosted in a cloud storage service (see signed URL docs for [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html), [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas), and [GCP](https://cloud.google.com/storage/docs/access-control/signed-urls)).
 * `embedded` (SHALL be present if no `location` is included): JSON string directly
 embedding the encrypted contents of the file as a compact JSON Web Encryption
 string (see ["Encrypting"](#encrypting-and-decrypting-files)).
 
 In addition to the the required elements above, the following optional properties are used to further describe an entry:
-  * `lastUpdated: ISO 8601 timestamp` (optional) 
-  * `status: string` (optional)
+  * `lastUpdated: ISO 8601 timestamp`
+    * If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
+  * `status: string`
+    * If present, the optional `status` value is a string indicating whether a file may changed in the future. Values are: `"finalized"|"can-change"|"entered-in-error"|"no-longer-valid"|"retracted"`
   * `fhirVersion: string` (optional)
-
-<p></p>
-
-##### `.files.lastUpdated` property
-
-If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
-
-<p></p>
-
-##### `.files.status` property
-
-If present, the optional `status` value is a string indicating whether a file may change in the future. Values are: `"finalized"|"can-change"|"entered-in-error"|"no-longer-valid"|"retracted"`
-
-<p></p>
-
-##### `.fhirVersion` property
-
-The `fhirVersion` property SHOULD be present when the referenced file contains FHIR content. If the property is absent, clients MAY assume FHIR Release 4.0.1.
-
-Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
+    * The `fhirVersion` property SHOULD be present when the referenced file contains FHIR content. If the property is absent, clients MAY assume FHIR Release 4.0.1. Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
 
 <p></p>
 
@@ -399,7 +409,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 #### SMART Health Link Direct File Request (with `U` Flag)
 
-When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Links's sole encrypted file by issuing a request to the `url` with:
+When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Link's sole encrypted file by issuing a request to the `url` with:
 
 * Method: `GET`
     * Query parameters
@@ -503,12 +513,20 @@ While the SMART Health Links spec focuses on providing access to structured data
 useful to share an interactive experience such as a web-based diagnostic portal where the
 SMART Health Links Receiving Application can review and add comments to a patient record. This can be accomplished
 in SMART Health Links with a manifest entry of type `application/fhir+json` that provides a
-[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) where:
+[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) with the following content:
+<p></p>
 
-* `name` describes the interactive experience with sufficient detail for the Receiving User to decide whether to engage
-* `connectionType` is `{"system": "https://smarthealthit.org", "code": "shl-interactive-experience"}`
-* `address` is the URI for the interactive experience
-* `period` optionally documents the window of time when the interactive experience is available
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Endpoint element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>name</td><td>1..1</td><td>string</td><td>Describes the interactive experience with sufficient detail for the Receiving User to decide whether to engage</td></tr>
+      <tr><td>connectionType</td><td>1..1</td><td>CodeableConcept</td><td><samp>{"system": "https://smarthealthit.org", <br/>"code": "shl-interactive-experience"}</samp></td></tr>
+      <tr><td>address</td><td>1..1</td><td>url</td><td>The URI for the interactive experience</td></tr>
+      <tr><td>period</td><td>0..1</td><td>Period</td><td>Optionally documents the window of time when the interactive experience is available</td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 For example, the manifest for an SMART Health Links that offers the user the opportunity to "Review a case"
 might include a `application/fhir+json` entry with:
@@ -538,11 +556,20 @@ Notes:
 In addition to providing direct access to a pre-configured data set, SMART Health Linkss can include information
 to help establish a consumer-mediated SMART on FHIR connection to the data source. This can be
 accomplished with a SMART Health Links manifest entry of type `application/fhir+json` that provides a
-[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) where:
+[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) with the following content:
 
-* `name` describes the SMART on FHIR endpoint with sufficient detail for the Receiving User to decide whether to connect
-* `connectionType` is `{"system": "http://terminology.hl7.org/CodeSystem/restful-security-service", "code": "SMART-on-FHIR"}`
-* `address` is the FHIR API base URL of the server that supports [SMART App Launch](http://hl7.org/fhir/smart-app-launch/)
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Endpoint element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>name</td><td>1..1</td><td>string</td><td>Describes the SMART on FHIR endpoint with sufficient detail for the Receiving User to decide whether to connect</td></tr>
+      <tr><td>connectionType</td><td>1..1</td><td>CodeableConcept</td><td><samp>{"system": "http://terminology.hl7.org/CodeSystem/restful-security-service", <br/>"code": "SMART-on-FHIR"}</samp></td></tr>
+      <tr><td>address</td><td>1..1</td><td>url</td><td>The FHIR API base URL of the server that supports <a href="http://hl7.org/fhir/smart-app-launch">SMART App Launch</a></td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 For example, the manifest for an SMART Health Links from Labs-R-Us might include a `application/fhir+json` entry with:
 
