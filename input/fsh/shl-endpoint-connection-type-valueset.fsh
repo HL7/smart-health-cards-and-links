@@ -17,5 +17,6 @@ Description: "This value set contains codes indicating the type of endpoint refe
 * ^contact[=].telecom.value = "fm@frankmckinney.com"
 * ^jurisdiction = $m49.htm#001 "World"
 * ^purpose = "Provides connection types to be used when defining an endpoint in a SMART Health Links manifest entry"
+* include codes from system EndpointConnectionType
 * $hl7restfulsecurityservice#SMART-on-FHIR "SMART-on-FHIR"
 * $tempshlendpointtype#shl-interactive-experience

@@ -3,4 +3,3 @@ Alias: $hl7payloadtype = http://terminology.hl7.org/CodeSystem/endpoint-payload-
 Alias: $hl7restfulsecurityservice = http://terminology.hl7.org/CodeSystem/restful-security-service
 Alias: $shlconnectiontype = http://hl7.org/fhir/uv/smart-health-cards-and-links/ValueSet/shl-endpoint-connection-type
 Alias: $tempshlendpointtype = http://hl7.org/fhir/uv/smart-health-cards-and-links/CodeSystem/temporary-shl-endpoint-type
-Alias: $smarthealthit = https://smarthealthit.org
