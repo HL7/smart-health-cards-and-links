@@ -18,4 +18,4 @@ Description: "This value set contains codes indicating the type of endpoint refe
 * ^jurisdiction = $m49.htm#001 "World"
 * ^purpose = "Provides connection types to be used when defining an endpoint in a SMART Health Links manifest entry"
 * $hl7restfulsecurityservice#SMART-on-FHIR "SMART-on-FHIR"
-* $shlconnectiontypecodes#shl-interactive-experience
+* $tempshlendpointtype#shl-interactive-experience

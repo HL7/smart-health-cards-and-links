@@ -1,5 +1,5 @@
-CodeSystem: TemporaryShlEndpointConnectionTypeCodes
-Id: temporary-shl-endpoint-connection-type-codes
+CodeSystem: TemporaryShlEndpointType
+Id: temporary-shl-endpoint-type
 Title: "SHL Endpoint Connection Type (Temporary)"
 Description: "Codes indicating the type of endpoint referenced in a SMART Health Links manifest entry"
 * ^status = #active
