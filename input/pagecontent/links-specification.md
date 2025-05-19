@@ -127,7 +127,7 @@ The SMART Health Link Payload is a JSON object including the following propertie
 
 <p></p>
 
-_The ShlPayload logical model can be found [here](StructureDefinition-shlPayload.html)._
+_The ShlPayload logical model can be found [here](StructureDefinition-ShlPayload.html)._
 
 <p></p>
 
@@ -320,7 +320,7 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
 
 <p></p>
 
-_The ShlManifest logical model can be found [here](StructureDefinition-shlManifest.html)._
+_The ShlManifest logical model can be found [here](StructureDefinition-ShlManifest.html)._
 
 <p></p>
 
