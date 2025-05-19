@@ -127,6 +127,10 @@ The SMART Health Link Payload is a JSON object including the following propertie
 
 <p></p>
 
+_The ShlPayload logical model can be found [here](StructureDefinition-shlPayload.html)._
+
+<p></p>
+
 The JSON Payload is then:
 * Minified
 * Base64urlencoded
@@ -305,7 +309,7 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
       <tr><td></td><td colspan="3">files</td><td>1..1</td><td>array</td><td>Object containing metadata related to one or more contained files</td></tr>
       <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2"><i>(array entry)</i></td><td>1..*</td><td>JSON object</td><td></td></tr>
       <tr><td></td><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
-      <tr><td></td><td></td><td></td><td>location</td><td>0..1 *</td><td>string</td><td>URL to the content</td></tr>
+      <tr><td></td><td></td><td></td><td>location</td><td>0..1 *</td><td>url</td><td>URL to the content</td></tr>
       <tr><td></td><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
       <tr><td></td><td></td><td></td><td>lastUpdated</td><td>0..1</td><td>ISO 8601 timestamp</td><td>Last time the content was modified</td></tr>
       <tr><td></td><td></td><td></td><td>status</td><td>0..1</td><td>string</td><td>Indicates whether a file may be changed in the future (fixed values, see below)</td></tr>
@@ -313,6 +317,12 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
         <tr><td colspan="7"  style="background-color:rgba(0, 0, 0, 0); border-color:rgba(0, 0, 0, 0)"><i>* Either <samp>location</samp> or <samp>embedded</samp> must be present</i></td></tr>
 </tbody>
 </table>
+
+<p></p>
+
+_The ShlManifest logical model can be found [here](StructureDefinition-shlManifest.html)._
+
+<p></p>
 
 #### `list` property
 The optional `list` property contains a FHIR List resource with metadata related to files contained within the Manifest object's `files` array. 
@@ -499,6 +509,33 @@ const decoded = JSON.parse(new TextDecoder().decode(decrypted.plaintext));
 }
 */
 ```
+<p></p>
+
+### Conformance and User-Facing Identification
+
+This core specification enables interoperable health information sharing via SMART Health Links and is designed for extensibility. Downstream profiles **MAY** add features like new extensions, flags, authentication methods, or cryptographic schemes.
+
+However, such additions might require receiving applications to implement features beyond this core specification. To ensure a reliable baseline experience and protect the SMART Health Links brand, this specification defines *"Plain SMART Health Links"* and ties the official URI scheme and branding to this definition.
+
+#### Plain SMART Health Link (Plain SHL)
+
+A *Plain SMART Health Link* is one that allows a receiving application, implementing only this core specification (a "baseline client"), to successfully:
+
+1. Parse the SHL Payload.
+2. Retrieve the manifest or direct file.
+3. Retrieve and decrypt the content files.
+
+Successful processing by a baseline client **SHALL NOT** depend on any protocols, algorithms, or extensions beyond those defined in this core specification. A baseline client must be able to access and decrypt the fundamental data, even if it ignores optional or unrecognized elements.
+
+#### User-Facing Identification Requirements
+
+To maintain user trust and interoperability:
+
+The `shlink:` URI scheme **SHALL** only be used for Plain SHLs. Links that are not Plain SHLs **SHALL** use a different URI scheme.
+The terms "SMART Health Link", "SMART Health Links", or the official logo **SHALL** only be used in user-facing contexts to identify Plain SHLs. Implementations presenting links that are not Plain SHLs **SHALL NOT** use this branding for those links.
+
+This ensures users can reliably identify links guaranteed to work with any baseline receiving application. Extended implementations must use different schemes and branding to distinguish themselves. Downstream implementation guides defining non-Plain SHLs **SHALL** define their own unique URI scheme and declare it on the [HL7 Confluence page for SMART Health Link Extensions](https://confluence.hl7.org/display/FHIR/SMART+Health+Link+Extensions) with a reference to their downstream specification.
+
 <p></p>
  
 ### Use Case Examples
