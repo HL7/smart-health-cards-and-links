@@ -57,17 +57,3 @@ Description: "The SMART Health Link Payload object"
 * v ^example[0].valueInteger = 1
 * _extension 0..* string "Extension (property name beginning with an underscore) defined by downstream implementation guides or specific implementations." 
 * _extension ^definition = "Property names beginning with an underscore ('_') are reserved for extensions defined by downstream implementation guides or specific implementations. The specification reserves the name, extension, and will never define an element with that name. "
-
-
-
-Instance: shl-payload-1
-InstanceOf: ShlPayload
-Usage: #example
-Description: "Example of a SMART Health Link Payload"
-* url = "https://ehr.example.org/qr/Y9xwkUdtmN9wwoJoN3ffJIhX2UGvCL1JnlPVNL3kDWM/m"
-* flag = "LP"
-* key = "rxTgYlOaKJPFtcEd0qcceN8wEU4p94SqAwIWQe6uX7Q"
-* exp = "1767225600000"
-* v = 1
-* label = "Back-to-school immunizations for Oliver Brown"
-

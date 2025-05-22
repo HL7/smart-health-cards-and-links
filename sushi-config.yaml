@@ -88,7 +88,38 @@ extension:
   - url: http://hl7.org/fhir/StructureDefinition/structuredefinition-fmm
     valueInteger: 4
 
+resources:
+#----------- Examples -------------
+  Binary/shl-payload-1:
+    extension:
+      - url: http://hl7.org/fhir/tools/StructureDefinition/implementationguide-resource-format
+        valueCode: application/fhir+json
+    name: "Example SHL Payload 1"
+    description: "Example of a SMART Health Links Payload object containing all properties."
+  Binary/shl-payload-2:
+    extension:
+      - url: http://hl7.org/fhir/tools/StructureDefinition/implementationguide-resource-format
+        valueCode: application/fhir+json
+    name: "Example SHL Payload 2"
+    description: "Example of a minimal SMART Health Links Payload object."
+  Binary/shl-manifest-1:
+    extension:
+      - url: http://hl7.org/fhir/tools/StructureDefinition/implementationguide-resource-format
+        valueCode: application/fhir+json
+    name: "Example SHL Manifest 1"
+    description: "Example of a SMART Health Links Manifest including optional properties."
+
+# using exampleCanonical causes an error if the example doesn't contain a "resourceType" element, which isn't part of an actual instance
+#    exampleCanonical: http://hl7.org/fhir/uv/smart-health-cards-and-links/StructureDefinition/ShlPayload
+
+# Using the extension below instead of exampleCanonical didn't appear to do anything... the example was included in the IG and no error related to resourceType was generated. 
+# But the example wasn't associated with its logical model
+#      - url: http://hl7.org/fhir/tools/StructureDefinition/implementationguide-resource-logical
+#        valueCanonical: http://hl7.org/fhir/uv/smart-health-cards-and-links/StructureDefinition/ShlPayload
+    
 #auto-oid-root: tbd
+
+
 
 # * modifierExtension
 # * experimental
