@@ -27,7 +27,7 @@ Description: "The SMART Health Link Payload object"
 * key ^base.max = "1"
 * key ^example[0].label = "key"
 * key ^example[0].valueString = "rxTgYlOaKJPFtcEd0qcceN8wEU4p94SqAwIWQe6uX7Q"
-* exp 0..1 string "Expiration time"
+* exp 0..1 decimal "Expiration time"
 * exp ^definition = "Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)"
 * exp ^base.path = "ShlPayload.exp"
 * exp ^base.min = 0

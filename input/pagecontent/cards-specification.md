@@ -45,7 +45,7 @@ We enable Health Cards by defining building blocks that can be used across healt
 When we launched the project, our short-term definition of success included:
 
 * Represent "Health Cards" in a "Health Wallet", focusing on COVID-19 status
-* Ensure that each role (issuer, holder, app) can be implemented by any organization following open standards, provided they sign on to the relevant trust framework
+* Ensure that each role (issuer, holder, app) can be implemented by any organization following open standards, provided they sign on to the relevant [trust framework](glossary.html#trust-framework)
 
 <p></p>
 

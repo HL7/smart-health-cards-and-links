@@ -179,8 +179,7 @@ The following optional step may occur sometime after a SMART Health Link is gene
 <p></p>
 
 #### Including signatures in a SMART Health Link payload
-Downstream implementation guides may further specify how to add signatures to a SMART Health Link payload, under the following condition:
-- If clients need to be aware of a signing or wrapping scheme, the resulting artifact cannot be called a SMART Health Link in user-facing contexts.
+Downstream implementation guides may further specify how to add signatures to a SMART Health Link payload, under the conditions listed at [Conformance and User-Facing Identification](#conformance-and-user-facing-identification).
 
 However, if the result is a SMART Health Link that clients can process as usual while ignoring the signature (e.g., a detached signature added as a property within the existing JSON SMART Health Link structure, next to label/flag/etc.), the resulting artifact can still be called a SMART Health Link in user-facing contexts
 
@@ -191,7 +190,7 @@ Downstream implementation guides can optionally layer on additional client authe
 
 Such additional protocols might include features such as mTLS or an "aud" claim in a client-supplied JWT, which would prevent a "man-in-the-middle" attacker from forwarding on a request to a real server (e.g., because the "aud" claim in the client authentication wouldn't match).
 
-Note that an implementation imposing additional controls would not be compatible with clients that were ignorant of the server-specific constraints, and so this functionality could not be advertised as a SMART Health Link to end users.
+Note that an implementation imposing additional controls would not be compatible with clients that were ignorant of the server-specific constraints. See [Conformance and User-Facing Identification](#conformance-and-user-facing-identification) section for applicable restrictions.
 
 #### Extensions
 
@@ -241,8 +240,7 @@ When sharing a SMART Health Link via QR code, the following recommendations appl
 * Create the QR with Error Correction Level M
 * Consider presenting the SMART Logo in close approximation with the QR. See the [Boston Children's Hospital SMART Logo Page](https://smarthealthit.org/smart-logo-for-smart-health-cards) for details
 
-The Sharing Application SHOULD NOT require additional supporting material from the Requesting Application. 
-- If that Sharing Application does require additional material, it SHALL NOT use the SMART Health Links name or logo in user-facing materials
+The Sharing Application SHOULD NOT require additional supporting material from the Requesting Application. See [Conformance and User-Facing Identification](#conformance-and-user-facing-identification) section for applicable restrictions.
 
 <p></p>
 
@@ -259,15 +257,26 @@ The SMART Health Links Receiving Application can process a SMART Health Link usi
 
 ### SMART Health Link Manifest Request
 
-When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Links's manifest by issuing a request to the `url` with:
+When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Links's manifest by issuing a request to the `url` as follows:
 
 * Method: `POST`
 * Headers:
   * `content-type: application/json`
-* Body: JSON object including
-  * `recipient`: Required. A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User
-  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Link payload
-  * `embeddedLengthMax`: Optional. Integer upper bound on the length of embedded payloads (see [`.files.embedded`](#filesembedded-content))
+* Body: 
+  * JSON object containing:
+
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Property</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>recipient</td><td>1..1</td><td>string</td><td>A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User</td></tr>
+      <tr><td>passcode</td><td>0..1</td><td>string</td><td>SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Link payload</td></tr>
+      <tr><td>embeddedLengthMax</td><td>0..1</td><td>integer</td><td>Integer upper bound on the length of embedded payloads (see <a href="#filesembedded-content">`.files.embedded`</a>)</td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 If the SMART Health Link is no longer active, the Resource Server SHALL respond with a 404.
 
@@ -306,8 +315,7 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
       <tr><td colspan="4" style="white-space:nowrap"><b>Element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
       <tr><td colspan="4">Manifest</td><td>1..1</td><td>JSON object</td><td>SMART Health Link Manifest File object</td></tr>
       <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="3">list</td><td>0..1</td><td>FHIR List resource</td><td>Property containing a List resource with metadata related to contained files</td></tr>
-      <tr><td></td><td colspan="3">files</td><td>1..1</td><td>array</td><td>Object containing metadata related to one or more contained files</td></tr>
-      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2"><i>(array entry)</i></td><td>1..*</td><td>JSON object</td><td></td></tr>
+      <tr><td></td><td colspan="3">files</td><td>0..*</td><td> JSON object</td><td>Object containing metadata related to one or more contained files</td></tr>
       <tr><td></td><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
       <tr><td></td><td></td><td></td><td>location</td><td>0..1 *</td><td>url</td><td>URL to the content</td></tr>
       <tr><td></td><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
@@ -343,7 +351,7 @@ In addition to the the required elements above, the following optional propertie
   * `lastUpdated: ISO 8601 timestamp`
     * If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
   * `status: string`
-    * If present, the optional `status` value is a string indicating whether a file may changed in the future. Values are: `"finalized"|"can-change"|"entered-in-error"|"no-longer-valid"|"retracted"`
+    * If present, the optional `status` value is a string indicating whether a file may changed in the future. Values are: `"finalized"|"can-change"|"no-longer-valid"`
   * `fhirVersion: string` (optional)
     * The `fhirVersion` property SHOULD be present when the referenced file contains FHIR content. If the property is absent, clients MAY assume FHIR Release 4.0.1. Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
 

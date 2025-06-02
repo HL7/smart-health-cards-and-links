@@ -2,7 +2,7 @@
 
 Paper medical records--such as vaccination histories and insurance cards--are easily lost or damaged, are difficult to authenticate, and are often not on-hand when they’re needed. 
 
-SMART Health Cards and Links are FHIR-based standards that address these challenges, enabling individuals to receive their health information and share it with others in a tamper-proof and verifiable digital form. The standards can also be used to share less sensitive information that doesn't need to be verified by the receiver. They provide a digital version of an individual's clinical information that can be kept at the ready and easily shared with others when the need arises--using a QR code, mobile app or web browser.
+SMART Health Cards and Links are FHIR-based standards that address these challenges, enabling individuals to receive their health information and share it with others in a tamper-proof and verifiable digital form. The standards can also be used to share information that doesn't need to be verified by the receiver. They provide a digital version of an individual's clinical information that can be kept at the ready and easily shared with others when the need arises--using a QR code, mobile app or web browser.
 
 Together SMART Health Cards and Links provide options that support multiple goals--from keeping a small amount of verifiable medical information close by to authorizing a trusted party to access their entire medical record. They empower individuals with secure, equitable, and privacy-preserving access to their clinical information.
 

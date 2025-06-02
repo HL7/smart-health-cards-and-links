@@ -1,5 +1,5 @@
 #### Operation Request
-A Health Wallet can `POST /Patient/:id/$health-cards-issue` to a FHIR-enabled issuer to request or generate a specific type of Health Card. The body of the POST looks like:
+A [Health Wallet](glossary.html#health-wallet) can `POST /Patient/:id/$health-cards-issue` to a FHIR-enabled issuer to request or generate a specific type of Health Card. The body of the POST looks like:
 
 ```json
 {

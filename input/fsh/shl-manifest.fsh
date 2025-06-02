@@ -20,10 +20,10 @@ Description: "The SMART Health Link Manifest object"
 * list ^base.max = "1"
 * files 1..* BackboneElement "Object containing metadata related to one or more contained files."
 * files.id 0..0
-* files.extension 0..0 
+* files.extension 0..0
+* files.extension ^label = "Extension (property name beginning with an underscore) defined by downstream implementation guides or specific implementations."
 * files.extension ^short = "The specification reserves the name, extension, and will never define an element with that name."
-* files._extension 0..* string "Extension (property name beginning with an underscore) defined by downstream implementation guides or specific implementations." 
-* files._extension ^definition = "Property names beginning with an underscore ('_') are reserved for extensions defined by downstream implementation guides or specific implementations. The specification reserves the name, extension, and will never define an element with that name. "
+* files.extension ^definition = "Property names beginning with an underscore ('_') are reserved for extensions defined by downstream implementation guides or specific implementations. The specification reserves the name, extension, and will never define an element with that name. "
 * files.modifierExtension 0..0
 * files.contentType 1..1 string "Nature of the content. Values: application/smart-health-card or application/smart-api-access or application/fhir+json"
 * files.location 0..1 url "URL to the content."

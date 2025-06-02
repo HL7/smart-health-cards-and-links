@@ -19,8 +19,6 @@ Description: "This profile defines constraints for an Endpoint to be utilized by
 * name 1..1 MS
 * name ^comment = "Describes the interactive experience with sufficient detail for the Receiving User to decide whether to engage"
 * connectionType 1..1 MS
-* connectionType from $shlconnectiontype (extensible)
-* connectionType ^binding.description = "SHL endpoint type"
 * connectionType ^comment = "Identifies the endpoint as one providing a SMART Health Links interactive experience"
 * address 1..1 MS
 * address ^comment = "The URI for the interactive experience"
