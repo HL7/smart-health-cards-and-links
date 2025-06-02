@@ -312,16 +312,16 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
 
 <table class="codes">
     <tbody>
-      <tr><td colspan="4" style="white-space:nowrap"><b>Element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
-      <tr><td colspan="4">Manifest</td><td>1..1</td><td>JSON object</td><td>SMART Health Link Manifest File object</td></tr>
-      <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="3">list</td><td>0..1</td><td>FHIR List resource</td><td>Property containing a List resource with metadata related to contained files</td></tr>
-      <tr><td></td><td colspan="3">files</td><td>0..*</td><td> JSON object</td><td>Object containing metadata related to one or more contained files</td></tr>
-      <tr><td></td><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
-      <tr><td></td><td></td><td></td><td>location</td><td>0..1 *</td><td>url</td><td>URL to the content</td></tr>
-      <tr><td></td><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
-      <tr><td></td><td></td><td></td><td>lastUpdated</td><td>0..1</td><td>ISO 8601 timestamp</td><td>Last time the content was modified</td></tr>
-      <tr><td></td><td></td><td></td><td>status</td><td>0..1</td><td>string</td><td>Indicates whether a file may be changed in the future (fixed values, see below)</td></tr>
-      <tr><td></td><td></td><td></td><td>fhirVersion</td><td>0..1</td><td>string</td><td>Version of FHIR content</td></tr>
+      <tr><td colspan="3" style="white-space:nowrap"><b>Element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td colspan="3">Manifest</td><td>1..1</td><td>JSON object</td><td>SMART Health Link Manifest File object</td></tr>
+      <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2">list</td><td>0..1</td><td>FHIR List resource</td><td>Property containing a List resource with metadata related to contained files</td></tr>
+      <tr><td></td><td colspan="2">files</td><td>0..*</td><td> JSON object</td><td>Object containing metadata related to one or more contained files</td></tr>
+      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
+      <tr><td></td><td></td><td>location</td><td>0..1 *</td><td>url</td><td>URL to the content</td></tr>
+      <tr><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
+      <tr><td></td><td></td><td>lastUpdated</td><td>0..1</td><td>ISO 8601 timestamp</td><td>Last time the content was modified</td></tr>
+      <tr><td></td><td></td><td>status</td><td>0..1</td><td>string</td><td>Indicates whether a file may be changed in the future (fixed values, see below)</td></tr>
+      <tr><td></td><td></td><td>fhirVersion</td><td>0..1</td><td>string</td><td>Version of FHIR content</td></tr>
         <tr><td colspan="7"  style="background-color:rgba(0, 0, 0, 0); border-color:rgba(0, 0, 0, 0)"><i>* Either <samp>location</samp> or <samp>embedded</samp> must be present</i></td></tr>
 </tbody>
 </table>
