@@ -40,6 +40,10 @@ The implementation guide is organized into two sections:
 
 <p></p>
 
+* **FHIR Artifacts** contains FHIR resource profiles and logical models referenced from the SMART Health Cards and SMART Health Links sections.
+
+<p></p>
+
 In addition, there is a **[glossary](glossary.html)** of related terms and abbreviations used throughout the guide.
 
 <p></p>
