@@ -55,5 +55,3 @@ Description: "The SMART Health Link Payload object"
 * v ^base.max = "1"
 * v ^example[0].label = "meaning default version"
 * v ^example[0].valueInteger = 1
-* _extension 0..* string "Extension (property name beginning with an underscore) defined by downstream implementation guides or specific implementations." 
-* _extension ^definition = "Property names beginning with an underscore ('_') are reserved for extensions defined by downstream implementation guides or specific implementations. The specification reserves the name, extension, and will never define an element with that name. "

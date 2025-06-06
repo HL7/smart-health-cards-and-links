@@ -525,6 +525,8 @@ This core specification enables interoperable health information sharing via SMA
 
 However, such additions might require receiving applications to implement features beyond this core specification. To ensure a reliable baseline experience and protect the SMART Health Links brand, this specification defines *"Plain SMART Health Links"* and ties the official URI scheme and branding to this definition.
 
+Implementation Guides detailing SHLs that necessitate capabilities beyond this "Plain" baseline SHALL  therefore adopt a distinct URI scheme and be registered on the [SMART Health Link Extensions Registry](https://confluence.hl7.org/spaces/FHIRI/pages/345088124/SMART+Health+Link+Extensions+Registry) for discoverability and to maintain brand integrity.
+
 #### Plain SMART Health Link (Plain SHL)
 
 A *Plain SMART Health Link* is one that allows a receiving application, implementing only this core specification (a "baseline client"), to successfully:

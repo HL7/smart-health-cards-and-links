@@ -20,16 +20,14 @@ Description: "The SMART Health Link Manifest object"
 * list ^base.max = "1"
 * files 1..* BackboneElement "Object containing metadata related to one or more contained files."
 * files.id 0..0
-* files.extension 0..0
-* files.extension ^label = "Extension (property name beginning with an underscore) defined by downstream implementation guides or specific implementations."
-* files.extension ^short = "The specification reserves the name, extension, and will never define an element with that name."
-* files.extension ^definition = "Property names beginning with an underscore ('_') are reserved for extensions defined by downstream implementation guides or specific implementations. The specification reserves the name, extension, and will never define an element with that name. "
+* files.extension 0..0 
+* files.extension ^short = "The SMART Health Links manifest supports extensions to its content through the list property, which holds a FHIR List resource that can be extended using standard FHIR extensions."
 * files.modifierExtension 0..0
 * files.contentType 1..1 string "Nature of the content. Values: application/smart-health-card or application/smart-api-access or application/fhir+json"
 * files.location 0..1 url "URL to the content."
 * files.embedded 0..1 string "Encrypted file contents. JSON Web Encryption (JWE) string."
 * files.lastUpdated 0..1 dateTime "Last time the content was modified. ISO 8601 timestamp."
-* files.status 0..1 string "Indicates whether a file may be changed in the future. Values are: finalized|can-change|entered-in-error|no-longer-valid|retracted"
+* files.status 0..1 string "Indicates whether a file may be changed in the future. Values are: finalized|can-change|no-longer-valid"
 * files.fhirVersion 0..1 string "Version of FHIR content"
 
 

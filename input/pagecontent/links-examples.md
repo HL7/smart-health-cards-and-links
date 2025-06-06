@@ -1,3 +1,4 @@
+_Note: Below are examples illustrating use of SMART Health Links in different contexts. Other uses are possible; this set of examples is not exhaustive._
 
 ### International Patient Summary (IPS)
 This SMART Health Link provides access to an IPS patient summary document created according to the [International Patient Summary Implementation Guide](https://hl7.org/fhir/uv/ips). It demonstrates the use of the U flag (no manifest required) because manifest links require a backend server.
