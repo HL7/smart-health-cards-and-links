@@ -9,7 +9,7 @@ status: active # draft | active | retired | unknown
 version: 1.0.0
 fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
 copyrightYear: 2024+
-releaseLabel: CI Build # CI Build | STU1 Ballot
+releaseLabel: STU 1 # CI Build | STU1 Ballot
 license: CC0-1.0 
 jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#001 "World"
 publisher:
