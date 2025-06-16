@@ -1,6 +1,6 @@
-### Use Cases
+### SMART Health Link (SHL) Use Cases
 * Share a link to any collection of FHIR data, including signed data
-* Share link to a static SMART Health Card that's too big to fit in a QR
+* Share link to a static SMART Health Card (SHC) that's too big to fit in a QR
 * Share link to a "dynamic" SMART Health Card -- i.e., a file that can evolve over time (e.g., "my most recent COVID-19 lab results")
 * Share a link to Bundles of patient-supplied data (e.g., "my advance directive" to share with EMS, or "my at-home weight measurements" to share with a weight loss program, or "my active prescriptions" to share with a service that helps you find better drug prices)
   * Note that for specific use cases, these data don't need to be tamper-proof, and could be aggressively stripped down (e.g., for a drug pricing service, just the drug codes and dosage would go a long way)
@@ -45,7 +45,7 @@ Working with a [SMART Health Links Sharing Application](#actors), the Sharing Us
 
 Regarding "what to share": a single SMART Health Link at a specific point in time will *resolve* to a manifest of files of the following types:
 * `application/smart-health-card`: a JSON file with a `.verifiableCredential` array containing SMART Health Card JWS strings, as specified in the [via File Download](cards-specification.html#via-file-download) section of the SMART Health Cards specification.
-* `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may be include digital signatures or have other verification processes associated with it, which are not defined here.
+* `application/fhir+json`: a JSON file containing any FHIR resource (e.g., an individual resource or a Bundle of resources). Note that this format is not inherently tamper-proof, but the content may include digital signatures or have other verification processes associated with it, which are not defined here.
 * `application/smart-api-access`: a JSON file with a SMART Access Token Response (see [SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html#response-5)). Two additional properties are defined:
   * `aud` Required string indicating the FHIR Server Base URL where this token can be used (e.g.,  ``"https://server.example.org/fhir"``)
   * `query`: Optional array of strings acting as hints to the client, indicating queries it might want to make (e.g., `["Coverage?patient=123&_tag=family-insurance"]`)
@@ -106,15 +106,30 @@ The SMART Health Links Sharing Application incorporates the manifest URL into a 
 
 The SMART Health Link Payload is a JSON object including the following properties:
 
-* `url`: Manifest URL for this SMART Health Links
-* `key`: Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded.
-* `exp`: Optional. Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)
-* `flag`: Optional. String created by concatenating single-character flags in alphabetical order
-  * `L` Indicates the SMART Health Link is intended for long-term use and manifest content can evolve over time 
-  * `P` Indicates the SMART Health Link requires a Passcode to resolve
-  * `U` Indicates the SMART Health Links's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with `P`.
-* `label`: Optional.  String no longer than 80 characters that provides a short description of the data behind the SMART Health Links. 
-* `v`: Optional. Integer representing the SMART Health Links protocol version this SMART Health Link conforms to. MAY be omitted when the default value (`1`) applies.
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Property</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>url</td><td>1..1</td><td>url</td><td>Manifest URL for this SMART Health Link</td></tr>
+      <tr><td>key</td><td>1..1</td><td>base64 url encoded string</td><td>Decryption key for processing files returned in the manifest. 43 characters, consisting of 32 random bytes base64urlencoded</td></tr>
+      <tr><td>exp</td><td>0..1</td><td>number</td><td>Number representing expiration time in Epoch seconds, as a hint to help the SMART Health Links Receiving Application determine if this QR is stale. (Note: epoch times should be parsed into 64-bit numeric types.)</td></tr>
+      <tr><td>flag</td><td>0..1</td><td>string</td><td>String created by concatenating single-character flags in alphabetical order<br/>
+      <ul>
+      <li><samp>L</samp> Indicates the SMART Health Link is intended for long-term use and manifest content can evolve over time </li>
+      <li><samp>P</samp> Indicates the SMART Health Link requires a Passcode to resolve</li>
+      <li><samp>U</samp> Indicates the SMART Health Links's `url` resolves to a single encrypted file accessible via `GET`, bypassing the manifest. SHALL NOT be used in combination with <samp>P</samp></li>
+      </ul></td></tr>
+      <tr><td>label</td><td>0..1</td><td>string</td><td>String no longer than 80 characters that provides a short description of the data behind the SMART Health Link</td></tr>
+      <tr><td>v</td><td>0..1</td><td>number</td><td>Integer representing the SMART Health Links protocol version this SMART Health Link conforms to. MAY be omitted when the default value (<samp>1</samp>) applies</td></tr>
+</tbody>
+</table>
+
+<p></p>
+
+_The ShlPayload logical model can be found [here](StructureDefinition-ShlPayload.html)._
+
+<p></p>
 
 The JSON Payload is then:
 * Minified
@@ -163,6 +178,37 @@ The following optional step may occur sometime after a SMART Health Link is gene
 
 <p></p>
 
+#### Including signatures in a SMART Health Link payload
+Downstream implementation guides may further specify how to add signatures to a SMART Health Link payload, under the conditions listed at [Conformance and User-Facing Identification](#conformance-and-user-facing-identification).
+
+However, if the result is a SMART Health Link that clients can process as usual while ignoring the signature (e.g., a detached signature added as a property within the existing JSON SMART Health Link structure, next to label/flag/etc.), the resulting artifact can still be called a SMART Health Link in user-facing contexts
+
+<p></p>
+
+#### Including additional client authentication
+Downstream implementation guides can optionally layer on additional client authentication protocols in order to ensure that a purported SHL Sharing Application is a trusted service. 
+
+Such additional protocols might include features such as mTLS or an "aud" claim in a client-supplied JWT, which would prevent a "man-in-the-middle" attacker from forwarding on a request to a real server (e.g., because the "aud" claim in the client authentication wouldn't match).
+
+Note that an implementation imposing additional controls would not be compatible with clients that were ignorant of the server-specific constraints. See [Conformance and User-Facing Identification](#conformance-and-user-facing-identification) section for applicable restrictions.
+
+#### Extensions
+
+To support extensions, the specification provides the following features:
+
+**For extensibility on the manifest**:
+- A FHIR [List resource](https://[hl7.org/fhir/list.html) provides a designated location for extensions related to the manifest or individual files using the standard FHIR [extension](https://hl7.org/fhir/extensibility.html) mechanism.
+- The structure and specific extensions allowed within this `List` resource may be further defined by downstream implementation guides.
+- Clients SHALL ignore FHIR extensions they do not understand.
+
+**For extensibility on SHL payload JSON**:
+- The specification reserves the name, `extension`, and will never define an element with that name. 
+- In addition, property names beginning with an underscore ("_") are reserved for extensions defined by downstream implementation guides or specific implementations. 
+- Extension property names SHOULD be kept short due to payload size constraints, especially when SMART Health Links are represented as QR codes. 
+- SMART Health Link Receiving Applications SHALL ignore extension properties they do not understand.
+
+<p></p>
+
 #### Example SMART Health Link Generation
 ```js
 import { encode as b64urlencode } from 'https://deno.land/std@0.82.0/encoding/base64url.ts';
@@ -183,17 +229,18 @@ const shlinkBare = `shlink:/` + encodedPayload;
 const shlink = `https://viewer.example.org#` + shlinkBare
 // "https://viewer.example.org#shlink:/eyJ1cmwiOiJodHRwczovL2Voci5leGFtcGxlLm9yZy9xci9ZOXh3a1VkdG1OOXd3b0pvTjNmZkpJaFgyVUd2Q0wxSm5sUFZOTDNrRFdNL20iLCJmbGFnIjoiTFAiLCJrZXkiOiJyeFRnWWxPYUtKUEZ0Y0VkMHFjY2VOOHdFVTRwOTRTcUF3SVdRZTZ1WDdRIiwibGFiZWwiOiJCYWNrLXRvLXNjaG9vbCBpbW11bml6YXRpb25zIGZvciBPbGl2ZXIgQnJvd24ifQ"
 ```
-
 <p></p>
 
-####  Sharing User transmits a SMART Health Link
+###  Sharing User transmits a SMART Health Link
 
 The Sharing User can convey a SMART Health Link by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Link in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Link URI. 
 
 When sharing a SMART Health Link via QR code, the following recommendations apply:
 
 * Create the QR with Error Correction Level M
-* Include the [SMART Logo](https://demo.vaxx.link/smart-logo.svg) on a white background over the center of the QR, scaled to occupy 5-6% of the image area (inclusive of the "quiet zone" QR border).
+* Consider presenting the SMART Logo in close approximation with the QR. See the [Boston Children's Hospital SMART Logo Page](https://smarthealthit.org/smart-logo-for-smart-health-cards) for details
+
+The Sharing Application SHOULD NOT require additional supporting material from the Requesting Application. See [Conformance and User-Facing Identification](#conformance-and-user-facing-identification) section for applicable restrictions.
 
 <p></p>
 
@@ -210,15 +257,26 @@ The SMART Health Links Receiving Application can process a SMART Health Link usi
 
 ### SMART Health Link Manifest Request
 
-When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Links's manifest by issuing a request to the `url` with:
+When no `U` flag is present, the SMART Health Links Receiving Application SHALL retrieve a SMART Health Links's manifest by issuing a request to the `url` as follows:
 
 * Method: `POST`
 * Headers:
   * `content-type: application/json`
-* Body: JSON object including
-  * `recipient`: Required. A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User
-  * `passcode`: Conditional. SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Link payload
-  * `embeddedLengthMax`: Optional. Integer upper bound on the length of embedded payloads (see [`.files.embedded`](#filesembedded-content))
+* Body: 
+  * JSON object containing:
+
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Property</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>recipient</td><td>1..1</td><td>string</td><td>A string describing the recipient (e.g.,the name of an organization or person) suitable for display to the Receiving User</td></tr>
+      <tr><td>passcode</td><td>0..1</td><td>string</td><td>SHALL be populated with a user-supplied Passcode if the `P` flag was present in the SMART Health Link payload</td></tr>
+      <tr><td>embeddedLengthMax</td><td>0..1</td><td>integer</td><td>Integer upper bound on the length of embedded payloads (see <a href="#filesembedded-content">`.files.embedded`</a>)</td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 If the SMART Health Link is no longer active, the Resource Server SHALL respond with a 404.
 
@@ -246,18 +304,83 @@ If an invalid Passcode is supplied, the Resource Server SHALL reject the request
 
 <p></p>
 
-If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest with `content-type: application/json`. The SMART Health Link Manifest is a JSON object with a `files` array where each entry includes:
+#### SMART Health Link Manifest File 
+
+If the SMART Health Link request is valid, the Resource Server SHALL return a  SMART Health Link Manifest File with `content-type: application/json`. The SMART Health Link Manifest File is a JSON object containing a listing of available content items in the following structure:
+
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td colspan="3" style="white-space:nowrap"><b>Element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td colspan="3">Manifest</td><td>1..1</td><td>JSON object</td><td>SMART Health Link Manifest File object</td></tr>
+      <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2">list</td><td>0..1</td><td>FHIR List resource</td><td>Property containing a List resource with metadata related to contained files</td></tr>
+      <tr><td></td><td colspan="2">files</td><td>0..*</td><td> JSON object</td><td>Object containing metadata related to one or more contained files</td></tr>
+      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
+      <tr><td></td><td></td><td>location</td><td>0..1 *</td><td>url</td><td>URL to the content</td></tr>
+      <tr><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
+      <tr><td></td><td></td><td>lastUpdated</td><td>0..1</td><td>ISO 8601 timestamp</td><td>Last time the content was modified</td></tr>
+      <tr><td></td><td></td><td>status</td><td>0..1</td><td>string</td><td>Indicates whether a file may be changed in the future (fixed values, see below)</td></tr>
+      <tr><td></td><td></td><td>fhirVersion</td><td>0..1</td><td>string</td><td>Version of FHIR content</td></tr>
+        <tr><td colspan="7"  style="background-color:rgba(0, 0, 0, 0); border-color:rgba(0, 0, 0, 0)"><i>* Either <samp>location</samp> or <samp>embedded</samp> must be present</i></td></tr>
+</tbody>
+</table>
+
+<p></p>
+
+_The ShlManifest logical model can be found [here](StructureDefinition-ShlManifest.html)._
+
+<p></p>
+
+#### `list` property
+The optional `list` property contains a FHIR List resource with metadata related to files contained within the Manifest object's `files` array. 
+
+#### `files` array
+Each entry in the `files` array includes:
 
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
-    *  `"application/smart-api-access"` or 
-    *  `"application/fhir+json"`
-* `location` (SHALL be present if no `embedded` content is included): URL to the file.
-This URL SHALL be short-lived and intended for single use. For example, it could be a
-short-lifetime signed URL to a file hosted in a cloud storage service (see signed URL docs for [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html), [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas), and [GCP](https://cloud.google.com/storage/docs/access-control/signed-urls)).
+    * `"application/smart-api-access"` or 
+    * `"application/fhir+json"`
+* `location` (SHALL be present if no `embedded` content is included): URL to the file. This URL SHALL be short-lived and intended for single use. For example, it could be a short-lifetime signed URL to a file hosted in a cloud storage service (see signed URL docs for [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html), [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas), and [GCP](https://cloud.google.com/storage/docs/access-control/signed-urls)).
 * `embedded` (SHALL be present if no `location` is included): JSON string directly
 embedding the encrypted contents of the file as a compact JSON Web Encryption
 string (see ["Encrypting"](#encrypting-and-decrypting-files)).
+
+In addition to the the required elements above, the following optional properties are used to further describe an entry:
+  * `lastUpdated: ISO 8601 timestamp`
+    * If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
+  * `status: string`
+    * If present, the optional `status` value is a string indicating whether a file may changed in the future. Values are: `"finalized"|"can-change"|"no-longer-valid"`
+  * `fhirVersion: string` (optional)
+    * The `fhirVersion` property SHOULD be present when the referenced file contains FHIR content. If the property is absent, clients MAY assume FHIR Release 4.0.1. Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
+
+<p></p>
+
+####  `.files.location` links
+
+The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced without additional authentication, and that they are short-lived. The lifetime of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create one-time-use `.files.location` links that are consumed as soon as they are dereferenced.
+
+Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to dereference a manifest's `.files.location` link more than one hour after requesting the manifest, and SHALL be capable of re-fetching the manifest to obtain fresh `location` links in the event that they have expired or been consumed.
+
+The SMART Health Links Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
+
+* Headers:
+  * `content-type: application/jose`
+* Body: JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
+
+<p></p>
+
+#### `.files.embedded` content
+
+If the client has specified `embeddedLengthMax` in the manifest request, the sever SHALL NOT
+embedded payload longer than the client-designated maximum.
+
+If present, the `embedded` value SHALL be up-to-date as of the time the manifest is
+requested. If the client has specified `embeddedLengthMax` in the manifest request,
+the sever SHALL NOT return embedded payload longer than the client-designated maximum.
+
+The embedded content is a JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
 
 <p></p>
 
@@ -290,43 +413,7 @@ SHALL wait before re-issuing a manifest request.
 
 <p></p>
 
-####  `.files.location` links
-
-The SMART Health Links Sharing Application SHALL ensure that `.files.location` links can be dereferenced
-without additional authentication, and that they are short-lived. The lifetime
-of `.files.location` links SHALL NOT exceed one hour. The SMART Health Links Sharing Application MAY create
-one-time-use `.files.location` links that are consumed as soon as they are
-dereferenced.
-
-Because the manifest and associated files are a single package that may change over time, the SMART Health Links Receiving Application SHALL treat any manifest file locations as short-lived and
-potentially limited to one-time use. The SMART Health Links Receiving Application SHALL NOT attempt to
-dereference a manifest's `.files.location` link more than one hour after
-requesting the manifest, and SHALL be capable of re-fetching the manifest to
-obtain fresh `location` links in the event that they have expired or been
-consumed.
-
-The SMART Health Links Sharing Application SHALL respond to the `GET` requests for `.files.location` URLs with:
-
-* Headers:
-  * `content-type: application/jose`
-* Body: JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
-
-<p></p>
-
-#### `.files.embedded` content
-
-If the client has specified `embeddedLengthMax` in the manifest request, the sever SHALL NOT
-embedded payload longer than the client-designated maximum.
-
-If present, the `embedded` value SHALL be up-to-date as of the time the manifest is
-requested. If the client has specified `embeddedLengthMax` in the manifest request,
-the sever SHALL NOT embedded payload longer than the client-designated maximum.
-
-The embedded content is a JSON Web Encryption as described in <a href="#encrypting-and-decrypting-files">Encrypting and Decrypting Files</a>.
-
-<p></p>
-
-#### Example SMART Health Link Manifest
+#### Example SMART Health Link Manifest File
 
 ```json
 {
@@ -340,7 +427,10 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
   },
   {
     "contentType": "application/fhir+json",
-    "location": "https://bucket.cloud.example.org/file2?sas=T34xzj1XtqTYb2lzcgj59XCY4I6vLN3AwrTUIT9GuSc"
+    "location": "https://bucket.cloud.example.org/file2?sas=T34xzj1XtqTYb2lzcgj59XCY4I6vLN3AwrTUIT9GuSc",
+    "lastUpdated": "2025-03-09T15:29:46Z",
+    "status": "finalized",
+    "fhirVersion": "4.0.1"
   }]
 }
 ```
@@ -348,7 +438,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 #### SMART Health Link Direct File Request (with `U` Flag)
 
-When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Links's sole encrypted file by issuing a request to the `url` with:
+When the `U` flag is present, the SMART Health Links Receiving Application SHALL NOT make a request for the manifest. Instead, the application SHALL retrieve a SMART Health Link's sole encrypted file by issuing a request to the `url` with:
 
 * Method: `GET`
     * Query parameters
@@ -358,7 +448,11 @@ When the `U` flag is present, the SMART Health Links Receiving Application SHALL
 
 ### Encrypting and Decrypting Files
 
-SMART Health Link files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc). The JWE MAY include a `zip` header with the value `DEF` to indicate that the plaintext of the JWE is compressed using the DEFLATE algorithm as specified in RFC 1951, before being encrypted. (Note, this indicates "raw" DEFLATE compression, omitting any zlib headers.)
+SMART Health Link files are always symmetrically encrypted with a SMART Health Links-specific key. Encryption is performed using JSON Web Encryption (JOSE JWE) compact serialization with `"alg": "dir"`, `"enc": "A256GCM"`, and a `cty` header indicating the content type of the payload (e.g., `application/smart-health-card`, `application/fhir+json`, etc). 
+
+The JWE MAY include a `zip` header with the value `DEF` to indicate that the plaintext of the JWE is compressed using the DEFLATE algorithm as specified in RFC 1951, before being encrypted. (Note, this indicates "raw" DEFLATE compression, omitting any zlib headers.)
+
+Because the same encryption key is used for all files over time within a SMART Health Link, the SHL Sharing Application SHALL ensure a unique nonce (also known as initialization vector, or IV) for each encryption operation, including initial encryption of each file and every subsequent update.
 
 <p></p>
 
@@ -425,7 +519,51 @@ const decoded = JSON.parse(new TextDecoder().decode(decrypted.plaintext));
 ```
 <p></p>
 
+### Conformance and User-Facing Identification
+
+This core specification enables interoperable health information sharing via SMART Health Links and is designed for extensibility. Downstream profiles **MAY** add features like new extensions, flags, authentication methods, or cryptographic schemes.
+
+However, such additions might require receiving applications to implement features beyond this core specification. To ensure a reliable baseline experience and protect the SMART Health Links brand, this specification defines *"Plain SMART Health Links"* and ties the official URI scheme and branding to this definition.
+
+Implementation Guides detailing SHLs that necessitate capabilities beyond this "Plain" baseline SHALL  therefore adopt a distinct URI scheme and be registered on the [SMART Health Link Extensions Registry](https://confluence.hl7.org/spaces/FHIRI/pages/345088124/SMART+Health+Link+Extensions+Registry) for discoverability and to maintain brand integrity.
+
+#### Plain SMART Health Link (Plain SHL)
+
+A *Plain SMART Health Link* is one that allows a receiving application, implementing only this core specification (a "baseline client"), to successfully:
+
+1. Parse the SHL Payload.
+2. Retrieve the manifest or direct file.
+3. Retrieve and decrypt the content files.
+
+Successful processing by a baseline client **SHALL NOT** depend on any protocols, algorithms, or extensions beyond those defined in this core specification. A baseline client must be able to access and decrypt the fundamental data, even if it ignores optional or unrecognized elements.
+
+#### User-Facing Identification Requirements
+
+To maintain user trust and interoperability:
+
+The `shlink:` URI scheme **SHALL** only be used for Plain SHLs. Links that are not Plain SHLs **SHALL** use a different URI scheme.
+The terms "SMART Health Link", "SMART Health Links", or the official logo **SHALL** only be used in user-facing contexts to identify Plain SHLs. Implementations presenting links that are not Plain SHLs **SHALL NOT** use this branding for those links.
+
+This ensures users can reliably identify links guaranteed to work with any baseline receiving application. Extended implementations must use different schemes and branding to distinguish themselves. Downstream implementation guides defining non-Plain SHLs **SHALL** define their own unique URI scheme and declare it on the [HL7 Confluence page for SMART Health Link Extensions](https://confluence.hl7.org/display/FHIR/SMART+Health+Link+Extensions) with a reference to their downstream specification.
+
+<p></p>
+ 
 ### Use Case Examples
+
+<div class="smart-styles-alert smart-styles-alert--info ">
+   <div >
+      <span class="smart-styles-admonitionIcon_kALy">
+         <svg viewBox="0 0 14 16">
+            <path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path>
+         </svg>
+      </span>
+      INFO
+   </div>
+   <div >
+      <p><strong>📓   Informative section</strong></p>
+      <p>The examples in this section are provided for informative purposes only and are not part of the formal SMART Health Links specification.</p>
+   </div>
+ </div>
 
 #### Using SMART Health Links to share an interactive experience
 
@@ -433,12 +571,20 @@ While the SMART Health Links spec focuses on providing access to structured data
 useful to share an interactive experience such as a web-based diagnostic portal where the
 SMART Health Links Receiving Application can review and add comments to a patient record. This can be accomplished
 in SMART Health Links with a manifest entry of type `application/fhir+json` that provides a
-[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) where:
+[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) with the following content:
+<p></p>
 
-* `name` describes the interactive experience with sufficient detail for the Receiving User to decide whether to engage
-* `connectionType` is `{"system": "https://smarthealthit.org", "code": "shl-interactive-experience"}`
-* `address` is the URI for the interactive experience
-* `period` optionally documents the window of time when the interactive experience is available
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Endpoint element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>name</td><td>1..1</td><td>string</td><td>Describes the interactive experience with sufficient detail for the Receiving User to decide whether to engage</td></tr>
+      <tr><td>connectionType</td><td>1..1</td><td>CodeableConcept</td><td><samp>{"system": "https://smarthealthit.org", <br/>"code": "shl-interactive-experience"}</samp></td></tr>
+      <tr><td>address</td><td>1..1</td><td>url</td><td>The URI for the interactive experience</td></tr>
+      <tr><td>period</td><td>0..1</td><td>Period</td><td>Optionally documents the window of time when the interactive experience is available</td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 For example, the manifest for an SMART Health Links that offers the user the opportunity to "Review a case"
 might include a `application/fhir+json` entry with:
@@ -468,11 +614,20 @@ Notes:
 In addition to providing direct access to a pre-configured data set, SMART Health Linkss can include information
 to help establish a consumer-mediated SMART on FHIR connection to the data source. This can be
 accomplished with a SMART Health Links manifest entry of type `application/fhir+json` that provides a
-[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) where:
+[FHIR Endpoint resource](https://hl7.org/fhir/endpoint.html) with the following content:
 
-* `name` describes the SMART on FHIR endpoint with sufficient detail for the Receiving User to decide whether to connect
-* `connectionType` is `{"system": "http://terminology.hl7.org/CodeSystem/restful-security-service", "code": "SMART-on-FHIR"}`
-* `address` is the FHIR API base URL of the server that supports [SMART App Launch](http://hl7.org/fhir/smart-app-launch/)
+<p></p>
+
+<table class="codes">
+    <tbody>
+      <tr><td style="white-space:nowrap"><b>Endpoint element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
+      <tr><td>name</td><td>1..1</td><td>string</td><td>Describes the SMART on FHIR endpoint with sufficient detail for the Receiving User to decide whether to connect</td></tr>
+      <tr><td>connectionType</td><td>1..1</td><td>CodeableConcept</td><td><samp>{"system": "http://terminology.hl7.org/CodeSystem/restful-security-service", <br/>"code": "SMART-on-FHIR"}</samp></td></tr>
+      <tr><td>address</td><td>1..1</td><td>url</td><td>The FHIR API base URL of the server that supports <a href="http://hl7.org/fhir/smart-app-launch">SMART App Launch</a></td></tr>
+</tbody>
+</table>
+
+<p></p>
 
 For example, the manifest for an SMART Health Links from Labs-R-Us might include a `application/fhir+json` entry with:
 

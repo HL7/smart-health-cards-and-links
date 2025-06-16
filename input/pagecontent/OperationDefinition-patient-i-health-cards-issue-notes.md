@@ -1,4 +1,5 @@
-A Health Wallet can `POST /Patient/:id/$health-cards-issue` to a FHIR-enabled issuer to request or generate a specific type of Health Card. The body of the POST looks like:
+#### Operation Request
+A [Health Wallet](glossary.html#health-wallet) can `POST /Patient/:id/$health-cards-issue` to a FHIR-enabled issuer to request or generate a specific type of Health Card. The body of the POST looks like:
 
 ```json
 {
@@ -21,13 +22,14 @@ The following parameters are optional; clients MAY include them in a request,
 and servers MAY ignore them if present.
 
 * **`credentialValueSet`**. Restricts the request by FHIR
-content such as "any standardized vaccine code for mpox". See [Health Card ValueSets](https://terminology.smarthealth.cards/artifacts.html#terminology-value-sets).
-Valueset-based filters apply to the FHIR Resources within the Health Card
+content such as "any standardized vaccine code for mpox". 
+Any ValueSet MAY be used, but consider using ValueSets that are openly accessible in FHIR format to maximize the chance that the issuing server will be able to be recognize them. Examples of such ValueSets can be found at [Health Card ValueSets](https://terminology.smarthealth.cards/artifacts.html#terminology-value-sets).
+ValueSet-based filters apply to the FHIR Resources within the Health Card
 payload at `.vc.credentialSubject.fhirBundle.entry[].resource`.  For
 Immunizations, the `Immunization.vaccineCode` is evaluated. For Observations,
 the `Observation.code` is evaluated. Multiple `credentialValueSet` parameters
 in one request SHALL be interpreted as a request for credentials with content
-from all of the supplied Valuesets (logical AND).
+from all of the supplied ValueSets (logical AND).
 
 ```json
 {
@@ -72,8 +74,12 @@ from all of the supplied Valuesets (logical AND).
   }]
 }
 ```
+Servers SHOULD take all of a client's supplied values into account when processing a request but MAY issue only SHCs that the server deems appropriate.
 
-The **response** is a `Parameters` resource that includes one more more `verifiableCredential` values like:
+<p></p>
+
+#### Operation Response
+The response is a `Parameters` resource that includes one more more `verifiableCredential` values like:
 
 ```json
 {
