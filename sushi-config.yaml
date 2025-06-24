@@ -3,7 +3,7 @@
 id: hl7.fhir.uv.smart-health-cards-and-links
 canonical: http://hl7.org/fhir/uv/smart-health-cards-and-links
 name: SMART Health Cards and Links
-title: SMART Health Cards and Links FHIR IG
+title: SMART Health Cards and Links IG
 description: FHIR Implementation Guide for SMART Health Cards and Links
 status: active # draft | active | retired | unknown
 version: 1.0.0
