@@ -1,6 +1,6 @@
 == Suppressed Messages ==
 # 1. Duplicate anchor warnings related to anchors created by the publisher (in this Zulip thread, Grahame indicated these could be ignored: https://chat.fhir.org/#narrow/stream/179252-IG-creation/topic/Publisher.20v1.2E6.2E12)
-WARNING: C:\FHIR\IGs\smart-health-cards-and-links\output\downloads.html: The html source has duplicate anchor Ids: full-guide
+The html source has duplicate anchor Ids: full-guide
 # 2. This is a URI identifying a resource within a verifiable credential's credentialSubject.fhirBundle. It follows minification guidance in the Health Cards specification
 WARNING: Parameters/example-health-cards-issue-response-1: Parameters.parameter[1].part[1].value.ofType(uri): No definition could be found for URL value 'resource:2'
 # 3. This IG contains profiles on the R4 Endpoint resource, whose StructureDefinition contains the deprecated extension, elementdefinition-maxValueSet, on Endpoint.language
