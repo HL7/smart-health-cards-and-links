@@ -35,7 +35,7 @@ Description: "Example of an endpoint providing a SMART Health Links interactive 
 * name = "Review and comment on Alice's case in ACME Medical Diagnostic Portal"
 * address = "https://interact.example.org/case-id/521039c3-4bb9-45bd-8271-6001d2f4dea9"
 * period.end = "2025-10-20T12:30:00Z"
-* connectionType = $tempshlendpointtype#"shl-interactive-experience"
+* connectionType = $exampleshlendpointtype#"shl-interactive-experience"
 * payloadType.coding = $hl7payloadtype#"none"
 
 

@@ -314,15 +314,13 @@ If the SMART Health Link request is valid, the Resource Server SHALL return a  S
     <tbody>
       <tr><td colspan="3" style="white-space:nowrap"><b>Element</b></td><td><b>Optionality</b></td><td><b>Type</b></td><td><b>Description</b></td></tr>
       <tr><td colspan="3">Manifest</td><td>1..1</td><td>JSON object</td><td>SMART Health Link Manifest File object</td></tr>
+      <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2">status</td><td>0..1</td><td>string</td><td>Indicates whether files may be changed in the future (fixed values, see below)</td></tr>
       <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td colspan="2">list</td><td>0..1</td><td>FHIR List resource</td><td>Property containing a List resource with metadata related to contained files</td></tr>
       <tr><td></td><td colspan="2">files</td><td>0..*</td><td> JSON object</td><td>Object containing metadata related to one or more contained files</td></tr>
       <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>contentType</td><td>1..1</td><td>string</td><td>Nature of the content (fixed values, see below)</td></tr>
       <tr><td></td><td></td><td>location</td><td>0..1 *</td><td>url</td><td>URL to the content</td></tr>
       <tr><td></td><td></td><td>embedded</td><td>0..1 *</td><td>JSON Web Encryption (JWE) string</td><td>Encrypted file contents</td></tr>
       <tr><td></td><td></td><td>lastUpdated</td><td>0..1</td><td>ISO 8601 timestamp</td><td>Last time the content was modified</td></tr>
-      <tr><td></td><td></td><td>status</td><td>0..1</td><td>string</td><td>Indicates whether a file may be changed in the future (fixed values, see below)</td></tr>
-      <tr><td></td><td></td><td>fhirVersion</td><td>0..1</td><td>string</td><td>Version of FHIR content</td></tr>
-        <tr><td colspan="7"  style="background-color:rgba(0, 0, 0, 0); border-color:rgba(0, 0, 0, 0)"><i>* Either <samp>location</samp> or <samp>embedded</samp> must be present</i></td></tr>
 </tbody>
 </table>
 
@@ -332,6 +330,8 @@ _The ShlManifest logical model can be found [here](StructureDefinition-ShlManife
 
 <p></p>
 
+#### `status` property
+If present, the optional `status` value is a string indicating whether files may change in the future. Values are: `"finalized"|"can-change"|"no-longer-valid"`
 #### `list` property
 The optional `list` property contains a FHIR List resource with metadata related to files contained within the Manifest object's `files` array. 
 
@@ -341,19 +341,18 @@ Each entry in the `files` array includes:
 * `contentType`: One of  the following values:
     * `"application/smart-health-card"` or
     * `"application/smart-api-access"` or 
-    * `"application/fhir+json"`
+    * `"application/fhir+json"` with optional `fhirVersion` parameter
+      * Servers SHOULD populate the `fhirVersion` parameter; for example: `"application/fhir+json;fhirVersion=4.0.1"` 
+      * If absent, clients MAY assume the `fhirVersion` equals 4.0.1.
+      * Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
 * `location` (SHALL be present if no `embedded` content is included): URL to the file. This URL SHALL be short-lived and intended for single use. For example, it could be a short-lifetime signed URL to a file hosted in a cloud storage service (see signed URL docs for [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html), [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/create-service-sas), and [GCP](https://cloud.google.com/storage/docs/access-control/signed-urls)).
 * `embedded` (SHALL be present if no `location` is included): JSON string directly
 embedding the encrypted contents of the file as a compact JSON Web Encryption
 string (see ["Encrypting"](#encrypting-and-decrypting-files)).
 
-In addition to the the required elements above, the following optional properties are used to further describe an entry:
+In addition to the the required elements above, the following optional property may be used to further characterize an entry:
   * `lastUpdated: ISO 8601 timestamp`
     * If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
-  * `status: string`
-    * If present, the optional `status` value is a string indicating whether a file may changed in the future. Values are: `"finalized"|"can-change"|"no-longer-valid"`
-  * `fhirVersion: string` (optional)
-    * The `fhirVersion` property SHOULD be present when the referenced file contains FHIR content. If the property is absent, clients MAY assume FHIR Release 4.0.1. Values are defined in the [FHIR version valueset](https://www.hl7.org/fhir/valueset-FHIR-version.html).
 
 <p></p>
 
@@ -417,6 +416,7 @@ SHALL wait before re-issuing a manifest request.
 
 ```json
 {
+  "status": "finalized",
   "files": [{
     "contentType": "application/smart-health-card",
     "location": "https://bucket.cloud.example.org/file1?sas=MFXK6jL3oL3SI_lRfi_-cEfzIs5oHs6rRWmrsCAFzvk"
@@ -426,11 +426,9 @@ SHALL wait before re-issuing a manifest request.
     "embedded": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..8zH0NmUXGwMOqEya.xdGRpgyvE9vNoKzHlr4itKKW2vo<snipped>"
   },
   {
-    "contentType": "application/fhir+json",
+    "contentType": "application/fhir+json;fhirVersion=4.0.1",
     "location": "https://bucket.cloud.example.org/file2?sas=T34xzj1XtqTYb2lzcgj59XCY4I6vLN3AwrTUIT9GuSc",
-    "lastUpdated": "2025-03-09T15:29:46Z",
-    "status": "finalized",
-    "fhirVersion": "4.0.1"
+    "lastUpdated": "2025-03-09T15:29:46Z"
   }]
 }
 ```
