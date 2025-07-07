@@ -350,6 +350,8 @@ Each entry in the `files` array includes:
 embedding the encrypted contents of the file as a compact JSON Web Encryption
 string (see ["Encrypting"](#encrypting-and-decrypting-files)).
 
+Note that both `location` and `embedded` MAY be present. In that case, the `embedded` content and the content referenced by `location` SHALL be identical.
+
 In addition to the the required elements above, the following optional property may be used to further characterize an entry:
   * `lastUpdated: ISO 8601 timestamp`
     * If present, the optional `lastUpdated` value is an ISO 8601 timestamp indicating the last time the file was modified.
