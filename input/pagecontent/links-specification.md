@@ -33,7 +33,7 @@
 
 <p></p>
 
-### Pre-protocol step: Sharing User configures a new SMART Health Link
+### Pre-protocol step: Sharing User Configures a New SMART Health Link
 
 Working with a [SMART Health Links Sharing Application](#actors), the Sharing User makes a few decisions up front:
 
@@ -178,14 +178,14 @@ The following optional step may occur sometime after a SMART Health Link is gene
 
 <p></p>
 
-#### Including signatures in a SMART Health Link payload
+#### Including Signatures in a SMART Health Link Payload
 Downstream implementation guides may further specify how to add signatures to a SMART Health Link payload, under the conditions listed at [Conformance and User-Facing Identification](#conformance-and-user-facing-identification).
 
 However, if the result is a SMART Health Link that clients can process as usual while ignoring the signature (e.g., a detached signature added as a property within the existing JSON SMART Health Link structure, next to label/flag/etc.), the resulting artifact can still be called a SMART Health Link in user-facing contexts
 
 <p></p>
 
-#### Including additional client authentication
+#### Including Additional Client Authentication
 Downstream implementation guides can optionally layer on additional client authentication protocols in order to ensure that a purported SHL Sharing Application is a trusted service. 
 
 Such additional protocols might include features such as mTLS or an "aud" claim in a client-supplied JWT, which would prevent a "man-in-the-middle" attacker from forwarding on a request to a real server (e.g., because the "aud" claim in the client authentication wouldn't match).
@@ -231,7 +231,7 @@ const shlink = `https://viewer.example.org#` + shlinkBare
 ```
 <p></p>
 
-###  Sharing User transmits a SMART Health Link
+###  Sharing User Transmits a SMART Health Link
 
 The Sharing User can convey a SMART Health Link by any common means including e-mail, secure messaging, or other text-based communication channels. When presenting a SMART Health Link in person, the Sharing User can also display the link as a QR code using any standard library to create a QR image from the SMART Health Link URI. 
 
@@ -244,7 +244,7 @@ The Sharing Application SHOULD NOT require additional supporting material from t
 
 <p></p>
 
-### SMART Health Links Receiving Application processes a SMART Health Link
+### SMART Health Links Receiving Application Processes a SMART Health Link
 
 The SMART Health Links Receiving Application can process a SMART Health Link using the following steps.
 
@@ -385,7 +385,7 @@ The embedded content is a JSON Web Encryption as described in <a href="#encrypti
 
 <p></p>
 
-#### Polling manifest for changes
+#### Polling Manifest for Changes
 When the original QR includes the `L` flag for long-term use, the client MAY
 periodically poll for changes in the manifest. The server MAY provide a
 [`Retry-After`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After)
@@ -565,7 +565,7 @@ This ensures users can reliably identify links guaranteed to work with any basel
    </div>
  </div>
 
-#### Using SMART Health Links to share an interactive experience
+#### Using SMART Health Links to Share an Interactive Experience
 
 While the SMART Health Links spec focuses on providing access to structured data, it's often
 useful to share an interactive experience such as a web-based diagnostic portal where the
@@ -609,7 +609,7 @@ Notes:
 
 <p></p>
 
-#### "Upgrading" from SMART Health Links to a consumer-mediated SMART on FHIR Connection
+#### "Upgrading" from SMART Health Links to a Consumer-Mediated SMART on FHIR Connection
 
 In addition to providing direct access to a pre-configured data set, SMART Health Linkss can include information
 to help establish a consumer-mediated SMART on FHIR connection to the data source. This can be

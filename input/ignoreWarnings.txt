@@ -9,3 +9,4 @@ INFORMATION: StructureDefinition/shl-endpoint: StructureDefinition.snapshot.elem
 WARNING: Parameters/example-health-cards-issue-request-1: Parameters.parameter[1].value.ofType(uri): No definition could be found for URL value 'https://terminology.smarthealth.cards/ValueSet/immunization-orthopoxvirus-all'
 # 5. This codesystem is referenced only in an informational section of the IG. It is supplied for evaluation by implementers and may be formalized in a future version of the IG
 INFORMATION: CodeSystem/example-shl-endpoint-type: CodeSystem: Most code systems defined in HL7 IGs will need to move to THO later during the process. Consider giving this code system a THO URL now (See https://confluence.hl7.org/display/TSMG/Terminology+Play+Book, and/or talk to TSMG)
+Reference to experimental CodeSystem http://hl7.org/fhir/uv/smart-health-cards-and-links/CodeSystem/example-shl-endpoint-type|1.0.0

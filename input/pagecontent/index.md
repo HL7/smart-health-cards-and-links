@@ -44,6 +44,10 @@ The implementation guide is organized into two sections:
 
 <p></p>
 
+* **Change Log** identifies specification changes present in this version of the implementation guide.
+
+<p></p>
+
 In addition, there is a **[glossary](glossary.html)** of related terms and abbreviations used throughout the guide.
 
 <p></p>
