@@ -15,6 +15,19 @@ As a result of comments submitted during HL7 balloting, several backward-compati
 <p></p>
 <p></p>
 
+**SMART Health Link Extensibility**
+Added options to [extend certain SMART Health Link artifacts](links-specification.html#extensions).
+
+<p></p>
+
+**Additional SMART Health Link Manifest Properties**
+Added the [following optional properties to the SMART Health Links specification](links-specification.html#smart-health-link-manifest-file):
+* status - indicates whether files identified in the manifest may change in the future
+* lastUpdated - the last time a file was modified
+* fhirVersion - version of FHIR content identified in the manifest
+
+<p></p>
+
 **FHIR Logical Models for Structures Described in the SMART Health Links Specification**  
 
 Added FHIR logical models for the following structures to enable validation of the IG's examples and allow downstream derivation.
@@ -25,17 +38,7 @@ Added FHIR logical models for the following structures to enable validation of t
 
 **Conformance and User-Facing Identification**
 
-Added the [Conformance and User-Facing Identification](links-specification.html#conformance-and-user-facing-identification) section defining: 
-* **Plain SMART Health Link (Plain SHL)**. To ensure a reliable baseline experience and protect the SMART Health Links brand, this specification defines *"Plain SMART Health Links"* and ties the official URI scheme and branding to this definition.. A Plain SMART Health Link is one that allows a receiving application, implementing only this core specification (a "baseline client"), to successfully parse the SHL Payload, retrieve the manifest or direct file and retrieve and decrypt the content files without depending on any protocols, algorithms, or extensions beyond those defined in this core specification.
-* **User-Facing Identification Requirements**. To maintain user trust and interoperability, the guide defines requirements that an implementation must meet in order to use SMART Health Link branding.
-
-<p></p>
-
-**Additional SMART Health Link Manifest Properties**
-Added the following optional properties to the [links-specification.html#smart-health-link-manifest-file) specification:
-* status - indicates whether files identified in the manifest may change in the future
-* lastUpdated - the last time a file was modified
-* fhirVersion - version of FHIR content identified in the manifest
+Added the [Conformance and User-Facing Identification](links-specification.html#conformance-and-user-facing-identification) section establishing rules and conventions supporting consistent SMART Health Link implementation and user experience.
 
 <p></p>
  
@@ -49,21 +52,8 @@ In the [Encrypting and Decrypting Files](links-specification.html#encrypting-and
 
 <p></p>
 
-**SMART Health Card Historical Change Log**
-Included the historical SHC changelog as a snapshot in the new specification, to enable a full view of the evolution of the standard.
-
-<p></p>
-
 **Additional Client Authentication (for non-"Plain SMART Health Links")**
-Included the option for downstream implementation guides that do not wish to conform to the Plain SMART Health Link definition to layer on additional client authentication (or link-signing) protocols.
-
-<p></p>
-
-**SMART Health Link Extensibility**
-Added options to [extend certain SMART Health Link artifacts](links-specification.html#extensions), including by including a [FHIR List in a SMART Health Link Manifest](links-specification.html#list-property).
-
-
-
+Included the option for downstream implementation guides that do not wish to conform to the Plain SMART Health Link definition to layer on [additional client authentication or link-signing protocols](links-specification.html#including-additional-client-authentication).
 
 <p></p>
 <p></p>
