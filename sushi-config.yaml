@@ -72,6 +72,8 @@ pages:
     title: Glossary
   downloads.xml:
     title: Downloads
+  history.md:
+    title: Change Log
 
 contact:
   - name: Frank McKinney

@@ -14,6 +14,7 @@ Description: "The SMART Health Link Manifest object"
 * ^jurisdiction.coding.system = "http://unstats.un.org/unsd/methods/m49/m49.htm"
 * ^jurisdiction.coding.code = #World
 * ^purpose = "This is a logical model reflecting the structure of a SMART Health Link (SHL) manifest. Its intent is to provide a means for understanding mainfest content."
+* status 0..1 string "Indicates whether files may be changed in the future. Values are: finalized|can-change|no-longer-valid"
 * list 0..1 List "Property containing a List resource with metadata related to contained files."
 * list ^base.path = "ShlManifest.list"
 * list ^base.min = 0
@@ -23,11 +24,8 @@ Description: "The SMART Health Link Manifest object"
 * files.extension 0..0 
 * files.extension ^short = "The SMART Health Links manifest supports extensions to its content through the list property, which holds a FHIR List resource that can be extended using standard FHIR extensions."
 * files.modifierExtension 0..0
-* files.contentType 1..1 string "Nature of the content. Values: application/smart-health-card or application/smart-api-access or application/fhir+json"
+* files.contentType 1..1 string "Nature of the content. Values: application/smart-health-card or application/smart-api-access or application/fhir+json with fhirVersion parameter"
 * files.location 0..1 url "URL to the content."
 * files.embedded 0..1 string "Encrypted file contents. JSON Web Encryption (JWE) string."
 * files.lastUpdated 0..1 dateTime "Last time the content was modified. ISO 8601 timestamp."
-* files.status 0..1 string "Indicates whether a file may be changed in the future. Values are: finalized|can-change|no-longer-valid"
-* files.fhirVersion 0..1 string "Version of FHIR content"
-
 
